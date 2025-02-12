@@ -14,7 +14,7 @@ const input = document.querySelector(".mmr-input");
 const rankInfo = document.querySelector(".rank-info");
 const invalidSpan = document.createElement("span");
 invalidSpan.classList.add("invalid-mmr");
-invalidSpan.textContent = "Invalid MMR. MMR must be a valid number.";
+invalidSpan.textContent = "Invalid MMR. MMR must be a valid number. (No dots, no commas)";
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -25,6 +25,7 @@ form.addEventListener("submit", function (event) {
             input.insertAdjacentElement("afterend", invalidSpan);
         }
         rankInfo.classList.add("hidden");
+        document.querySelector(".form-subtitle").classList.remove("hidden");
         return;
     }
 
@@ -69,6 +70,7 @@ function updateRankInfo(current, next, nextMedal, mmr) {
     document.querySelector(".current-rank-name").textContent = `${current.name} ${current.mmr < 5620 ? romanize(current.level) : ''}`;
     document.querySelector(".current-rank-mmr").textContent = `${current.mmr} MMR`;
     document.querySelector(".current-rank-image").src = `./img/${current.name.toLowerCase()}${current.name === 'Immortal' ? '' : '-' + current.level}.webp`;
+    document.querySelector(".form-subtitle").classList.add("hidden");
 
     if (current.name === "Immortal") {
         document.querySelector(".next-rank").classList.add("hidden");

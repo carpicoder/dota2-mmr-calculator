@@ -39,12 +39,7 @@ body {
 .form-subtitle {
     font-size: .75rem;
     margin-top: .5em;
-    color: #3bae97;
     cursor: pointer;
-}
-
-.form-subtitle:hover {
-    text-decoration: underline;
 }
 
 .mmr-input-container {
@@ -75,6 +70,7 @@ body {
     text-align: center;
     left: 50%;
     transform: translateX(-50%);
+    width: max-content;
 }
 
 .mmr-input:focus {
@@ -209,6 +205,12 @@ body {
 
 .hidden {
     display: none;
+}
+
+.made-by {
+    font-size: .8rem;
+    text-align: center;
+    margin-top: 2rem;
 }
 
 
