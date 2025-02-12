@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dota 2 MMR Calculator</title>
-    <link rel="stylesheet" href="./css/main.css?v=1.0.0">
+    <link rel="stylesheet" href="./css/main.css?v=1.1.0">
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/x-icon">
+    <meta name="theme-color" content="#1c1c1c">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1S35FN6VTL"></script>
@@ -22,32 +24,40 @@
         <h1 class="form-title">What's your MMR?</h1>
         <!-- <p class="form-subtitle" role="button">How do I know this?</p> -->
         <div class="mmr-input-container">
-            <input class="mmr-input" type="text" placeholder="Your MMR*">
+            <input class="mmr-input" type="text" placeholder="Your MMR">
             <button class="mmr-submit" type="submit">Go</button>
         </div>
     </form>
     <div class="rank-info hidden">
         <div class="current-rank">
             <p class="current-rank-title">Your rank</p>
-            <img class="current-rank-image" src="" alt="">
+            <img src="" class="current-rank-image">
             <p class="current-rank-name"></p>
             <p class="current-rank-mmr"></p>
         </div>
         <div class="next-rank">
             <p class="next-rank-title">Next rank</p>
-            <img src="" alt="" class="next-rank-image">
+            <img src="" class="next-rank-image">
             <p class="next-rank-name"></p>
             <p class="next-rank-mmr"></p>
         </div>
+        <div class="next-medal">
+            <p class="next-medal-title">Next medal</p>
+            <img src="" class="next-medal-image">
+            <p class="next-medal-name"></p>
+            <p class="next-medal-mmr"></p>
+        </div>
         <div class="next-rank-info">
-            <p class="next-rank-info-title">Information</p>
             <p class="next-rank-info-your-mmr"></p>
             <p class="next-rank-info-next-mmr"></p>
+            <p class="next-medal-info-next-mmr"></p>
             <p class="next-rank-info-mmr-needed"></p>
             <p class="next-rank-info-games-needed"></p>
+            <p class="next-medal-info-mmr-needed"></p>
+            <p class="next-medal-info-games-needed"></p>
         </div>
     </div>
     
-    <script src="./js/main.js?v=1.0.0"></script>
+    <script src="./js/main.js?v=1.1.0"></script>
 </body>
 </html>

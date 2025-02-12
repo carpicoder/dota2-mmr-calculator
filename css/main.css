@@ -17,6 +17,7 @@ body {
     justify-content: center;
     min-height: 100vh;
     min-height: 100svh;
+    padding-block: 3rem;
 }
 
 .form {
@@ -102,19 +103,21 @@ body {
     padding-inline: 1rem;
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: auto auto 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .5rem;
+    row-gap: 1rem;
     justify-content: center;
+    text-align: center;
 }
 
 .current-rank,
-.next-rank {
+.next-rank,
+.next-medal {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: #3a3a3a;
-    width: fit-content;
     padding: 1rem;
     border-radius: .3rem;
 }
@@ -123,35 +126,46 @@ body {
     outline: 1px solid #3bae97;
 }
 
-.next-rank {
+.next-rank,
+.next-medal {
     transform: scale(0.95);
     filter: grayscale(.5);
 }
 
 .current-rank.immortal {
-    grid-column: span 2;
+    grid-column: span 3;
 }
 
 .current-rank-mmr,
-.next-rank-mmr {
+.next-rank-mmr,
+.next-medal-mmr {
     font-size: .8rem;
 }
 
 .current-rank-title,
-.next-rank-title {
+.next-rank-title,
+.next-medal-title {
     margin-bottom: .5rem;
     font-size: .9rem;
     font-weight: bold;
 }
 
 .current-rank-image,
-.next-rank-image {
+.next-rank-image,
+.next-medal-image {
     width: 100px;
+    max-width: 90%;
 }
 
 .current-rank-name,
-.next-rank-name {
+.next-rank-name,
+.next-medal-name {
     font-weight: bold;
+}
+
+.next-rank-info {
+    grid-column: span 3;
+    text-align: center;
 }
 
 .next-rank-info-title {
@@ -160,16 +174,16 @@ body {
     margin-bottom: .5em;
 }
 
-.next-rank-info-your-mmr {
-    font-size: .9rem;
-}
-
-.next-rank-info-next-mmr {
+.next-rank-info-your-mmr,
+.next-rank-info-next-mmr,
+.next-medal-info-next-mmr {
     font-size: .9rem;
 }
 
 .next-rank-info-mmr-needed,
-.next-rank-info-games-needed {
+.next-rank-info-games-needed,
+.next-medal-info-mmr-needed,
+.next-medal-info-games-needed {
     padding: .5em 1em;
     background-color: #3bae97;
     border-radius: .2em;
@@ -179,8 +193,16 @@ body {
     font-size: 1.2rem;
 }
 
+.next-medal-info-mmr-needed,
+.next-medal-info-games-needed {
+    background-color: #3a3a3a;
+    color: white;
+}
+
 .next-rank-info-mmr-needed span,
-.next-rank-info-games-needed span {
+.next-rank-info-games-needed span,
+.next-medal-info-mmr-needed span,
+.next-medal-info-games-needed span {
     font-weight: bold;
     color: inherit;
 }
@@ -190,19 +212,16 @@ body {
 }
 
 
-@media (max-width: 600px) {
-    .rank-info {
-        grid-template-columns: 1fr 1fr;
-    }
+@media (max-width: 400px) {
 
-    .current-rank,
-    .next-rank {
-        width: auto;
-    }
-
-    .next-rank-info {
-        grid-column: span 2;
-        text-align: center;
+    .current-rank, .next-rank, .next-medal {
+        padding: 1rem 0;
     }
 }
 
+@media (max-width: 350px) {
+    .rank-info {
+        display: flex;
+        flex-direction: column;
+    }
+}
