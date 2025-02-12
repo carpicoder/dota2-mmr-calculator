@@ -14,7 +14,7 @@ const input = document.querySelector(".mmr-input");
 const rankInfo = document.querySelector(".rank-info");
 const invalidSpan = document.createElement("span");
 invalidSpan.classList.add("invalid-mmr");
-invalidSpan.textContent = "Invalid MMR. MMR must be a valid number. (No dots, no commas)";
+invalidSpan.textContent = "MMR must be a valid number. (No dots, no commas)";
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();

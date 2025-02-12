@@ -63,14 +63,11 @@ body {
 }
 
 .invalid-mmr {
-    position: absolute;
     font-size: .8rem;
     color: red;
-    top: calc(100% + 1em);
-    text-align: center;
-    left: 50%;
-    transform: translateX(-50%);
     width: max-content;
+    max-width: 90%;
+    text-align: left;
 }
 
 .mmr-input:focus {
