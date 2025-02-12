@@ -123,6 +123,11 @@ body {
     outline: 1px solid #3bae97;
 }
 
+.next-rank {
+    transform: scale(0.95);
+    filter: grayscale(.5);
+}
+
 .current-rank.immortal {
     grid-column: span 2;
 }

@@ -6,7 +6,7 @@ const ranks = [
     { name: "Legend", mmr: [3080, 3234, 3388, 3542, 3696] },
     { name: "Ancient", mmr: [3850, 4004, 4158, 4312, 4466] },
     { name: "Divine", mmr: [4620, 4820, 5020, 5220, 5420] },
-    { name: "Immortal", mmr: [6500] }
+    { name: "Immortal", mmr: [5620] }
 ];
 
 const form = document.querySelector(".form");
@@ -71,13 +71,13 @@ function updateRankInfo(current, next, mmr) {
         document.querySelector(".next-rank-info-next-mmr").classList.remove("hidden");
         document.querySelector(".next-rank-info-games-needed").classList.remove("hidden");
 
-        document.querySelector(".next-rank-name").textContent = `${next.name} ${romanize(next.level)}`;
+        document.querySelector(".next-rank-name").textContent = `${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""}`;
         document.querySelector(".next-rank-mmr").textContent = `${next.mmr} MMR`;
         document.querySelector(".next-rank-image").src = `./img/${next.name.toLowerCase()}-${next.level}.webp`;
 
         const mmrNeeded = next.mmr - mmr;
         document.querySelector(".next-rank-info-your-mmr").textContent = `You have ${mmr} MMR`;
-        document.querySelector(".next-rank-info-next-mmr").textContent = `${next.name} ${romanize(next.level)} is at ${next.mmr} MMR`;
+        document.querySelector(".next-rank-info-next-mmr").textContent = `${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""} is at ${next.mmr} MMR`;
         document.querySelector(".next-rank-info-mmr-needed").innerHTML = `You need <span>${mmrNeeded} MMR</span>`;
         document.querySelector(".next-rank-info-games-needed").innerHTML = `You need to win approx <span>${Math.ceil(mmrNeeded / 25)} games</span>`;
     }
