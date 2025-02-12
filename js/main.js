@@ -118,13 +118,13 @@ function updateRankInfo(current, next, nextMedal, mmr) {
         document.querySelector(".next-rank-info-your-mmr").textContent = `You have ${mmr} MMR`;
         document.querySelector(".next-rank-info-next-mmr").textContent = `${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""} starts at ${next.mmr} MMR`;
         document.querySelector(".next-rank-info-mmr-needed").innerHTML = `You need <span>${mmrNeeded} MMR</span> to be <span>${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""}</span>`;
-        document.querySelector(".next-rank-info-games-needed").innerHTML = `You need approx <span>${Math.ceil(mmrNeeded / 25)} games</span> to be <span>${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""}</span>`;
+        document.querySelector(".next-rank-info-games-needed").innerHTML = `You need approx <span>${Math.ceil(mmrNeeded / 25)} wins</span> to be <span>${next.name} ${current.mmr < 5420 ? romanize(next.level) : ""}</span>`;
 
         
         const nextMedalMmrNeeded = nextMedal.mmr - mmr;
         document.querySelector(".next-medal-info-next-mmr").textContent = `${nextMedal.name} ${current.mmr < 5420 ? romanize(nextMedal.level) : ""} starts at ${nextMedal.mmr} MMR`;
         document.querySelector(".next-medal-info-mmr-needed").innerHTML = `You need <span>${nextMedalMmrNeeded} MMR</span> to be <span>${nextMedal.name} ${current.name !== "Divine" ? romanize(nextMedal.level) : ""}</span>`;
-        document.querySelector(".next-medal-info-games-needed").innerHTML = `You need approx <span>${Math.ceil(nextMedalMmrNeeded / 25)} games</span> to be <span>${nextMedal.name} ${current.name !== "Divine" ? romanize(nextMedal.level) : ""}</span>`;
+        document.querySelector(".next-medal-info-games-needed").innerHTML = `You need approx <span>${Math.ceil(nextMedalMmrNeeded / 25)} wins</span> to be <span>${nextMedal.name} ${current.name !== "Divine" ? romanize(nextMedal.level) : ""}</span>`;
     }
 
     rankInfo.classList.remove("hidden");
