@@ -10,18 +10,11 @@ const ranks=[
 ];
 
 const MMR_PER_WIN = 25;
-const MMR_PER_LOSS = 25;
-const MMR_SWING = MMR_PER_WIN + MMR_PER_LOSS;
 
 const form = document.querySelector(".form");
 const input = document.querySelector(".mmr-input");
 const rankInfo = document.querySelector(".rank-info");
 const invalidSpan = document.createElement("span");
-const extraCalculators = document.getElementById('extra-calculators');
-const winrateInput = document.getElementById('winrate-input');
-const calculateGamesBtn = document.getElementById('calculate-games-btn');
-const gamesNeededResultEl = document.getElementById('games-needed-result');
-const targetRankNameEl = document.querySelector('#winrate-games-calc .target-rank-name');
 const currentRankCardContainer = document.querySelector(".current-rank");
 const nextRankCardContainer = document.querySelector(".next-rank");
 const nextMedalCardContainer = document.querySelector(".next-medal");
@@ -45,15 +38,6 @@ const nextMedalInfoGamesNeededEl = document.querySelector(".next-medal-info-game
 const formSubtitle = document.querySelector(".form-subtitle");
 
 form.addEventListener("submit", handleSubmit);
-if (calculateGamesBtn) {
-    calculateGamesBtn.addEventListener('click', displayGamesNeededWithWinrate);
-}
-winrateInput?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        displayGamesNeededWithWinrate();
-    }
-});
 
 function handleSubmit(event) {
     event.preventDefault();
@@ -64,7 +48,6 @@ function handleSubmit(event) {
         existingInvalidSpan.remove();
     }
     rankInfo.classList.add("hidden");
-    extraCalculators?.classList.add("hidden");
 
     if(!/^[0-9]+$/.test(mmrValue) || mmrValue === '') {
         invalidSpan.className = 'invalid-mmr text-danger d-block';
@@ -137,7 +120,6 @@ function handleSubmit(event) {
             nextMedal = { name: ranks[1].name, level: 1, mmr: ranks[1].mmr[0] };
         } else {
             rankInfo.classList.add("hidden");
-            extraCalculators?.classList.add("hidden");
             invalidSpan.className = 'invalid-mmr text-danger d-block';
             invalidSpan.textContent = "Could not determine rank.";
             form.querySelector('.input-group').insertAdjacentElement("afterend", invalidSpan);
@@ -177,7 +159,6 @@ function hideElement(element) {
     }
 }
 
-
 function updateRankInfo(current,next,nextMedal,userMMR){
     hideElement(currentRankCardContainer);
     hideElement(nextRankCardContainer);
@@ -191,10 +172,6 @@ function updateRankInfo(current,next,nextMedal,userMMR){
     hideElement(nextMedalInfoGamesNeededEl);
     hideElement(nextRankInfoContainer);
 
-    if(gamesNeededResultEl) gamesNeededResultEl.textContent = '';
-    if(targetRankNameEl) targetRankNameEl.textContent = 'next rank';
-    if(winrateInput) winrateInput.value = '';
-
     currentRankNameEl.textContent=`${current.name} ${current.name !== 'Immortal' ? romanize(current.level) : ''}`;
     currentRankMmrEl.textContent=`${current.mmr} MMR`;
     currentRankImageEl.src = `./img/${current.name.toLowerCase()}${current.name === 'Immortal' ? '' : '-' + current.level}.webp`;
@@ -206,9 +183,8 @@ function updateRankInfo(current,next,nextMedal,userMMR){
         showElement(nextRankInfoYourMmrEl);
         nextRankInfoYourMmrEl.textContent=`You have ${userMMR} MMR`;
         showElement(nextRankInfoMmrNeededEl)
-        nextRankInfoMmrNeededEl.innerHTML = "You are Immortal!";
+        nextRankInfoMmrNeededEl.innerHTML = "You're already Immortal, wtf are you doing here?!";
         nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
-        extraCalculators?.classList.add("hidden");
     } else {
         let visibleCards = 0;
         let isDivine5Case = false;
@@ -236,14 +212,10 @@ function updateRankInfo(current,next,nextMedal,userMMR){
             nextRankInfoNextMmrEl.textContent = `${nextRankFullName} starts at ${next.mmr} MMR`;
             showElement(nextRankInfoMmrNeededEl)
             nextRankInfoMmrNeededEl.innerHTML = `<strong>${mmrNeeded > 0 ? mmrNeeded : 0} MMR</strong> to reach <strong>${nextRankFullName}</strong>`;
-            nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
+            nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-success-subtle text-success-emphasis p-2 rounded d-inline-block me-2 mb-2';
             showElement(nextRankInfoGamesNeededEl);
             nextRankInfoGamesNeededEl.innerHTML = `Approx <strong>${gamesNeeded} wins</strong> to reach <strong>${nextRankFullName}</strong>`;
-            nextRankInfoGamesNeededEl.className = 'next-rank-info-games-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block mb-2';
-            rankInfo.dataset.nextRankMmrNeeded = mmrNeeded > 0 ? mmrNeeded : 0;
-            if(targetRankNameEl) targetRankNameEl.textContent = nextRankFullName;
-        } else {
-             rankInfo.dataset.nextRankMmrNeeded = 0;
+            nextRankInfoGamesNeededEl.className = 'next-rank-info-games-needed info-needed bg-success-subtle text-success-emphasis p-2 rounded d-inline-block mb-2';
         }
 
         const shouldShowNextMedalCard = nextMedal && nextMedal.name !== current.name && !isDivine5Case;
@@ -261,17 +233,15 @@ function updateRankInfo(current,next,nextMedal,userMMR){
             nextMedalInfoNextMmrEl.textContent = `${nextMedalFullName} starts at ${nextMedal.mmr} MMR`;
             showElement(nextMedalInfoMmrNeededEl);
             nextMedalInfoMmrNeededEl.innerHTML = `<strong>${nextMedalMmrNeeded > 0 ? nextMedalMmrNeeded : 0} MMR</strong> to reach <strong>${nextMedalFullName}</strong>`;
-            nextMedalInfoMmrNeededEl.className = 'next-medal-info-mmr-needed info-needed-medal bg-dark-subtle text-emphasis-color p-2 rounded d-inline-block me-2 mb-2';
+            nextMedalInfoMmrNeededEl.className = 'next-medal-info-mmr-needed info-needed-medal bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
             showElement(nextMedalInfoGamesNeededEl);
             nextMedalInfoGamesNeededEl.innerHTML = `Approx <strong>${nextMedalGamesNeeded} wins</strong> to reach <strong>${nextMedalFullName}</strong>`;
-            nextMedalInfoGamesNeededEl.className = 'next-medal-info-games-needed info-needed-medal bg-dark-subtle text-emphasis-color p-2 rounded d-inline-block mb-2';
-            rankInfo.dataset.nextMedalMmrNeeded = nextMedalMmrNeeded > 0 ? nextMedalMmrNeeded : 0;
+            nextMedalInfoGamesNeededEl.className = 'next-medal-info-games-needed info-needed-medal bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block mb-2';
         } else {
              hideElement(nextMedalCardContainer);
              hideElement(nextMedalInfoNextMmrEl);
              hideElement(nextMedalInfoMmrNeededEl);
              hideElement(nextMedalInfoGamesNeededEl);
-             rankInfo.dataset.nextMedalMmrNeeded = 0;
         }
 
         if (visibleCards === 3) {
@@ -285,7 +255,6 @@ function updateRankInfo(current,next,nextMedal,userMMR){
             showElement(currentRankCardContainer, ["col-12"]);
         }
 
-        extraCalculators?.classList.remove("hidden");
     }
     rankInfo.classList.remove("hidden");
 }
@@ -294,66 +263,4 @@ function romanize(num){
     if (num === null || num === undefined || num < 1 || num > 5) return '';
     const roman=["I","II","III","IV","V"];
     return roman[num-1];
-}
-
-function showCalculationResult(element, message, isError = false, statusClass = '') {
-    if (!element) return;
-    element.innerHTML = '';
-    element.className = 'calc-result text-center mt-3 mb-0';
-
-    if (isError) {
-        element.classList.add('text-danger');
-        element.textContent = message;
-    } else {
-        if (statusClass) {
-            element.classList.add(statusClass);
-        } else {
-            element.classList.add('text-success');
-        }
-        element.classList.add('fw-bold');
-        element.innerHTML = message;
-    }
-}
-
-
-function displayGamesNeededWithWinrate() {
-    const wrValue = parseFloat(winrateInput.value);
-    const mmrNeeded = parseFloat(rankInfo.dataset.nextRankMmrNeeded) || 0;
-
-    if (!gamesNeededResultEl) return;
-
-    if (isNaN(wrValue) || wrValue < 0 || wrValue > 100) {
-        showCalculationResult(gamesNeededResultEl, "Please enter a valid winrate (0-100%).", true);
-        return;
-    }
-
-    if (mmrNeeded <= 0) {
-         showCalculationResult(gamesNeededResultEl, "You don't need MMR for the next rank!", false, 'text-info');
-        return;
-    }
-
-    const winrate = wrValue / 100;
-    const avgGain = (winrate * MMR_PER_WIN) - ((1 - winrate) * MMR_PER_LOSS);
-
-    if (winrate === 0.5) {
-        showCalculationResult(gamesNeededResultEl, `With exactly 50% winrate, your MMR won't change.`, false, 'text-info');
-        return;
-    }
-    if (avgGain < 0) {
-        showCalculationResult(gamesNeededResultEl, `With a winrate of ${wrValue}% (<50%), you will lose MMR over time.`, true);
-        return;
-    }
-    if (avgGain < 0.01 && avgGain > 0) {
-         showCalculationResult(gamesNeededResultEl, `With ${wrValue}% winrate, the MMR gain is too small to calculate reliably (needs infinite games?).`, false, 'text-warning');
-         return;
-    }
-
-    const gamesNeeded = Math.ceil(mmrNeeded / avgGain);
-
-    if (!isFinite(gamesNeeded) || gamesNeeded < 0) {
-         showCalculationResult(gamesNeededResultEl, "Calculation resulted in an unexpected value.", true);
-         return;
-    }
-    showCalculationResult(gamesNeededResultEl, `With ${wrValue}% winrate, you need approx. ${gamesNeeded} games.`);
-
 }
