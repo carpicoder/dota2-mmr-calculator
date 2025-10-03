@@ -35,6 +35,8 @@ const nextRankInfoGamesNeededEl = document.querySelector(".next-rank-info-games-
 const nextMedalInfoNextMmrEl = document.querySelector(".next-medal-info-next-mmr");
 const nextMedalInfoMmrNeededEl = document.querySelector(".next-medal-info-mmr-needed");
 const nextMedalInfoGamesNeededEl = document.querySelector(".next-medal-info-games-needed");
+const previousRankInfoMmrNeededEl = document.querySelector(".previous-rank-info-mmr-needed");
+const previousRankInfoGamesNeededEl = document.querySelector(".previous-rank-info-games-needed");
 const formSubtitle = document.querySelector(".form-subtitle");
 
 form.addEventListener("submit", handleSubmit);
@@ -61,6 +63,7 @@ function handleSubmit(event) {
     let currentRank=null;
     let nextRank=null;
     let nextMedal=null;
+    let previousRank=null;
 
     for(let i=0;i<ranks.length;i++){
         const rankData = ranks[i];
@@ -69,6 +72,14 @@ function handleSubmit(event) {
                  currentRank = { name: "Immortal", level: null, mmr: rankData.mmr[0] };
                  nextRank = null;
                  nextMedal = null;
+                 
+                 // Para Immortal, el rango anterior es Divine V
+                 const divineRankData = ranks[ranks.length - 2]; // Divine es el penúltimo
+                 previousRank = {
+                     name: divineRankData.name,
+                     level: divineRankData.mmr.length, // Último nivel de Divine (V)
+                     mmr: divineRankData.mmr[divineRankData.mmr.length - 1] // Divine V MMR
+                 };
                  break;
             }
         } else {
@@ -111,6 +122,27 @@ function handleSubmit(event) {
         } else {
             nextMedal = null;
         }
+
+        // Calcular rango anterior
+        if (currentRank.level > 1) {
+            // Si no es el primer nivel del rango, el anterior es el nivel anterior del mismo rango
+            previousRank = {
+                name: currentRank.name,
+                level: currentRank.level - 1,
+                mmr: ranks[currentMedalIndex].mmr[currentRank.level - 2]
+            };
+        } else if (currentMedalIndex > 0) {
+            // Si es el primer nivel, el anterior es el último nivel del rango anterior
+            const previousMedalRankData = ranks[currentMedalIndex - 1];
+            previousRank = {
+                name: previousMedalRankData.name,
+                level: previousMedalRankData.mmr.length, // Último nivel del rango anterior
+                mmr: previousMedalRankData.mmr[previousMedalRankData.mmr.length - 1]
+            };
+        } else {
+            // Si es Herald I, no hay rango anterior
+            previousRank = null;
+        }
      }
 
     if (!currentRank) {
@@ -126,7 +158,7 @@ function handleSubmit(event) {
             return;
         }
     }
-    updateRankInfo(currentRank,nextRank,nextMedal,mmr);
+    updateRankInfo(currentRank,nextRank,nextMedal,previousRank,mmr);
 }
 
 function removeColClasses(element) {
@@ -159,7 +191,7 @@ function hideElement(element) {
     }
 }
 
-function updateRankInfo(current,next,nextMedal,userMMR){
+function updateRankInfo(current,next,nextMedal,previous,userMMR){
     hideElement(currentRankCardContainer);
     hideElement(nextRankCardContainer);
     hideElement(nextMedalCardContainer);
@@ -170,6 +202,8 @@ function updateRankInfo(current,next,nextMedal,userMMR){
     hideElement(nextMedalInfoNextMmrEl);
     hideElement(nextMedalInfoMmrNeededEl);
     hideElement(nextMedalInfoGamesNeededEl);
+    hideElement(previousRankInfoMmrNeededEl);
+    hideElement(previousRankInfoGamesNeededEl);
     hideElement(nextRankInfoContainer);
 
     currentRankNameEl.textContent=`${current.name} ${current.name !== 'Immortal' ? romanize(current.level) : ''}`;
@@ -185,6 +219,24 @@ function updateRankInfo(current,next,nextMedal,userMMR){
         showElement(nextRankInfoMmrNeededEl)
         nextRankInfoMmrNeededEl.innerHTML = "You're already Immortal, wtf are you doing here?!";
         nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
+        
+        // Mostrar información del rango anterior para Immortal
+        if (previous) {
+            const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
+            
+            // Para Immortal, el threshold es el último MMR de Divine V
+            const mmrThreshold = 5619; // Último MMR de Divine V
+            const mmrToLose = userMMR - mmrThreshold;
+            const gamesToLose = mmrToLose > 0 ? Math.ceil(mmrToLose / MMR_PER_WIN) : 0;
+            
+            showElement(previousRankInfoMmrNeededEl);
+            previousRankInfoMmrNeededEl.innerHTML = `<strong>${mmrToLose > 0 ? mmrToLose : 0} MMR</strong> to fall to <strong>${previousRankFullName}</strong>`;
+            previousRankInfoMmrNeededEl.className = 'previous-rank-info-mmr-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-block mb-2';
+            
+            showElement(previousRankInfoGamesNeededEl);
+            previousRankInfoGamesNeededEl.innerHTML = `Approx <strong>${gamesToLose} losses</strong> to fall to <strong>${previousRankFullName}</strong>`;
+            previousRankInfoGamesNeededEl.className = 'previous-rank-info-games-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-block mb-2';
+        }
     } else {
         let visibleCards = 0;
         let isDivine5Case = false;
@@ -242,6 +294,39 @@ function updateRankInfo(current,next,nextMedal,userMMR){
              hideElement(nextMedalInfoNextMmrEl);
              hideElement(nextMedalInfoMmrNeededEl);
              hideElement(nextMedalInfoGamesNeededEl);
+        }
+
+        // Mostrar información del rango anterior
+        if (previous) {
+            const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
+            
+            // Calcular cuánto MMR necesitas perder para bajar al rango anterior
+            let mmrThreshold;
+            if (current.level > 1) {
+                // Si no es el primer nivel, el threshold es el último MMR del nivel anterior del mismo rango
+                const currentMedalIndex = ranks.findIndex(rank => rank.name === current.name);
+                // Para obtener el último MMR del nivel anterior, necesitamos el MMR de inicio del nivel actual - 1
+                mmrThreshold = ranks[currentMedalIndex].mmr[current.level - 1] - 1;
+            } else {
+                // Si es el primer nivel, el threshold es el último MMR del rango anterior
+                const currentMedalIndex = ranks.findIndex(rank => rank.name === current.name);
+                const previousMedalRankData = ranks[currentMedalIndex - 1];
+                // El último MMR del rango anterior es el MMR de inicio del rango actual - 1
+                mmrThreshold = current.mmr - 1;
+            }
+            const mmrToLose = userMMR - mmrThreshold;
+            const gamesToLose = mmrToLose > 0 ? Math.ceil(mmrToLose / MMR_PER_WIN) : 0;
+            
+            showElement(previousRankInfoMmrNeededEl);
+            previousRankInfoMmrNeededEl.innerHTML = `<strong>${mmrToLose > 0 ? mmrToLose : 0} MMR</strong> to fall to <strong>${previousRankFullName}</strong>`;
+            previousRankInfoMmrNeededEl.className = 'previous-rank-info-mmr-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-inline-block me-2 mb-2';
+            
+            showElement(previousRankInfoGamesNeededEl);
+            previousRankInfoGamesNeededEl.innerHTML = `Approx <strong>${gamesToLose} losses</strong> to fall to <strong>${previousRankFullName}</strong>`;
+            previousRankInfoGamesNeededEl.className = 'previous-rank-info-games-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-inline-block mb-2';
+        } else {
+            hideElement(previousRankInfoMmrNeededEl);
+            hideElement(previousRankInfoGamesNeededEl);
         }
 
         if (visibleCards === 3) {
