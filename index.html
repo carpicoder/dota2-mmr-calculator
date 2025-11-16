@@ -16,8 +16,8 @@
 
     <meta name="theme-color" content="#212529">
 
-    <meta name="description" content="Calculate your Dota 2 rank and MMR needed to rank up.">
-    <meta name="keywords" content="Dota 2, MMR calculator, Dota 2 rank, MMR, Dota 2 ranking, how to rank up in Dota 2, Dota 2 medals, how much, need, games needed">
+    <meta name="description" content="Free Dota 2 MMR Calculator - Calculate your current rank, MMR needed to rank up, and games required. Complete guide to Dota 2 ranking system and MMR calculation.">
+    <meta name="keywords" content="Dota 2, MMR calculator, Dota 2 rank, MMR, Dota 2 ranking, how to rank up in Dota 2, Dota 2 medals, how much, need, games needed, rank calculator, mmr guide, dota 2 ranks, immortal, divine, ancient">
     <meta name="author" content="CarpiCoder">
     <meta name="robots" content="index, follow">
     <meta property="og:title" content="Dota 2 MMR Calculator | How much do I need?">
@@ -66,23 +66,55 @@
 
     <style>
        .hidden { display: none !important; }
-       body { display: flex; flex-direction: column; min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; }
-       main { flex: 1; display: flex; align-items: center; }
+       body { display: flex; flex-direction: column; min-height: 100vh; }
+       main { flex: 1; display: flex; align-items: center; padding-top: 2rem; padding-bottom: 2rem; }
        .card-img-top-small { max-width: 100px; height: auto; margin: 0 auto 0.5rem auto; display: block; }
        .next-rank-card, .next-medal-card { border-style: dashed !important; }
        .invalid-mmr { font-size: .875em; margin-top: .25rem; width: 100%; text-align: center; }
        .input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) { border-top-left-radius: 0; border-bottom-left-radius: 0; }
        .rank-info-text p strong { font-weight: bold; }
        .calc-result { min-height: 1.5em; }
+       .navbar-brand { font-weight: bold; }
+       .content-section { margin-bottom: 2rem; }
+       .content-section h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+       .content-section p { text-align: left; }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🎮 Dota 2 MMR Calculator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/howto">How To</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <main class="flex-grow-1 d-flex align-items-center py-4">
         <div class="container text-center" style="max-width: 700px;">
 
+            <h1 class="h2 mb-3 fw-bold">Dota 2 MMR Calculator</h1>
+            <p class="text-body-secondary mb-4">Calculate your current rank and see how much MMR you need to rank up.</p>
+
             <form class="form mb-4">
-                <h1 class="h3 mb-3 fw-normal">Dota 2 MMR Calculator</h1>
+                <h2 class="h4 mb-3 fw-normal">What's your MMR?</h2>
                 <p class="text-body-secondary form-subtitle small mb-3">Go to your Dota profile, click "Stats", and find your MMR in the top-right corner.</p>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control mmr-input" inputmode="numeric" pattern="[0-9]*" placeholder="What's your MMR?" aria-label="Your MMR">

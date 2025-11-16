@@ -73,12 +73,11 @@ function handleSubmit(event) {
                  nextRank = null;
                  nextMedal = null;
                  
-                 // Para Immortal, el rango anterior es Divine V
-                 const divineRankData = ranks[ranks.length - 2]; // Divine es el penúltimo
+                 const divineRankData = ranks[ranks.length - 2];
                  previousRank = {
                      name: divineRankData.name,
-                     level: divineRankData.mmr.length, // Último nivel de Divine (V)
-                     mmr: divineRankData.mmr[divineRankData.mmr.length - 1] // Divine V MMR
+                     level: divineRankData.mmr.length,
+                     mmr: divineRankData.mmr[divineRankData.mmr.length - 1]
                  };
                  break;
             }
@@ -125,22 +124,19 @@ function handleSubmit(event) {
 
         // Calcular rango anterior
         if (currentRank.level > 1) {
-            // Si no es el primer nivel del rango, el anterior es el nivel anterior del mismo rango
             previousRank = {
                 name: currentRank.name,
                 level: currentRank.level - 1,
                 mmr: ranks[currentMedalIndex].mmr[currentRank.level - 2]
             };
         } else if (currentMedalIndex > 0) {
-            // Si es el primer nivel, el anterior es el último nivel del rango anterior
             const previousMedalRankData = ranks[currentMedalIndex - 1];
             previousRank = {
                 name: previousMedalRankData.name,
-                level: previousMedalRankData.mmr.length, // Último nivel del rango anterior
+                level: previousMedalRankData.mmr.length,
                 mmr: previousMedalRankData.mmr[previousMedalRankData.mmr.length - 1]
             };
         } else {
-            // Si es Herald I, no hay rango anterior
             previousRank = null;
         }
      }
@@ -224,8 +220,7 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
         if (previous) {
             const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
             
-            // Para Immortal, el threshold es el último MMR de Divine V
-            const mmrThreshold = 5619; // Último MMR de Divine V
+            const mmrThreshold = 5619;
             const mmrToLose = userMMR - mmrThreshold;
             const gamesToLose = mmrToLose > 0 ? Math.ceil(mmrToLose / MMR_PER_WIN) : 0;
             
@@ -296,22 +291,16 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
              hideElement(nextMedalInfoGamesNeededEl);
         }
 
-        // Mostrar información del rango anterior
         if (previous) {
             const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
             
-            // Calcular cuánto MMR necesitas perder para bajar al rango anterior
             let mmrThreshold;
             if (current.level > 1) {
-                // Si no es el primer nivel, el threshold es el último MMR del nivel anterior del mismo rango
                 const currentMedalIndex = ranks.findIndex(rank => rank.name === current.name);
-                // Para obtener el último MMR del nivel anterior, necesitamos el MMR de inicio del nivel actual - 1
                 mmrThreshold = ranks[currentMedalIndex].mmr[current.level - 1] - 1;
             } else {
-                // Si es el primer nivel, el threshold es el último MMR del rango anterior
                 const currentMedalIndex = ranks.findIndex(rank => rank.name === current.name);
                 const previousMedalRankData = ranks[currentMedalIndex - 1];
-                // El último MMR del rango anterior es el MMR de inicio del rango actual - 1
                 mmrThreshold = current.mmr - 1;
             }
             const mmrToLose = userMMR - mmrThreshold;

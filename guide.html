@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 MMR Guide - Complete Ranking System Explained | MMR Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" href="./img/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MMR Calculator" />
+    <link rel="manifest" href="./img/site.webmanifest" />
+
+    <meta name="theme-color" content="#212529">
+
+    <meta name="description" content="Complete guide to Dota 2 MMR system, ranking tiers, medals, and how to rank up. Learn about Herald, Guardian, Crusader, Archon, Legend, Ancient, Divine, and Immortal ranks.">
+    <meta name="keywords" content="Dota 2 MMR guide, Dota 2 ranks, Dota 2 medals, how MMR works, ranking system, Immortal, Divine, Ancient, Legend, Archon, rank up guide">
+    <meta name="author" content="CarpiCoder">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Dota 2 MMR Guide - Complete Ranking System">
+    <meta property="og:description" content="Complete guide to Dota 2 MMR system and ranking tiers.">
+    <meta property="og:image" content="./img/og-image.png">
+    <meta property="og:url" content="https://mmrcalculator.com/guide">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dota 2 MMR Guide - Complete Ranking System">
+    <meta name="twitter:description" content="Complete guide to Dota 2 MMR system and ranking tiers.">
+    <meta name="twitter:image" content="./img/og-image.png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1S35FN6VTL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1S35FN6VTL');
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "Dota 2 MMR and Ranking System Guide",
+            "description": "Complete guide to understanding the Dota 2 MMR system, ranking tiers, and how to rank up through all medals from Herald to Immortal.",
+            "image": "https://mmrcalculator.com/img/og-image.png",
+            "author": {
+                "@type": "Person",
+                "name": "CarpiCoder"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "Dota 2 MMR Calculator",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://mmrcalculator.com/img/favicon.png"
+                }
+            },
+            "datePublished": "2025-01-01",
+            "dateModified": "2025-11-16"
+        }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9825027387811354"
+     crossorigin="anonymous"></script>
+
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        main { flex: 1; }
+        .navbar-brand { font-weight: bold; }
+        .medal-card { transition: transform 0.2s; }
+        .medal-card:hover { transform: translateY(-5px); }
+        .medal-img { max-width: 80px; height: auto; }
+        .content-section { margin-bottom: 3rem; }
+        h1, h2, h3 { color: #fff; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🎮 Dota 2 MMR Calculator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/howto">How To</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/guide">Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-5">
+        <div class="container" style="max-width: 900px;">
+            
+            <h1 class="display-5 fw-bold text-center mb-4">Dota 2 MMR and Ranking System Guide</h1>
+            <p class="lead text-center text-body-secondary mb-5">Everything you need to know about MMR, medals, and ranking up in Dota 2</p>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3">What is MMR?</h2>
+                <p class="text-body-secondary">MMR stands for <strong>Matchmaking Rating</strong>, a numerical value that represents your skill level in Dota 2. Your MMR determines which medal and rank you receive, and it's used by the matchmaking system to pair you with players of similar skill levels.</p>
+                <p class="text-body-secondary">MMR is separate for different game modes: you have one MMR for ranked solo/party games, and it increases when you win and decreases when you lose.</p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3">How Does MMR Work?</h2>
+                <p class="text-body-secondary mb-3">The MMR system in Dota 2 operates on a simple principle:</p>
+                <ul class="text-body-secondary">
+                    <li class="mb-2"><strong>Winning Games:</strong> When you win a ranked match, you gain MMR. The typical amount is around <strong>25 MMR per win</strong> when your rank confidence is high (near 100%).</li>
+                    <li class="mb-2"><strong>Losing Games:</strong> When you lose a ranked match, you lose MMR. Similar to wins, this is typically around <strong>-25 MMR per loss</strong>.</li>
+                    <li class="mb-2"><strong>Rank Confidence:</strong> When you're new to ranked or haven't played in a while, your rank confidence is low. During this period, MMR gains and losses are more volatile (can be ±50 or more) as the system determines your true skill level.</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3">Ranking Up: Tips and Strategy</h2>
+                <p class="text-body-secondary mb-3">To successfully climb the MMR ladder in Dota 2:</p>
+                <ol class="text-body-secondary">
+                    <li class="mb-2"><strong>Consistency is Key:</strong> Focus on maintaining a win rate above 50%. Even a 55% win rate will steadily increase your MMR over time.</li>
+                    <li class="mb-2"><strong>Play Your Best Heroes:</strong> Stick to a pool of 5-10 heroes you're comfortable with rather than constantly trying new heroes in ranked.</li>
+                    <li class="mb-2"><strong>Focus on Fundamentals:</strong> Last-hitting, map awareness, positioning, and teamwork are more important than flashy plays.</li>
+                    <li class="mb-2"><strong>Learn from Losses:</strong> Watch replays of your losses to identify mistakes and areas for improvement.</li>
+                    <li class="mb-2"><strong>Take Breaks:</strong> If you're on a losing streak, take a break. Tilt leads to more losses.</li>
+                    <li class="mb-2"><strong>Communicate Positively:</strong> Good team morale significantly impacts your chances of winning.</li>
+                </ol>
+            </div>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3 text-center">Dota 2 Medals and MMR Requirements</h2>
+                <p class="text-body-secondary text-center mb-4">Each medal has 5 stars (ranks) except for Immortal. Here's the complete breakdown:</p>
+
+                <!-- Herald -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Herald</h3>
+                    <p class="text-body-secondary mb-3">The starting rank for most new players. Herald players are learning the basics of Dota 2.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/herald-1.webp" alt="Herald I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Herald I</h5>
+                                <p class="small text-body-secondary mb-0">0 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/herald-2.webp" alt="Herald II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Herald II</h5>
+                                <p class="small text-body-secondary mb-0">154 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/herald-3.webp" alt="Herald III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Herald III</h5>
+                                <p class="small text-body-secondary mb-0">308 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/herald-4.webp" alt="Herald IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Herald IV</h5>
+                                <p class="small text-body-secondary mb-0">462 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/herald-5.webp" alt="Herald V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Herald V</h5>
+                                <p class="small text-body-secondary mb-0">616 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guardian -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Guardian</h3>
+                    <p class="text-body-secondary mb-3">Guardian players are developing their understanding of game mechanics and hero abilities.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/guardian-1.webp" alt="Guardian I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Guardian I</h5>
+                                <p class="small text-body-secondary mb-0">770 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/guardian-2.webp" alt="Guardian II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Guardian II</h5>
+                                <p class="small text-body-secondary mb-0">924 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/guardian-3.webp" alt="Guardian III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Guardian III</h5>
+                                <p class="small text-body-secondary mb-0">1078 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/guardian-4.webp" alt="Guardian IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Guardian IV</h5>
+                                <p class="small text-body-secondary mb-0">1232 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/guardian-5.webp" alt="Guardian V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Guardian V</h5>
+                                <p class="small text-body-secondary mb-0">1386 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crusader -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Crusader</h3>
+                    <p class="text-body-secondary mb-3">Crusader players have grasped the basic mechanics and are improving their game knowledge.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/crusader-1.webp" alt="Crusader I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Crusader I</h5>
+                                <p class="small text-body-secondary mb-0">1540 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/crusader-2.webp" alt="Crusader II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Crusader II</h5>
+                                <p class="small text-body-secondary mb-0">1694 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/crusader-3.webp" alt="Crusader III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Crusader III</h5>
+                                <p class="small text-body-secondary mb-0">1848 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/crusader-4.webp" alt="Crusader IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Crusader IV</h5>
+                                <p class="small text-body-secondary mb-0">2002 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/crusader-5.webp" alt="Crusader V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Crusader V</h5>
+                                <p class="small text-body-secondary mb-0">2156 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Archon -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Archon</h3>
+                    <p class="text-body-secondary mb-3">Archon players show competency in game mechanics and are developing strategic thinking.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/archon-1.webp" alt="Archon I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Archon I</h5>
+                                <p class="small text-body-secondary mb-0">2310 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/archon-2.webp" alt="Archon II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Archon II</h5>
+                                <p class="small text-body-secondary mb-0">2464 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/archon-3.webp" alt="Archon III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Archon III</h5>
+                                <p class="small text-body-secondary mb-0">2618 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/archon-4.webp" alt="Archon IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Archon IV</h5>
+                                <p class="small text-body-secondary mb-0">2772 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/archon-5.webp" alt="Archon V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Archon V</h5>
+                                <p class="small text-body-secondary mb-0">2926 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Legend</h3>
+                    <p class="text-body-secondary mb-3">Legend players demonstrate solid understanding of advanced game concepts and consistent mechanical skill.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/legend-1.webp" alt="Legend I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Legend I</h5>
+                                <p class="small text-body-secondary mb-0">3080 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/legend-2.webp" alt="Legend II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Legend II</h5>
+                                <p class="small text-body-secondary mb-0">3234 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/legend-3.webp" alt="Legend III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Legend III</h5>
+                                <p class="small text-body-secondary mb-0">3388 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/legend-4.webp" alt="Legend IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Legend IV</h5>
+                                <p class="small text-body-secondary mb-0">3542 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/legend-5.webp" alt="Legend V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Legend V</h5>
+                                <p class="small text-body-secondary mb-0">3696 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ancient -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Ancient</h3>
+                    <p class="text-body-secondary mb-3">Ancient players are highly skilled with excellent game knowledge and mechanical execution.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/ancient-1.webp" alt="Ancient I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Ancient I</h5>
+                                <p class="small text-body-secondary mb-0">3850 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/ancient-2.webp" alt="Ancient II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Ancient II</h5>
+                                <p class="small text-body-secondary mb-0">4004 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/ancient-3.webp" alt="Ancient III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Ancient III</h5>
+                                <p class="small text-body-secondary mb-0">4158 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/ancient-4.webp" alt="Ancient IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Ancient IV</h5>
+                                <p class="small text-body-secondary mb-0">4312 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/ancient-5.webp" alt="Ancient V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Ancient V</h5>
+                                <p class="small text-body-secondary mb-0">4466 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divine -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Divine</h3>
+                    <p class="text-body-secondary mb-3">Divine players are among the top players in Dota 2, with exceptional skill and deep game understanding.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/divine-1.webp" alt="Divine I" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Divine I</h5>
+                                <p class="small text-body-secondary mb-0">4620 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/divine-2.webp" alt="Divine II" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Divine II</h5>
+                                <p class="small text-body-secondary mb-0">4820 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/divine-3.webp" alt="Divine III" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Divine III</h5>
+                                <p class="small text-body-secondary mb-0">5020 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/divine-4.webp" alt="Divine IV" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Divine IV</h5>
+                                <p class="small text-body-secondary mb-0">5220 MMR</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle">
+                                <img src="./img/divine-5.webp" alt="Divine V" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Divine V</h5>
+                                <p class="small text-body-secondary mb-0">5420 MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Immortal -->
+                <div class="mb-5">
+                    <h3 class="h4 fw-bold mb-3">Immortal</h3>
+                    <p class="text-body-secondary mb-3">Immortal is the highest rank in Dota 2, representing the absolute elite players. Immortal has no stars - instead, players are ranked by their leaderboard position.</p>
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="card medal-card h-100 text-center p-3 bg-dark-subtle border-warning">
+                                <img src="./img/immortal.webp" alt="Immortal" class="medal-img mx-auto mb-2">
+                                <h5 class="fs-6 fw-bold">Immortal</h5>
+                                <p class="small text-body-secondary mb-0">5620+ MMR</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-body-secondary mt-3"><strong>Note:</strong> Top 5000 Immortal players receive a leaderboard rank number displayed on their medal.</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3">MMR Calibration</h2>
+                <p class="text-body-secondary mb-3">When you first start playing ranked Dota 2, you need to complete calibration matches:</p>
+                <ul class="text-body-secondary">
+                    <li class="mb-2">You must play regular matches to unlock ranked mode (the requirement varies by account age and activity).</li>
+                    <li class="mb-2">During calibration, your rank confidence is low, so MMR changes are larger than normal.</li>
+                    <li class="mb-2">The system places you based on your performance in these games, considering factors beyond just wins/losses.</li>
+                    <li class="mb-2">After calibration, you receive your initial medal and can start climbing the ladder.</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h2 class="h3 fw-bold mb-3">Understanding Rank Confidence</h2>
+                <p class="text-body-secondary mb-3">Rank Confidence is a hidden value that affects your MMR gains and losses:</p>
+                <ul class="text-body-secondary">
+                    <li class="mb-2"><strong>High Confidence (Near 100%):</strong> You gain/lose approximately 25 MMR per game. The system is confident in your current ranking.</li>
+                    <li class="mb-2"><strong>Low Confidence:</strong> You gain/lose 40-50+ MMR per game. This happens when you're new, returning after a break, or during recalibration.</li>
+                    <li class="mb-2"><strong>Building Confidence:</strong> Play more ranked games consistently. After 15-20 games, your confidence typically stabilizes.</li>
+                    <li class="mb-2"><strong>Win/Loss Streaks:</strong> Long streaks can sometimes lower confidence as the system questions if you're properly ranked.</li>
+                </ul>
+            </div>
+
+            <div class="content-section bg-dark-subtle rounded p-4">
+                <h2 class="h4 fw-bold mb-3">Ready to Calculate Your Rank?</h2>
+                <p class="text-body-secondary mb-3">Now that you understand how the MMR system works, use our calculator to see exactly where you stand and how many games you need to reach your next goal!</p>
+                <a href="/" class="btn btn-primary btn-lg">Go to Calculator</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-auto text-center py-3 bg-dark">
+         <p class="made-by text-body-secondary small mb-0">
+             Made by <a href="https://github.com/carpicoder" target="_blank" rel="noopener noreferrer" class="link-secondary">CarpiCoder</a>
+         </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+

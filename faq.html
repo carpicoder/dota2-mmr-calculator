@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 MMR Calculator FAQ - Frequently Asked Questions | MMR Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" href="./img/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MMR Calculator" />
+    <link rel="manifest" href="./img/site.webmanifest" />
+
+    <meta name="theme-color" content="#212529">
+
+    <meta name="description" content="Frequently asked questions about Dota 2 MMR, ranking system, and our MMR calculator. Get answers to common questions about ranking up, calibration, and more.">
+    <meta name="keywords" content="Dota 2 FAQ, MMR questions, rank calculator FAQ, Dota 2 ranking questions, MMR calibration, how to rank up">
+    <meta name="author" content="CarpiCoder">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Dota 2 MMR Calculator FAQ">
+    <meta property="og:description" content="Frequently asked questions about Dota 2 MMR and ranking.">
+    <meta property="og:image" content="./img/og-image.png">
+    <meta property="og:url" content="https://mmrcalculator.com/faq">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dota 2 MMR Calculator FAQ">
+    <meta name="twitter:description" content="Frequently asked questions about Dota 2 MMR and ranking.">
+    <meta name="twitter:image" content="./img/og-image.png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1S35FN6VTL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1S35FN6VTL');
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "How accurate is the MMR calculator?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Our calculator uses the official Dota 2 ranking thresholds and is updated regularly. The MMR requirements for each rank are based on Valve's official system. The games estimation assumes 25 MMR per win, which is accurate when your rank confidence is high."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Is this calculator free to use?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes! Our Dota 2 MMR Calculator is completely free to use. No registration, no downloads, and no hidden fees. Simply enter your MMR and get instant results."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Where do I find my MMR in Dota 2?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "To find your MMR: 1) Open Dota 2, 2) Click on your profile, 3) Click on the Stats tab, 4) Look in the top-right corner - your MMR will be displayed there."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does the calculator work for both solo and party MMR?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The calculator works with any MMR value you enter. Since Dota 2 now uses a unified ranked system, your displayed rank is based on your highest MMR (whether from solo or party queue). Simply enter whichever MMR you want to check."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Why do I gain/lose different amounts of MMR per game?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The amount of MMR you gain or lose depends on your rank confidence. When confidence is high (near 100%), you typically gain or lose around 25 MMR per game. When confidence is low (new account, returning player, or during recalibration), you can gain or lose 40-50+ MMR per game."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How long does a Dota 2 season last?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Dota 2 seasons typically last approximately 6 months. At the end of each season, medals are reset and all players must complete recalibration matches to receive their new medal for the upcoming season."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "What's the highest rank in Dota 2?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Immortal is the highest rank in Dota 2, starting at 5620 MMR. Unlike other medals, Immortal doesn't have star levels. Instead, the top 5000 Immortal players receive a leaderboard rank number displayed on their medal. The higher your MMR in Immortal, the better your leaderboard position."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How can I rank up faster in Dota 2?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "To rank up efficiently: maintain a 52-55% win rate over many games, master a hero pool of 5-10 heroes, focus on fundamentals like last-hitting and map awareness, watch your replays to learn from losses, stay positive for team morale, and take breaks to avoid playing on tilt."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does performance in a game affect MMR gain/loss?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "For most players, only wins and losses affect MMR. Individual performance metrics like KDA, hero damage, or farm don't directly change your MMR gain or loss. The exception is during calibration or when rank confidence is low, where the system may consider additional factors."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How many games do I need to rank up?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "The number of games needed depends on your current MMR, distance to next rank, MMR per win (typically 25), and your win rate. For example, to gain one full star (154 MMR): with 100% win rate you need ~7 wins, with 60% win rate ~35 games, with 52% win rate ~175 games."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Can I play with friends who have different MMR?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "Yes, but there are restrictions. In regular ranked, there's a MMR difference limit for parties (typically 2800 MMR). If the MMR gap is too large, you can't queue together in standard ranked. You can always play together in unranked matches."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Do I need to install anything to use this calculator?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No! Our calculator is a web-based tool that runs entirely in your browser. No downloads, no installations, no extensions needed. It works on any device with a web browser - desktop, tablet, or mobile."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Does the calculator store my data?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "No, we don't store any personal data or MMR information. All calculations are performed locally in your browser. Your MMR value is not sent to any server or saved in any database. Your privacy is fully protected."
+                    }
+                },
+                {
+                    "@type": "Question",
+                    "name": "How often is the calculator updated?",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "We monitor Dota 2 updates closely and update our calculator whenever Valve changes the MMR thresholds for ranks. This typically happens at the start of new seasons or with major balance patches."
+                    }
+                }
+            ]
+        }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9825027387811354"
+     crossorigin="anonymous"></script>
+
+    <style>
+        body { min-height: 100vh; display: flex; flex-direction: column; }
+        main { flex: 1; }
+        .navbar-brand { font-weight: bold; }
+        .accordion-button:not(.collapsed) { background-color: #2c3034; color: #fff; }
+        .accordion-button { background-color: #212529; color: #adb5bd; }
+        .accordion-button:focus { box-shadow: none; border-color: rgba(255,255,255,.125); }
+        .accordion-item { background-color: #212529; border-color: rgba(255,255,255,.125); }
+        .accordion-body { background-color: #1a1d20; }
+        h1, h2 { color: #fff; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">🎮 Dota 2 MMR Calculator</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/howto">How To</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/faq">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-5">
+        <div class="container" style="max-width: 900px;">
+            
+            <h1 class="display-5 fw-bold text-center mb-3">Frequently Asked Questions</h1>
+            <p class="lead text-center text-body-secondary mb-5">Common questions about Dota 2 MMR and our calculator</p>
+
+            <div class="accordion" id="faqAccordion">
+                
+                <!-- Calculator Questions -->
+                <h2 class="h4 fw-bold mt-4 mb-3">About the Calculator</h2>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How accurate is the MMR calculator?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>Our calculator uses the <strong>official Dota 2 ranking thresholds</strong> and is updated regularly to reflect any changes Valve makes to the system. The MMR requirements for each rank are based on Valve's official system.</p>
+                            <p class="mb-0">The games estimation assumes 25 MMR per win, which is accurate when your rank confidence is high (near 100%). If you're new to ranked or recently recalibrated, you might gain more MMR per win initially.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Is this calculator free to use?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">Yes! Our Dota 2 MMR Calculator is completely free to use. No registration, no downloads, and no hidden fees. Simply enter your MMR and get instant results.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            Where do I find my MMR in Dota 2?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>To find your MMR:</p>
+                            <ol class="mb-0">
+                                <li>Open Dota 2</li>
+                                <li>Click on your profile</li>
+                                <li>Click on the "Stats" tab</li>
+                                <li>Look in the top-right corner - your MMR will be displayed there</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            Does the calculator work for both solo and party MMR?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">The calculator works with any MMR value you enter. Since Dota 2 now uses a unified ranked system, your displayed rank is based on your highest MMR (whether from solo or party queue). Simply enter whichever MMR you want to check.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MMR System Questions -->
+                <h2 class="h4 fw-bold mt-5 mb-3">About MMR and Ranking</h2>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            Why do I gain/lose different amounts of MMR per game?
+                        </button>
+                    </h2>
+                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>The amount of MMR you gain or lose depends on your <strong>rank confidence</strong>:</p>
+                            <ul>
+                                <li><strong>High Confidence (near 100%):</strong> You typically gain or lose around 25 MMR per game. This happens when you've played many games and the system is confident in your ranking.</li>
+                                <li><strong>Low Confidence:</strong> You can gain or lose 40-50+ MMR per game. This occurs when you're new to ranked, returning after a long break, or during seasonal recalibration.</li>
+                            </ul>
+                            <p class="mb-0">The system adjusts confidence based on your play patterns. Consistent play builds confidence, while long absences or unusual performance can lower it.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+                            How long does a Dota 2 season last?
+                        </button>
+                    </h2>
+                    <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">Dota 2 seasons typically last approximately <strong>6 months</strong>. At the end of each season, medals are reset and all players must complete recalibration matches to receive their new medal for the upcoming season. The exact timing can vary slightly based on Valve's schedule and major updates.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
+                            What's the highest rank in Dota 2?
+                        </button>
+                    </h2>
+                    <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p><strong>Immortal</strong> is the highest rank in Dota 2, starting at 5620 MMR. Unlike other medals, Immortal doesn't have star levels. Instead, the top 5000 Immortal players receive a <strong>leaderboard rank number</strong> displayed on their medal.</p>
+                            <p class="mb-0">The higher your MMR in Immortal, the better your leaderboard position. Top players can reach 10,000+ MMR and compete for the #1 spot in their region.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gameplay Questions -->
+                <h2 class="h4 fw-bold mt-5 mb-3">About Ranking Up</h2>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq10">
+                            How can I rank up faster in Dota 2?
+                        </button>
+                    </h2>
+                    <div id="faq10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>To rank up efficiently:</p>
+                            <ul>
+                                <li><strong>Maintain consistency:</strong> Aim for a 52-55% win rate over many games</li>
+                                <li><strong>Master a hero pool:</strong> Focus on 5-10 heroes you're comfortable with</li>
+                                <li><strong>Focus on fundamentals:</strong> Last-hitting, map awareness, and positioning beat flashy plays</li>
+                                <li><strong>Watch your replays:</strong> Learn from your losses and identify patterns in your mistakes</li>
+                                <li><strong>Stay positive:</strong> Good team morale significantly improves win rates</li>
+                                <li><strong>Take breaks:</strong> Avoid playing on tilt - it only leads to more losses</li>
+                            </ul>
+                            <p class="mb-0">Remember, there's no shortcut to ranking up. Focus on improving your skills rather than just winning individual games.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq11">
+                            Does performance in a game affect MMR gain/loss?
+                        </button>
+                    </h2>
+                    <div id="faq11" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>For most players, <strong>only wins and losses affect MMR</strong>. Individual performance metrics like KDA, hero damage, or farm don't directly change your MMR gain or loss.</p>
+                            <p class="mb-0">The exception is during calibration or when rank confidence is low. In these cases, the system may consider additional factors to more quickly determine your appropriate skill level. Once your confidence is high, it's purely based on winning or losing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq12">
+                            How many games do I need to rank up?
+                        </button>
+                    </h2>
+                    <div id="faq12" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>The number of games needed depends on:</p>
+                            <ul>
+                                <li><strong>Your current MMR</strong> and distance to next rank</li>
+                                <li><strong>Your MMR per win</strong> (typically 25 when confidence is high)</li>
+                                <li><strong>Your win rate</strong> - a 60% win rate climbs much faster than 51%</li>
+                            </ul>
+                            <p>For example, to gain one full star (typically 154 MMR):</p>
+                            <ul class="mb-0">
+                                <li>With 100% win rate: ~7 wins (154 ÷ 25 = 6.16)</li>
+                                <li>With 60% win rate: ~35 games (7 wins ÷ 0.60)</li>
+                                <li>With 52% win rate: ~175 games (7 wins ÷ 0.52)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq13">
+                            Can I play with friends who have different MMR?
+                        </button>
+                    </h2>
+                    <div id="faq13" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p>Yes, but there are restrictions:</p>
+                            <ul>
+                                <li>In regular ranked, there's a <strong>MMR difference limit</strong> for parties (typically 2800 MMR)</li>
+                                <li>If the MMR gap is too large, you can't queue together in standard ranked</li>
+                                <li>You can always play together in <strong>unranked matches</strong></li>
+                                <li>Some regions and game modes have different restrictions</li>
+                            </ul>
+                            <p class="mb-0">These restrictions exist to ensure fair matchmaking and prevent boosting.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Questions -->
+                <h2 class="h4 fw-bold mt-5 mb-3">Technical Questions</h2>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq14">
+                            Do I need to install anything to use this calculator?
+                        </button>
+                    </h2>
+                    <div id="faq14" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">No! Our calculator is a web-based tool that runs entirely in your browser. No downloads, no installations, no extensions needed. It works on any device with a web browser - desktop, tablet, or mobile.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq15">
+                            Does the calculator store my data?
+                        </button>
+                    </h2>
+                    <div id="faq15" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">No, we don't store any personal data or MMR information. All calculations are performed locally in your browser. Your MMR value is not sent to any server or saved in any database. Your privacy is fully protected.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq16">
+                            How often is the calculator updated?
+                        </button>
+                    </h2>
+                    <div id="faq16" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            <p class="mb-0">We monitor Dota 2 updates closely and update our calculator whenever Valve changes the MMR thresholds for ranks. This typically happens at the start of new seasons or with major balance patches. You can always be confident that you're getting accurate, up-to-date information.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-5 p-4 bg-dark-subtle rounded text-center">
+                <h2 class="h4 fw-bold mb-3">Still Have Questions?</h2>
+                <p class="text-body-secondary mb-3">If you couldn't find the answer you were looking for, feel free to check out our comprehensive guide or try the calculator yourself!</p>
+                <a href="/guide" class="btn btn-outline-primary me-2">Read the Guide</a>
+                <a href="/" class="btn btn-primary">Try Calculator</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-auto text-center py-3 bg-dark">
+         <p class="made-by text-body-secondary small mb-0">
+             Made by <a href="https://github.com/carpicoder" target="_blank" rel="noopener noreferrer" class="link-secondary">CarpiCoder</a>
+         </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
