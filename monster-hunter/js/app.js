@@ -1,42 +1,4 @@
-// Default inventory for testing
-const DEFAULT_INVENTORY = {
-    "Monster Essence": 64,
-    "Monster Fur": 96,
-    "Monster Claws": 86,
-    "Odogaron Sinew": 15,
-    "Odogaron Hardfang": 9,
-    "Odogaron Scale": 14,
-    "Zinogre Electrofur": 14,
-    "Zinogre Deathly Shocker": 22,
-    "Zinogre Cortex": 12,
-    "Rathalos Carapace": 10,
-    "Rathalos Wing": 30,
-    "Rathalos Tail": 13,
-    "Kirin Thunderhorn": 16,
-    "Kirin Hide": 23,
-    "Kirin Mane": 10,
-    "Ancient Bone": 15,
-    "Kestodon Shell": 17,
-    "Bullfango Head": 22,
-    "Large Barrel": 25,
-    "Gunpowder": 18,
-    "Iron Ore": 12,
-    "Odogaron Shard": 11,
-    "Odogaron Mantle": 8,
-    "Zinogre Hardhorn": 4,
-    "Zinogre Skymerald": 5,
-    "Rathalos Ruby": 10,
-    "Rathalos Plate": 10,
-    "Kirin Azure Horn": 1,
-    "Large Elder Dragon Gem": 2,
-    "Wyvern Gem": 6,
-    "Warped Bone": 11,
-    "Sinister Cloth": 8,
-    "Devil's Blight": 16,
-    "Palico Voucher": 2,
-    "Poogie Voucher": 0,
-    "Prismatic Pigment": 0
-};
+// No default inventory - users start with 0 of everything
 
 // Global state
 let appState = {
@@ -251,7 +213,7 @@ function generateInventoryForm() {
             const group = document.createElement('div');
             group.className = 'inventory-input-group d-flex align-items-center';
             
-            const value = appState.inventory[material] !== undefined ? appState.inventory[material] : (DEFAULT_INVENTORY[material] || 0);
+            const value = appState.inventory[material] !== undefined ? appState.inventory[material] : 0;
             
             group.innerHTML = `
                 <label class="me-auto d-flex align-items-center">
@@ -1145,6 +1107,114 @@ function getLowerRarity(rarity) {
     return index > 0 ? rarities[index - 1] : null;
 }
 
+// Exchange and craft an item
+function exchangeAndCraft(resultIndex) {
+    const result = appState.craftingResults[resultIndex];
+    if (!result) return;
+    
+    // Only allow crafting for can-craft or can-exchange status
+    if (result.status !== 'can-craft' && result.status !== 'can-exchange') {
+        return;
+    }
+    
+    // Apply exchanges to actual inventory
+    if (result.isCompleteSet && result.parts) {
+        // Handle complete sets - craft all non-crafted parts
+        result.parts.forEach(part => {
+            if (part.crafted) return; // Skip already crafted parts
+            
+            // Apply exchanges for this part
+            if (part.exchanges && part.exchanges.length > 0) {
+                part.exchanges.forEach(exchange => {
+                    exchange.from.forEach(mat => {
+                        appState.inventory[mat.material] = (appState.inventory[mat.material] || 0) - mat.quantity;
+                    });
+                    appState.inventory[exchange.to.material] = (appState.inventory[exchange.to.material] || 0) + exchange.to.quantity;
+                });
+            }
+            
+            // Deduct materials for crafting this part
+            const itemData = appState.itemsDataMap.get(result.itemId);
+            if (itemData && itemData.parts) {
+                const partData = itemData.parts.find(p => p.name === part.name);
+                if (partData && partData.materials) {
+                    for (const [material, needed] of Object.entries(partData.materials)) {
+                        appState.inventory[material] = (appState.inventory[material] || 0) - needed;
+                        if (appState.inventory[material] < 0) appState.inventory[material] = 0;
+                    }
+                }
+            }
+            
+            // Mark part as crafted
+            const partId = `${result.itemId}-${part.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`;
+            appState.craftedItems[partId] = true;
+        });
+        
+        // Try to find the correct part IDs by looking at the item data
+        const itemData = appState.itemsDataMap.get(result.itemId);
+        if (itemData && itemData.parts) {
+            itemData.parts.forEach(partData => {
+                const partId = `${result.itemId}-${partData.id}`;
+                // Check if this part was processed
+                const partResult = result.parts.find(p => p.name === partData.name);
+                if (partResult && !partResult.crafted && (partResult.status === 'can-craft' || partResult.status === 'can-exchange')) {
+                    appState.craftedItems[partId] = true;
+                }
+            });
+        }
+    } else {
+        // Handle simple items
+        // Apply exchanges
+        if (result.exchanges && result.exchanges.length > 0) {
+            result.exchanges.forEach(exchange => {
+                exchange.from.forEach(mat => {
+                    appState.inventory[mat.material] = (appState.inventory[mat.material] || 0) - mat.quantity;
+                });
+                appState.inventory[exchange.to.material] = (appState.inventory[exchange.to.material] || 0) + exchange.to.quantity;
+            });
+        }
+        
+        // Deduct materials for crafting
+        const itemData = appState.itemsDataMap.get(result.itemId);
+        if (itemData && itemData.materials) {
+            for (const [material, needed] of Object.entries(itemData.materials)) {
+                appState.inventory[material] = (appState.inventory[material] || 0) - needed;
+                if (appState.inventory[material] < 0) appState.inventory[material] = 0;
+            }
+        }
+        
+        // Mark item as crafted
+        appState.craftedItems[result.itemId] = true;
+    }
+    
+    // Remove from selected items
+    const selectedIndex = appState.selectedItems.findIndex(i => i.itemId === result.itemId);
+    if (selectedIndex >= 0) {
+        appState.selectedItems.splice(selectedIndex, 1);
+    }
+    
+    // Save to localStorage (but don't save craftingResults yet, we'll recalculate)
+    saveToLocalStorage();
+    
+    // Update inventory form if modal is open
+    generateInventoryForm();
+    
+    // Re-render everything
+    renderSets();
+    
+    // Recalculate crafting plan if there are still selected items
+    if (appState.selectedItems.length > 0) {
+        updateSelectedItemsDisplay();
+        calculateCraftingPlan();
+    } else {
+        // No more items selected
+        selectedItemsSection.classList.add('hidden');
+        resultsSection.classList.add('hidden');
+        appState.craftingResults = [];
+        saveToLocalStorage();
+    }
+}
+
 // Render results
 function renderResults(results) {
     resultsContainer.innerHTML = '';
@@ -1161,7 +1231,7 @@ function renderResults(results) {
     const row = document.createElement('div');
     row.className = 'row g-3';
     
-    results.forEach(result => {
+    results.forEach((result, resultIndex) => {
         const col = document.createElement('div');
         col.className = 'col-12 col-md-6';
         
@@ -1170,6 +1240,7 @@ function renderResults(results) {
         
         let statusClass = '';
         let statusBadge = '';
+        let showCraftButton = false;
         
         if (result.status === 'already-unlocked') {
             statusClass = 'border-info';
@@ -1177,9 +1248,11 @@ function renderResults(results) {
         } else if (result.status === 'can-craft') {
             statusClass = 'status-can-craft';
             statusBadge = '<span class="badge bg-success">Can Craft</span>';
+            showCraftButton = true;
         } else if (result.status === 'can-exchange') {
             statusClass = 'status-can-exchange';
             statusBadge = '<span class="badge bg-warning text-dark">Can Craft with Exchanges</span>';
+            showCraftButton = true;
         } else {
             statusClass = 'status-cannot-craft';
             statusBadge = '<span class="badge bg-danger">Cannot Craft Yet</span>';
@@ -1297,6 +1370,15 @@ function renderResults(results) {
         
         const imageHtml = resultImagePath ? `<img src="${resultImagePath}" alt="${result.item}" class="set-thumbnail" style="height: 50px;">` : '';
         
+        // Craft button HTML
+        const craftButtonHtml = showCraftButton ? `
+            <div class="mt-3 pt-2 border-top">
+                <button class="btn btn-sm btn-success w-100 craft-item-btn" data-result-index="${resultIndex}">
+                    <strong>✓ Exchanged & Crafted</strong>
+                </button>
+            </div>
+        ` : '';
+        
         card.innerHTML = `
             <div class="card-body ${statusClass} p-3">
                 <div class="d-flex justify-content-between align-items-start mb-2">
@@ -1313,6 +1395,7 @@ function renderResults(results) {
                 </div>
                 ${imageHtml ? `<div class="mb-2">${imageHtml}</div>` : ''}
                 ${contentHtml}
+                ${craftButtonHtml}
             </div>
         `;
         
@@ -1321,6 +1404,14 @@ function renderResults(results) {
     });
     
     resultsContainer.appendChild(row);
+    
+    // Add click listeners to craft buttons
+    document.querySelectorAll('.craft-item-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const resultIndex = parseInt(btn.dataset.resultIndex);
+            exchangeAndCraft(resultIndex);
+        });
+    });
 }
 
 // LocalStorage functions
