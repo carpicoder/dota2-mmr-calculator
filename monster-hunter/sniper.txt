@@ -1,0 +1,130 @@
+Odogaron Armor - Base
+Partes:
+Garon Rifle:
+Monster essence 6
+Monster fur 6
+odogaron sinew 4
+odogaron hardfang 4
+odogaron shard 2
+odogaron mantle 2
+
+Odogaron Helm ß:
+odogaron hardfang 4
+odogaron scale 4
+odogaron shard 2
+odogaron mantle 2
+
+Odogaron Cape ß:
+Monster essence 5
+Monster fur 5
+odogaron sinew 3
+odogaron hardfang 3
+
+Odogaron Mail ß:
+Monster fur 5
+odogaron sinew 3
+odogaron scale 3
+
+Odogaron Vambraces ß and Greaves ß:
+Monster essence 5
+odogaron scale 3
+
+Odogaron Armor - Dreadwood
+Dreadwood Garon Rifle: 
+Monster essence 3
+odogaron sinew 3
+odogaron hardfang 3
+odogaron shard 2
+
+Dreadwood Odogaron Helm ß:
+Monster fur 3
+odogaron scale 3
+odogaron mantle 2
+
+Dreadwood Odogaron Cape ß:
+Monster essence 3
+odogaron hardfang 3
+
+Dreadwood Odogaron Mail ß:
+Monster fur 3
+odogaron sinew 3
+
+Dreadwood Odogaron Vambraces ß and Greaves ß:
+odogaron scale 3
+
+Odogaron Aromr - Foxfire:
+Foxfire Garon Rifle: 
+Monster essence 4
+Monster fur 4
+odogaron sinew 3
+odogaron hardfang 3
+zinogre electrofur 2
+odogaron shard 1
+odogaron mantle 2
+
+Foxfire Odogaron Helm ß:
+odogaron hardfang 3
+Odogaron scale 3
+zinogre deathly shocker 2
+odogaron shard 1
+odogaron mantle 1
+
+Foxfire Odogaron Cape ß:
+Monster essence 4
+Monster fur 4
+odogaron sinew 3
+odogaron scale 3
+zinogre cortex 4
+
+Foxfire Odogaron Mail ß:
+Monster fur 4
+odogaron sinew 3
+zinogre deathly shocker 2
+odogaron shard 1
+
+Foxfire Odogaron Vambraces ß and Greaves ß:
+Monster essence 4
+odogaron hardfang 3
+odogaron scale 3
+zinogre electrofur 2
+
+Odogaron Armor - Prismatic:
+
+Prismatic Garon Rifle:
+Monster essence 7
+Monster fur 7
+odogaron sinew 4
+odogaron hardfang 4
+zinogre electrofur 3
+odogaron shard 2
+odogaron mantle 4
+prismatic pigment 1
+
+Prismatic Odogaron Helm ß:
+odogaron hardfang 4
+odogaron scale 4
+zinogre deathly shocker 3
+odogaron shard 2
+odogaron mantle 2
+prismatic pigment 1
+
+Prismatic Odogaron Cape ß:
+Monster essence 5
+Monster fur 5
+odogaron sinew 4
+odogaron scale 4
+zinogre cortex 6
+zinogre hardhorn 3
+
+Prismatic Odogaron Mail ß:
+Monster fur 5
+odogaron sinew 4
+zinogre deathly shocker 3
+odogaron shard 2
+zinogre skymerald 3
+
+Prismatic Odogaron Vambraces ß and Greaves ß:
+Monster essence 5
+odogaron hardfang 4
+odogaron scale 4
+zinogre electrofur 3

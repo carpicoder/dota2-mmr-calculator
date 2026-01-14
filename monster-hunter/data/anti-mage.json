@@ -1,0 +1,215 @@
+{
+  "id": "anti-mage",
+  "name": "Anti-Mage",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Kirin Armor - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "kirin-jacket-and-hoop",
+          "name": "Kirin Jacket and Hoop",
+          "materials": {
+            "Monster Fur": 6,
+            "Monster Claws": 6,
+            "Kirin Hide": 4,
+            "Kirin Mane": 4,
+            "Large Elder Dragon Gem": 2
+          }
+        },
+        {
+          "id": "kirin-bolts-dual-blade",
+          "name": "Kirin Bolts Dual Blade",
+          "materials": {
+            "Monster Fur": 5,
+            "Kirin Thunderhorn": 3,
+            "Kirin Mane": 3,
+            "Kirin Azure Horn": 2
+          }
+        },
+        {
+          "id": "kirin-bolts-dual-blade-offhand",
+          "name": "Kirin Bolts Dual Blade Offhand",
+          "materials": {
+            "Monster Claws": 5,
+            "Kirin Thunderhorn": 3,
+            "Kirin Hide": 3,
+            "Kirin Azure Horn": 2
+          }
+        },
+        {
+          "id": "kirin-horn",
+          "name": "Kirin Horn",
+          "materials": {
+            "Monster Fur": 5,
+            "Monster Claws": 5,
+            "Kirin Thunderhorn": 2,
+            "Large Elder Dragon Gem": 2
+          }
+        },
+        {
+          "id": "the-disciples-path",
+          "name": "The Disciple's Path",
+          "materials": {
+            "Kirin Thunderhorn": 2,
+            "Kirin Hide": 2,
+            "Kirin Mane": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "icewrack",
+      "name": "Kirin Armor - Icewrack",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "icewrack-kirin-jacket-and-hoop",
+          "name": "Icewrack Kirin Jacket and Hoop",
+          "materials": {
+            "Monster Fur": 3,
+            "Monster Claws": 3,
+            "Kirin Hide": 3,
+            "Kirin Mane": 3,
+            "Large Elder Dragon Gem": 2
+          }
+        },
+        {
+          "id": "icewrack-kirin-bolts-dual-blade",
+          "name": "Icewrack Kirin Bolts Dual Blade",
+          "materials": {
+            "Monster Fur": 3,
+            "Kirin Thunderhorn": 3,
+            "Kirin Mane": 3,
+            "Kirin Azure Horn": 1
+          }
+        },
+        {
+          "id": "icewrack-kirin-bolts-dual-blade-offhand",
+          "name": "Icewrack Kirin Bolts Dual Blade Offhand",
+          "materials": {
+            "Monster Claws": 3,
+            "Kirin Thunderhorn": 3,
+            "Kirin Hide": 3,
+            "Kirin Azure Horn": 1
+          }
+        },
+        {
+          "id": "icewrack-kirin-horn",
+          "name": "Icewrack Kirin Horn",
+          "materials": {
+            "Kirin Thunderhorn": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "golden",
+      "name": "Kirin Armor - Golden",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "golden-basher-kirin-jacket-and-hoop",
+          "name": "Golden Basher Kirin Jacket and Hoop",
+          "materials": {
+            "Monster Fur": 4,
+            "Monster Claws": 4,
+            "Rathalos Carapace": 4,
+            "Kirin Hide": 3,
+            "Kirin Mane": 3,
+            "Large Elder Dragon Gem": 2
+          }
+        },
+        {
+          "id": "golden-basher-kirin-bolts-dual-blade",
+          "name": "Golden Basher Kirin Bolts Dual Blade",
+          "materials": {
+            "Monster Fur": 4,
+            "Rathalos Tail": 4,
+            "Kirin Thunderhorn": 3,
+            "Kirin Mane": 3,
+            "Kirin Azure Horn": 1
+          }
+        },
+        {
+          "id": "golden-basher-kirin-bolts-dual-blade-offhand",
+          "name": "Golden Basher Kirin Bolts Dual Blade Offhand",
+          "materials": {
+            "Monster Claws": 4,
+            "Rathalos Wing": 4,
+            "Kirin Thunderhorn": 3,
+            "Kirin Hide": 3,
+            "Kirin Azure Horn": 1
+          }
+        },
+        {
+          "id": "golden-basher-kirin-horn",
+          "name": "Golden Basher Kirin Horn",
+          "materials": {
+            "Kirin Thunderhorn": 3,
+            "Kirin Azure Horn": 1,
+            "Large Elder Dragon Gem": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Kirin Armor - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-kirin-jacket-and-hoop",
+          "name": "Prismatic Kirin Jacket and Hoop",
+          "materials": {
+            "Monster Fur": 10,
+            "Monster Claws": 5,
+            "Rathalos Carapace": 6,
+            "Kirin Hide": 4,
+            "Kirin Mane": 4,
+            "Rathalos Ruby": 2,
+            "Large Elder Dragon Gem": 4
+          }
+        },
+        {
+          "id": "prismatic-kirin-bolts-dual-blade",
+          "name": "Prismatic Kirin Bolts Dual Blade",
+          "materials": {
+            "Monster Fur": 5,
+            "Rathalos Tail": 6,
+            "Kirin Thunderhorn": 4,
+            "Kirin Mane": 4,
+            "Kirin Azure Horn": 2,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-kirin-bolts-dual-blade-offhand",
+          "name": "Prismatic Kirin Bolts Dual Blade Offhand",
+          "materials": {
+            "Monster Claws": 5,
+            "Rathalos Wing": 6,
+            "Kirin Thunderhorn": 4,
+            "Kirin Hide": 4,
+            "Kirin Azure Horn": 2,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-kirin-horn",
+          "name": "Prismatic Kirin Horn",
+          "materials": {
+            "Monster Claws": 5,
+            "Kirin Thunderhorn": 4,
+            "Rathalos Plate": 2,
+            "Kirin Azure Horn": 2,
+            "Large Elder Dragon Gem": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+

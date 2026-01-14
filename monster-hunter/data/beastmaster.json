@@ -1,0 +1,252 @@
+{
+  "id": "beastmaster",
+  "name": "Beastmaster",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Bone Armor - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "blood-drinker-chainblade",
+          "name": "Blood-drinker Chainblade",
+          "materials": {
+            "Monster Claws": 5,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3,
+            "Odogaron Scale": 3,
+            "Wyvern Gem": 2
+          }
+        },
+        {
+          "id": "bone-helm",
+          "name": "Bone Helm",
+          "materials": {
+            "Monster Essence": 6,
+            "Ancient Bone": 4,
+            "Kestodon Shell": 4,
+            "Bullfango Head": 5,
+            "Wyvern Gem": 2
+          }
+        },
+        {
+          "id": "bone-mail",
+          "name": "Bone Mail",
+          "materials": {
+            "Monster Claws": 5,
+            "Ancient Bone": 3,
+            "Kestodon Shell": 5,
+            "Bullfango Head": 3,
+            "Warped Bone": 2
+          }
+        },
+        {
+          "id": "bone-coil",
+          "name": "Bone Coil",
+          "materials": {
+            "Monster Essence": 5,
+            "Ancient Bone": 5,
+            "Kestodon Shell": 3,
+            "Bullfango Head": 3
+          }
+        },
+        {
+          "id": "bone-vambraces",
+          "name": "Bone Vambraces",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Warped Bone": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "white-stag",
+      "name": "Bone Armor - White Stag",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "white-stag-blood-drinker-chainblade",
+          "name": "White Stag Blood-drinker Chainblade",
+          "materials": {
+            "Monster Claws": 3,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3,
+            "Odogaron Scale": 3,
+            "Wyvern Gem": 1,
+            "Warped Bone": 1
+          }
+        },
+        {
+          "id": "white-stag-bone-helm",
+          "name": "White Stag Bone Helm",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Claws": 3,
+            "Kestodon Shell": 3,
+            "Bullfango Head": 3
+          }
+        },
+        {
+          "id": "white-stag-bone-mail",
+          "name": "White Stag Bone Mail",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Claws": 3,
+            "Ancient Bone": 3,
+            "Kestodon Shell": 3
+          }
+        },
+        {
+          "id": "white-stag-bone-coil",
+          "name": "White Stag Bone Coil",
+          "materials": {
+            "Monster Essence": 3,
+            "Ancient Bone": 3,
+            "Bullfango Head": 3
+          }
+        },
+        {
+          "id": "white-stag-bone-vambraces",
+          "name": "White Stag Bone Vambraces",
+          "materials": {
+            "Wyvern Gem": 1,
+            "Warped Bone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "golden",
+      "name": "Bone Armor - Golden",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "golden-blood-drinker-chainblade",
+          "name": "Golden Blood-drinker Chainblade",
+          "materials": {
+            "Monster Claws": 4,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3,
+            "Odogaron Scale": 3,
+            "Wyvern Gem": 2,
+            "Warped Bone": 2
+          }
+        },
+        {
+          "id": "golden-bone-helm",
+          "name": "Golden Bone Helm",
+          "materials": {
+            "Monster Essence": 4,
+            "Odogaron Scale": 2,
+            "Ancient Bone": 3,
+            "Kestodon Shell": 3,
+            "Bullfango Head": 5
+          }
+        },
+        {
+          "id": "golden-bone-mail",
+          "name": "Golden Bone Mail",
+          "materials": {
+            "Monster Claws": 4,
+            "Odogaron Sinew": 2,
+            "Ancient Bone": 3,
+            "Kestodon Shell": 5,
+            "Bullfango Head": 3
+          }
+        },
+        {
+          "id": "golden-bone-coil",
+          "name": "Golden Bone Coil",
+          "materials": {
+            "Monster Essence": 4,
+            "Odogaron Hardfang": 2,
+            "Ancient Bone": 5,
+            "Kestodon Shell": 3,
+            "Bullfango Head": 3
+          }
+        },
+        {
+          "id": "golden-bone-vambraces",
+          "name": "Golden Bone Vambraces",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Claws": 4,
+            "Wyvern Gem": 1,
+            "Warped Bone": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Bone Armor - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-blood-drinker-chainblade",
+          "name": "Prismatic Blood-drinker Chainblade",
+          "materials": {
+            "Monster Claws": 5,
+            "Odogaron Sinew": 4,
+            "Odogaron Hardfang": 4,
+            "Odogaron Scale": 4,
+            "Wyvern Gem": 3,
+            "Warped Bone": 3,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-bone-helm",
+          "name": "Prismatic Bone Helm",
+          "materials": {
+            "Monster Essence": 5,
+            "Odogaron Scale": 4,
+            "Ancient Bone": 4,
+            "Kestodon Shell": 4,
+            "Bullfango Head": 6,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-bone-mail",
+          "name": "Prismatic Bone Mail",
+          "materials": {
+            "Monster Claws": 5,
+            "Odogaron Sinew": 4,
+            "Ancient Bone": 4,
+            "Kestodon Shell": 6,
+            "Bullfango Head": 4,
+            "Odogaron Shard": 2
+          }
+        },
+        {
+          "id": "prismatic-bone-coil",
+          "name": "Prismatic Bone Coil",
+          "materials": {
+            "Monster Essence": 5,
+            "Odogaron Hardfang": 4,
+            "Ancient Bone": 6,
+            "Kestodon Shell": 4,
+            "Bullfango Head": 4,
+            "Warped Bone": 1
+          }
+        },
+        {
+          "id": "prismatic-bone-vambraces",
+          "name": "Prismatic Bone Vambraces",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Odogaron Mantle": 2,
+            "Wyvern Gem": 2,
+            "Warped Bone": 1
+          }
+        }
+      ]
+    }
+  ]
+}
+

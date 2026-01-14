@@ -1,0 +1,271 @@
+{
+  "id": "techies",
+  "name": "Techies",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Palico Disguise Bomb Unit - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "palico-tank",
+          "name": "Palico Tank",
+          "materials": {
+            "Monster Essence": 6,
+            "Monster Fur": 6,
+            "Large Barrel": 4,
+            "Gunpowder": 4,
+            "Iron Ore": 4,
+            "Devil's Blight": 2
+          }
+        },
+        {
+          "id": "palico-sticky-bomb",
+          "name": "Palico Sticky Bomb",
+          "materials": {
+            "Large Barrel": 4,
+            "Gunpowder": 4,
+            "Iron Ore": 4,
+            "Sinister Cloth": 1,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "palico-sign",
+          "name": "Palico Sign",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Fur": 5,
+            "Large Barrel": 3,
+            "Iron Ore": 4,
+            "Sinister Cloth": 1
+          }
+        },
+        {
+          "id": "barrel-disguise-spoon",
+          "name": "Barrel Disguise Spoon",
+          "materials": {
+            "Monster Fur": 5,
+            "Large Barrel": 4,
+            "Gunpowder": 3,
+            "Sinister Cloth": 1
+          }
+        },
+        {
+          "id": "palico-disguise-spleen",
+          "name": "Palico Disguise Spleen",
+          "materials": {
+            "Monster Essence": 5,
+            "Gunpowder": 3,
+            "Iron Ore": 4,
+            "Sinister Cloth": 1
+          }
+        },
+        {
+          "id": "palico-disguise-squee",
+          "name": "Palico Disguise Squee",
+          "materials": {
+            "Monster Fur": 2,
+            "Large Barrel": 4,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "palico-acorn-cannon",
+          "name": "Palico Acorn Cannon",
+          "materials": {
+            "Monster Essence": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "poison",
+      "name": "Palico Disguise Bomb Unit - Poison",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "poison-palico-tank",
+          "name": "Poison Palico Tank",
+          "materials": {
+            "Monster Essence": 3,
+            "Large Barrel": 3,
+            "Gunpowder": 3,
+            "Iron Ore": 3,
+            "Sinister Cloth": 1,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "poison-barrel-disguise-spoon",
+          "name": "Poison Barrel Disguise Spoon",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Fur": 3,
+            "Large Barrel": 3,
+            "Iron Ore": 3
+          }
+        },
+        {
+          "id": "poison-palico-disguise-spleen",
+          "name": "Poison Palico Disguise Spleen",
+          "materials": {
+            "Monster Fur": 3,
+            "Gunpowder": 3,
+            "Sinister Cloth": 1
+          }
+        },
+        {
+          "id": "poison-palico-disguise-squee",
+          "name": "Poison Palico Disguise Squee",
+          "materials": {
+            "Monster Fur": 3,
+            "Iron Ore": 3,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "poison-palico-acorn-cannon",
+          "name": "Poison Palico Acorn Cannon",
+          "materials": {
+            "Monster Essence": 3,
+            "Large Barrel": 3,
+            "Gunpowder": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "dire",
+      "name": "Palico Disguise Bomb Unit - Dire",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "dire-palico-tank",
+          "name": "Dire Palico Tank",
+          "materials": {
+            "Monster Essence": 4,
+            "Kirin Hide": 2,
+            "Large Barrel": 3,
+            "Gunpowder": 3,
+            "Iron Ore": 3,
+            "Sinister Cloth": 2,
+            "Devil's Blight": 2
+          }
+        },
+        {
+          "id": "dire-barrel-disguise-spoon",
+          "name": "Dire Barrel Disguise Spoon",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Fur": 4,
+            "Kirin Mane": 2,
+            "Large Barrel": 3,
+            "Iron Ore": 3,
+            "Sinister Cloth": 2
+          }
+        },
+        {
+          "id": "dire-palico-disguise-spleen",
+          "name": "Dire Palico Disguise Spleen",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Fur": 4,
+            "Kirin Thunderhorn": 2,
+            "Kirin Mane": 2,
+            "Gunpowder": 3,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "dire-palico-disguise-squee",
+          "name": "Dire Palico Disguise Squee",
+          "materials": {
+            "Monster Fur": 4,
+            "Kirin Hide": 2,
+            "Iron Ore": 3,
+            "Devil's Blight": 1
+          }
+        },
+        {
+          "id": "dire-palico-acorn-cannon",
+          "name": "Dire Palico Acorn Cannon",
+          "materials": {
+            "Kirin Mane": 2,
+            "Large Barrel": 3,
+            "Gunpowder": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Palico Disguise Bomb Unit - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-palico-tank",
+          "name": "Prismatic Palico Tank",
+          "materials": {
+            "Monster Essence": 5,
+            "Kirin Hide": 4,
+            "Large Barrel": 5,
+            "Gunpowder": 5,
+            "Iron Ore": 5,
+            "Sinister Cloth": 3,
+            "Devil's Blight": 2,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-barrel-disguise-spoon",
+          "name": "Prismatic Barrel Disguise Spoon",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Fur": 5,
+            "Kirin Mane": 4,
+            "Large Barrel": 5,
+            "Iron Ore": 5,
+            "Sinister Cloth": 3,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-palico-disguise-spleen",
+          "name": "Prismatic Palico Disguise Spleen",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Fur": 5,
+            "Kirin Thunderhorn": 4,
+            "Kirin Mane": 4,
+            "Gunpowder": 5,
+            "Kirin Azure Horn": 3,
+            "Devil's Blight": 2
+          }
+        },
+        {
+          "id": "prismatic-palico-disguise-squee",
+          "name": "Prismatic Palico Disguise Squee",
+          "materials": {
+            "Monster Fur": 5,
+            "Kirin Hide": 4,
+            "Iron Ore": 5,
+            "Large Elder Dragon Gem": 3,
+            "Devil's Blight": 2
+          }
+        },
+        {
+          "id": "prismatic-palico-acorn-cannon",
+          "name": "Prismatic Palico Acorn Cannon",
+          "materials": {
+            "Kirin Mane": 4,
+            "Large Barrel": 5,
+            "Gunpowder": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+

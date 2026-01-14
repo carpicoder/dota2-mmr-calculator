@@ -1,0 +1,154 @@
+TECHIES
+Palico Disguise Bomb Unit - Base
+
+Palico Tank:
+Monster essence 6
+Monster fur 6
+large barrel 4
+gunpowder 4
+iron ore 4
+devils blight 2
+
+Palico Sticky Bomb
+large barrel 4
+gunpowder 4
+iron ore 4
+sinister cloth 1
+devils blight 1
+
+Palico Sign
+Monster essence 3
+monste fur 5
+large barrel 3
+iron ore 4
+sinister cloth 1
+
+Barrel Disguise Spoon
+Monster fur 5
+large barrel 4
+gunpowder 3
+sinister cloth 1
+
+Palico Disguise Spleen
+Monster essence 5
+gunpowder 3
+iron ore 4
+sinister cloth 1
+
+Palico Disguise Squee
+Monster fur 2
+large barrel 4
+devils blight 1
+
+Palico Acorn Cannon
+Monster essence 2
+
+Palico Disguise Bomb Unit - Poison
+Posion Palico Tank:
+Monster essence 3
+large barrel 3
+gunpowder 3
+iron ore 3
+siniter cloth 1
+devils blight 1
+
+Poison Barrel Disguise Spoon:
+Monster essence 3
+Monster fur 3
+large barrel 3
+iron ore 3
+
+Poison Palico Disguise Spleen
+Monster fur 3
+gunpowder 3
+sinister cloth 1
+
+Poison Palico Disguise Squee
+Monster fur 3
+iron ore 3
+devils blight 1
+
+Poison Palico Acorn Cannon
+Monste essence 3
+large barrel 3
+gunpowder 3
+
+
+Palico Disguise Bomb Unit - Dire
+Dire Palico Tank
+Monster essence 4
+kirin hide 2
+large barrel 3
+gunpowder 3
+iron ore 3
+sinister cloth 2
+devils blight 2
+
+Dire Barrel Disguise Spoon
+Monster essence 4
+Monster fur 4
+kirin mane 2
+large barrel 3
+iron ore 3
+sinister cloth 2
+
+Dire Palico Disguise Spleen
+Monster essence 4
+Monster fur 4
+kirin thunderhorn 2
+kirin mane  2
+gunpowder 3
+devils blight 1
+
+Dire Palico Disguise Squee
+Monster fur 4
+kirin hide 2
+iron ore 3
+devils blight 1
+
+Dire Palico Acorn Cannon
+Kirin mane 2
+large barrel 3
+gunpowder 3
+
+Palico Disguise Bomb Unit - Prismatic
+
+Prismatic Palico Tank
+Monster essence 5
+kirin hide 4
+large barrel 5
+gunpowder 5
+iron ore 5
+sinister cloth 3
+devils blight 2
+prismatic pgiment 1
+
+Prismatic Barrel Disguise Spoon
+Monster essence 5
+Monster fur 5
+kirin mane 4
+large barrel 5
+iron ore 5
+siniste rcloth 3
+prismatic pigment 1
+
+Prismatic Palico Disguise Spleen
+Monster essence 5
+Monster fur 5
+kirin thunderhorn 4
+kirin mane 4
+gunpowder 5
+kirin azure horn 3
+devils blight 2
+
+Prismatic Palico Disguise Squee
+Monster fur 5
+kirin hide 4
+iron ore 5
+large Elder dragón gem 3
+devils blight 2
+
+Prismatic Palico Acorn Cannon
+kirin mane 4
+large barrel 5
+gunpowder 5

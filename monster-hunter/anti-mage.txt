@@ -1,0 +1,119 @@
+ANTI-MAGE
+Kirin Armor - Base
+
+Kirin Jacket and Hoop
+Monster fur 6
+Monster claws 6
+kirin hide 4
+kirin mane 4
+large Elder dragón gem 2
+
+Kirin Bolts Dual Blade
+Monster fur 5
+kirin thunderhorn 3
+kirin mane 3
+kirin azure horn 2
+
+Kirin Bolts Dual Blade Offhand
+Monster claws 5
+kirin thunderhorn 3
+kirin hide 3
+kirin azure horn 2
+
+Kirin Horn
+Monster fur 5
+Monster claws 5
+kirin thunderhorn 2
+large Elder dragón gem 2
+
+The Disciple's Path
+kirin thunderhorn 2
+kirin hide 2
+kirin mane 2
+
+Kirin Armor - Icewrack
+
+Icewrack Kirin Jacket and Hoop
+Monster fur 3
+Monster claws 3
+kirin hide 3
+kirin mane 3
+large Elder dragón gem 2
+
+Icewrack Kirin Bolts Dual Blade
+Monster fur 3
+kirin thunderhorn 3
+kirin mane 3
+kirin azure horn 1
+
+Icewrack Kirin Bolts Dual Blade Offhand
+Monster claws 3
+kirin thunderhorn 3
+kirin hide 3
+kirin azure horn 1
+
+Icewrack Kirin Horn
+kirin thunderhorn 3
+
+Kirin Armor - Golden
+Golden Basher Kirin Jacket and Hoop
+Monster fur 4
+Monster claws 4
+rathalos carapace 4
+kirin hide 3
+kirin mane 3
+large Elder dragón gem 2
+
+Golden Basher Kirin Bolts Dual Blade
+Monster fur 4
+rathalos tail 3
+kirin thunderhorn 3
+kirin mane 3
+kirin azure horn 1
+
+Golden Basher Kirin Bolts Dual Blade Offhand
+Monster claws 4
+rathalos wing 4
+kirin thunderhorn 3
+kirin hide 3
+kirin azure horn 1
+
+Golden Basher Kirin Horn
+kirin thunderhorn 3
+kirin azure horn 1
+large Elder dragón gem 1
+
+Kirin Armor - Prismatic
+
+Prismatic Kirin Jacket and Hoop
+Monster fur 10
+Monster claws 5
+rathalos carapace 6
+kirin hide 4
+kirin mane 4
+rathalos ruby 2
+large Elder dragón gem 4
+
+Prismatic Kirin Bolts Dual Blade
+Monster fur 5
+rathalos tail6
+kirin thunderhorn 4
+kirin mane 4
+kirin azure horn 2
+prismatic pgiment 1
+
+Prismatic Kirin Bolts Dual Blade Offhand
+Monster claws 5
+rathalos wing 6
+kirin thunderhorn 4
+kirin hide 4
+kirin azure horn 2
+prismatic pigment 1
+
+Prismatic Kirin Horn
+Monster claws 5
+kirin thunderhorn 4
+rathalos plate 2
+kirin azure horn 2
+large Elder dragón gem 2
+

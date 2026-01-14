@@ -1,0 +1,141 @@
+WINDRANGER
+
+Zinogre Armor - Base
+
+Zinogre Helm
+Monster claws 6
+zinogre deathly shocker 4
+zinogre cortex 4
+zinogre hardhorn 2
+zinogre skymerald 2
+
+Zinogre Mail
+Monster fur 6
+Monster claws 6
+zinogre electrofur 4
+zinogre detahly shocker 4
+zinogre hardhorn 2
+
+Usuper's Rumble Bow
+montser fur 5
+zinogre electrofur 3
+zinogre cortex 3
+zinogre skymerald 2
+
+Hunter's Cape
+Monster fur 5
+zinogre electrofur3
+zinogre deathly shocker 3
+
+Usuper's Rumble Quiver
+Monster claws 5
+zinogre cortex 3
+
+
+Zinogre Armor - Autumnal
+
+Autumnal Zinogre Helm
+Monster claws 3
+zinogre deathly shocker 3
+zinogre cortex 3
+zinogre hardhorn 2
+zinogre skymerald 1
+
+Autumnal Zinogre Mail
+Monster fur 3
+Monster claws 3
+zinogre electrofur 
+zinogre deathly shocker 3
+
+Autumnal Usuper's Rumble Bow
+Monster fur 3
+zinogre electrofur 3
+zinogre cortex 3
+zinogre skymerald 1
+
+Autumnal Hunter's Cape
+Monter fur 3
+zinogre electrofur 
+
+Autumnal Usuper's Rumble Quiver
+Monster claws 3
+zinogre cortex 3
+
+
+Zinogre Armor - Sylvan
+
+Sylvan Guard's Zinogre Helm
+Monster claws 4
+zinogre deathly shocker 3
+zinogre cortex 4
+iron ore 2
+zinogre hardhorn 2
+zinogre skymerald 2
+
+Sylvan Guard's Zinogre Mail
+monste fur 4
+Monster claws 4
+zinogre electrofur 
+zinogre deathly shocker 3
+large barrel 2
+zinogre hardhorn 2
+
+Sylvan Guard's Usurper's Rumble Bow
+Monster fur 4
+zinogre electrofur 3
+zinogre cortex 3
+gunpowder 2
+iron ore 2
+zinogre skymerald 2
+
+Sylvan Guard's Hunter's Cape
+Monster fur 4
+zinogre electrofur 3
+zinogre deathly shocker 4
+gunpowder 2
+
+Sylvan Guard's Usurper's Rumble Quiver
+Monster claws 4
+zinogre cortex 3
+large barrel 2
+
+Zinogre Armor - Prismatic
+
+Prismatic Zinogre Helm
+Monster fur 5
+Monster claws 5
+zinogre deathly shocker 3
+zinogre cortex 3
+iron ore 3
+zinogre hardhorn 3
+zinogre skymerald 3
+prismatic pigment 1
+
+Prismatic Zinogre Mail
+monste fur 5
+monste claws 5
+zinogre electrofur 5
+zinogre deathly shocker 3
+large barrel 3
+zinogre hardhorn 3
+prismatic pigment 1
+
+Prismatic Usurper's Rumble Bow
+zinogre electrofur 3
+zinogre cortex 3
+gunpowder 3
+iron ore 3
+zinogre skymerald 3
+
+Prismatic Hunter's Cape
+monste rfur 5
+zinogre electrofur 3
+zinogre deathly shocker 4
+gunpowder 3
+devil's blight 2
+
+Prismatic Usurper's Rumble Quiver
+Monster claws 5
+zinogre cortex 4
+large barrel 3
+sinister cloth 2

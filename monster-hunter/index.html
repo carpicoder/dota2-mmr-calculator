@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Monster Hunter Event - Crafting Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" href="../img/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"/>
+
+    <meta name="theme-color" content="#212529">
+
+    <style>
+       .hidden { display: none !important; }
+       body { display: flex; flex-direction: column; min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; }
+       main { flex: 1; }
+       
+       .material-badge {
+           font-size: 0.85rem;
+           padding: 0.35rem 0.6rem;
+           margin: 0.2rem;
+       }
+       
+       .rarity-common { background-color: #6c757d; }
+       .rarity-uncommon { background-color: #0dcaf0; }
+       .rarity-rare { background-color: #6f42c1; }
+       .rarity-super-rare { background-color: #ffc107; color: #000; }
+       
+       .craftable-item {
+           cursor: pointer;
+           transition: all 0.2s;
+       }
+       
+       .craftable-item:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+       }
+       
+       .craftable-item.selected {
+           border-color: #0d6efd !important;
+           border-width: 2px !important;
+       }
+       
+       .status-can-craft { border-left: 4px solid #198754; }
+       .status-cannot-craft { border-left: 4px solid #dc3545; }
+       .status-can-exchange { border-left: 4px solid #ffc107; }
+       
+       .sortable-handle {
+           cursor: move;
+           user-select: none;
+       }
+       
+       .priority-badge {
+           font-size: 0.7rem;
+           padding: 0.15rem 0.4rem;
+       }
+       
+       .item-simple-card {
+           cursor: pointer;
+           transition: all 0.2s;
+           padding: 0.5rem 1rem;
+           border: 1px solid #495057;
+           border-radius: 0.375rem;
+           margin-bottom: 0.5rem;
+       }
+       
+       .item-simple-card:hover {
+           background-color: #2c3034;
+       }
+       
+       .item-simple-card.selected {
+           background-color: #0d6efd;
+           border-color: #0d6efd;
+       }
+       
+       .remove-item-btn {
+           cursor: pointer;
+           opacity: 0.7;
+       }
+       
+       .remove-item-btn:hover {
+           opacity: 1;
+           color: #dc3545;
+       }
+       
+       .accordion-button:not(.collapsed) {
+           background-color: #1a1d20;
+           color: #fff;
+       }
+       
+       .item-crafted {
+           opacity: 0.6;
+           cursor: not-allowed !important;
+           background-color: #1a1d20 !important;
+       }
+       
+       .item-crafted:hover {
+           background-color: #1a1d20 !important;
+       }
+       
+       .set-thumbnail {
+           width: auto;
+           height: 60px;
+           object-fit: contain;
+           border-radius: 4px;
+           border: 1px solid #444;
+           transition: transform 0.2s;
+       }
+       
+       .item-simple-card:hover .set-thumbnail {
+           transform: scale(1.05);
+       }
+       
+       .collection-item {
+           padding: 0.5rem;
+           border: 1px solid #495057;
+           border-radius: 0.375rem;
+           margin-bottom: 0.5rem;
+           cursor: pointer;
+           transition: background-color 0.2s;
+       }
+       
+       .collection-item:hover {
+           background-color: #2c3034;
+       }
+       
+       .collection-item .form-check-label {
+           cursor: pointer;
+           width: 100%;
+       }
+       
+       .collection-set-header {
+           padding: 0.5rem;
+           background-color: #2c3034;
+           border: 1px solid #495057;
+           border-radius: 0.375rem;
+           margin-bottom: 0.5rem;
+           cursor: pointer;
+           transition: background-color 0.2s;
+       }
+       
+       .collection-set-header:hover {
+           background-color: #3a3f44;
+       }
+       
+       .collection-parts {
+           margin-left: 1rem;
+           margin-bottom: 0.5rem;
+       }
+       
+       .collection-parts .collection-item {
+           background-color: #1a1d20;
+       }
+       
+       .material-icon {
+           background: #212121;
+           padding: 4px;
+           width: 24px;
+           height: 24px;
+           border-radius: 4px;
+           border: 1px solid #8b8b8b;
+           display: inline-block;
+           margin-right: 0.35rem;
+           vertical-align: middle;
+       }
+       
+       .material-icon-small {
+           background: #212121;
+           padding: 4px;
+           width: 24px;
+           height: 24px;
+           border-radius: 4px;
+           border: 1px solid #8b8b8b;
+           display: inline-block;
+           margin-right: 0.25rem;
+           vertical-align: middle;
+       }
+       
+       .exchange-list {
+           list-style: none;
+           padding-left: 0.5rem;
+       }
+       
+       .exchange-list li {
+           margin-bottom: 5px;
+       }
+       
+       
+       #inventoryModal .modal-dialog {
+           max-width: 600px;
+       }
+       
+       .inventory-input-group {
+           margin-bottom: 0.5rem;
+       }
+       
+       .inventory-input-group label {
+           min-width: 200px;
+           font-size: 0.9rem;
+       }
+       
+       .inventory-input-group input {
+           max-width: 100px;
+       }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <main class="flex-grow-1 py-4">
+        <div class="container" style="max-width: 1200px;">
+            
+            <!-- Logo -->
+            <div class="text-center mb-4">
+                <img src="img/logo.png" alt="Dota 2 Logo" style="max-width: 300px; height: auto;">
+            </div>
+            
+            <!-- Header -->
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-2">Dota 2 Monster Hunter Event</h1>
+                <p class="text-body-secondary">Crafting Calculator & Material Manager</p>
+            </div>
+
+            <!-- Expedition Pack Question -->
+            <div id="expeditionPackSection" class="card bg-dark-subtle border-primary mb-4">
+                <div class="card-body text-center p-4">
+                    <h5 class="card-title mb-3">Do you have the Expedition Pack?</h5>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-success" id="btnExpeditionYes">Yes</button>
+                        <button type="button" class="btn btn-outline-danger" id="btnExpeditionNo">No</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expedition Pack Status (shown after selection) -->
+            <div id="expeditionPackStatus" class="hidden mb-4 text-center">
+                <div class="alert alert-info d-inline-flex align-items-center">
+                    <span id="expeditionStatusText"></span>
+                    <button type="button" class="btn btn-sm btn-outline-primary ms-3" id="btnChangeExpedition">Change</button>
+                </div>
+            </div>
+
+            <!-- Main Content (hidden initially) -->
+            <div id="mainContent" class="hidden">
+                
+                <!-- Action Buttons -->
+                <div class="mb-4 text-center">
+                    <button class="btn btn-success btn-lg me-2" data-bs-toggle="modal" data-bs-target="#collectionModal">
+                        ✓ My Collection
+                    </button>
+                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#inventoryModal">
+                        📦 Materials Inventory
+                    </button>
+                </div>
+
+                <!-- Available Sets -->
+                <div class="mb-4">
+                    <h4 class="mb-3">Available Sets</h4>
+                    <div id="setsContainer" class="row g-3">
+                        <!-- Sets will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Selected Items for Crafting -->
+                <div id="selectedItemsSection" class="hidden">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Selected Items to Craft <span class="text-muted small">(Drag to reorder priority)</span></h4>
+                        <button class="btn btn-outline-danger btn-sm" id="btnResetSelection">Clear All</button>
+                    </div>
+                    <div id="selectedItemsList" class="row g-3 mb-4">
+                        <!-- Selected items will appear here -->
+                    </div>
+                    
+                    <div class="text-center mb-4">
+                        <button class="btn btn-success btn-lg" id="btnCalculate">Calculate Crafting Plan</button>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="resultsSection" class="hidden">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Crafting Results</h4>
+                        <div id="resultsLegend" class="hidden">
+                            <small class="text-muted">
+                                <span class="badge bg-success">✓</span> Can Craft &nbsp;
+                                <span class="badge bg-warning text-dark">⇄</span> Needs Exchanges &nbsp;
+                                <span class="badge bg-danger">✗</span> Missing Materials
+                            </small>
+                        </div>
+                    </div>
+                    <div id="resultsContainer">
+                        <!-- Results will appear here -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Collection Modal -->
+    <div class="modal fade" id="collectionModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">My Collection</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">Check the items and sets you already own. They will be marked as "Crafted" and won't be selectable.</p>
+                    <div id="collectionForm">
+                        <!-- Collection checkboxes will be generated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="btnSaveCollection">Save Collection</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Modal -->
+    <div class="modal fade" id="inventoryModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Materials Inventory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small mb-3">Enter the quantity you have of each material. Press Enter to move to the next field.</p>
+                    <div id="inventoryForm">
+                        <!-- Inventory inputs will be generated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="btnSaveInventory">Save Inventory</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto text-center py-3">
+         <p class="made-by text-body-secondary small mb-0">
+             Made by <a href="https://github.com/carpicoder" target="_blank" rel="noopener noreferrer" class="link-secondary">CarpiCoder</a> | 
+             <a href="../index.html" class="link-secondary">MMR Calculator</a> | 
+             <a href="https://carpicoder.com/donaciones" target="_blank" rel="noopener noreferrer" class="link-secondary">Donations</a>
+         </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="./js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,271 @@
+{
+  "id": "dragon-knight",
+  "name": "Dragon Knight",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Rathalos Armor - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "heat-edge-sword",
+          "name": "Heat Edge Sword",
+          "materials": {
+            "Monster Essence": 6,
+            "Monster Claws": 6,
+            "Rathalos Wing": 4,
+            "Rathalos Tail": 4,
+            "Rathalos Ruby": 2,
+            "Rathalos Plate": 2
+          }
+        },
+        {
+          "id": "heat-edge-shield",
+          "name": "Heat Edge Shield",
+          "materials": {
+            "Monster Essence": 6,
+            "Monster Claws": 6,
+            "Rathalos Carapace": 4,
+            "Rathalos Wing": 4,
+            "Rathalos Tail": 4
+          }
+        },
+        {
+          "id": "rathalos-mail",
+          "name": "Rathalos Mail",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Rathalos Carapace": 3,
+            "Rathalos Plate": 2
+          }
+        },
+        {
+          "id": "rathalos-helm",
+          "name": "Rathalos Helm",
+          "materials": {
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Rathalos Ruby": 2
+          }
+        },
+        {
+          "id": "rathalos-coil-and-greaves",
+          "name": "Rathalos Coil and Greaves",
+          "materials": {
+            "Monster Essence": 5,
+            "Rathalos Carapace": 4
+          }
+        },
+        {
+          "id": "rathalos-braces",
+          "name": "Rathalos Braces",
+          "materials": {
+            "Monster Claws": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "imperium",
+      "name": "Rathalos Armor - Imperium",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "imperium-heat-edge-sword",
+          "name": "Imperium Heat Edge Sword",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Claws": 4,
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Rathalos Plate": 1
+          }
+        },
+        {
+          "id": "imperium-heat-edge-shield",
+          "name": "Imperium Heat Edge Shield",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Claws": 4,
+            "Rathalos Carapace": 3,
+            "Rathalos Ruby": 1
+          }
+        },
+        {
+          "id": "imperium-rathalos-mail",
+          "name": "Imperium Rathalos Mail",
+          "materials": {
+            "Monster Claws": 4,
+            "Rathalos Carapace": 3,
+            "Rathalos Plate": 1
+          }
+        },
+        {
+          "id": "imperium-rathalos-helm",
+          "name": "Imperium Rathalos Helm",
+          "materials": {
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Rathalos Ruby": 1
+          }
+        },
+        {
+          "id": "imperium-rathalos-coil-and-greaves",
+          "name": "Imperium Rathalos Coil and Greaves",
+          "materials": {
+            "Monster Essence": 4,
+            "Rathalos Wing": 3,
+            "Rathalos Carapace": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "deep-vault",
+      "name": "Rathalos Armor - Deep Vault",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "deep-vault-heat-edge-sword",
+          "name": "Deep Vault Heat Edge Sword",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Claws": 3,
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Bullfango Head": 2,
+            "Rathalos Ruby": 2,
+            "Rathalos Plate": 2
+          }
+        },
+        {
+          "id": "deep-vault-heat-edge-shield",
+          "name": "Deep Vault Heat Edge Shield",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Claws": 3,
+            "Rathalos Carapace": 3,
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Kestodon Shell": 2
+          }
+        },
+        {
+          "id": "deep-vault-rathalos-mail",
+          "name": "Deep Vault Rathalos Mail",
+          "materials": {
+            "Monster Essence": 3,
+            "Monster Claws": 3,
+            "Rathalos Carapace": 3,
+            "Kestodon Shell": 2,
+            "Rathalos Plate": 2
+          }
+        },
+        {
+          "id": "deep-vault-rathalos-helm",
+          "name": "Deep Vault Rathalos Helm",
+          "materials": {
+            "Rathalos Wing": 3,
+            "Rathalos Tail": 3,
+            "Ancient Bone": 2,
+            "Rathalos Ruby": 2
+          }
+        },
+        {
+          "id": "deep-vault-rathalos-coil-and-greaves",
+          "name": "Deep Vault Rathalos Coil and Greaves",
+          "materials": {
+            "Monster Essence": 3,
+            "Rathalos Wing": 3,
+            "Bullfango Head": 2
+          }
+        },
+        {
+          "id": "deep-vault-rathalos-braces",
+          "name": "Deep Vault Rathalos Braces",
+          "materials": {
+            "Rathalos Carapace": 5,
+            "Ancient Bone": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Rathalos Armor - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-heat-edge-sword",
+          "name": "Prismatic Heat Edge Sword",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Rathalos Wing": 4,
+            "Rathalos Tail": 4,
+            "Bullfango Head": 4,
+            "Rathalos Ruby": 2,
+            "Rathalos Plate": 4,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-heat-edge-shield",
+          "name": "Prismatic Heat Edge Shield",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Rathalos Carapace": 4,
+            "Rathalos Wing": 4,
+            "Rathalos Tail": 4,
+            "Kestodon Shell": 4,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-rathalos-mail",
+          "name": "Prismatic Rathalos Mail",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Claws": 5,
+            "Rathalos Carapace": 4,
+            "Kestodon Shell": 4,
+            "Rathalos Plate": 2
+          }
+        },
+        {
+          "id": "prismatic-rathalos-helm",
+          "name": "Prismatic Rathalos Helm",
+          "materials": {
+            "Rathalos Wing": 4,
+            "Rathalos Tail": 4,
+            "Ancient Bone": 4,
+            "Rathalos Ruby": 4
+          }
+        },
+        {
+          "id": "prismatic-rathalos-coil-and-greaves",
+          "name": "Prismatic Rathalos Coil and Greaves",
+          "materials": {
+            "Monster Essence": 5,
+            "Rathalos Wing": 4,
+            "Bullfango Head": 4,
+            "Warped Bone": 2
+          }
+        },
+        {
+          "id": "prismatic-rathalos-braces",
+          "name": "Prismatic Rathalos Braces",
+          "materials": {
+            "Rathalos Carapace": 6,
+            "Ancient Bone": 4,
+            "Wyvern Gem": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+

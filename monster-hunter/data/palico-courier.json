@@ -1,0 +1,79 @@
+{
+  "id": "palico-courier",
+  "name": "Palico Courier",
+  "type": "courier",
+  "styles": [
+    {
+      "id": "base",
+      "name": "Base",
+      "requiresExpedition": false,
+      "materials": {},
+      "note": "Already unlocked by default"
+    },
+    {
+      "id": "rathalos",
+      "name": "Rathalos",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Essence": 15,
+        "Rathalos Carapace": 3,
+        "Rathalos Wing": 3,
+        "Rathalos Tail": 3,
+        "Rathalos Plate": 3,
+        "Palico Voucher": 1
+      }
+    },
+    {
+      "id": "zinogre",
+      "name": "Zinogre",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Fur": 15,
+        "Zinogre Electrofur": 3,
+        "Zinogre Deathly Shocker": 3,
+        "Zinogre Cortex": 3,
+        "Zinogre Skymerald": 3,
+        "Palico Voucher": 1
+      }
+    },
+    {
+      "id": "kirin",
+      "name": "Kirin",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Claws": 15,
+        "Kirin Thunderhorn": 3,
+        "Kirin Hide": 3,
+        "Kirin Mane": 3,
+        "Large Elder Dragon Gem": 3,
+        "Palico Voucher": 1
+      }
+    },
+    {
+      "id": "odogaron",
+      "name": "Odogaron",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Claws": 15,
+        "Odogaron Sinew": 3,
+        "Odogaron Hardfang": 3,
+        "Odogaron Scale": 3,
+        "Odogaron Mantle": 3,
+        "Palico Voucher": 1
+      }
+    },
+    {
+      "id": "bone",
+      "name": "Bone",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Essence": 15,
+        "Ancient Bone": 3,
+        "Kestodon Shell": 3,
+        "Bullfango Head": 3,
+        "Warped Bone": 3,
+        "Palico Voucher": 1
+      }
+    }
+  ]
+}

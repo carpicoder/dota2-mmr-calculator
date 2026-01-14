@@ -1,0 +1,246 @@
+{
+  "id": "windranger",
+  "name": "Windranger",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Zinogre Armor - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "zinogre-helm",
+          "name": "Zinogre Helm",
+          "materials": {
+            "Monster Claws": 6,
+            "Zinogre Deathly Shocker": 4,
+            "Zinogre Cortex": 4,
+            "Zinogre Hardhorn": 2,
+            "Zinogre Skymerald": 2
+          }
+        },
+        {
+          "id": "zinogre-mail",
+          "name": "Zinogre Mail",
+          "materials": {
+            "Monster Fur": 6,
+            "Monster Claws": 6,
+            "Zinogre Electrofur": 4,
+            "Zinogre Deathly Shocker": 4,
+            "Zinogre Hardhorn": 2
+          }
+        },
+        {
+          "id": "usurpers-rumble-bow",
+          "name": "Usurper's Rumble Bow",
+          "materials": {
+            "Monster Fur": 5,
+            "Zinogre Electrofur": 3,
+            "Zinogre Cortex": 3,
+            "Zinogre Skymerald": 2
+          }
+        },
+        {
+          "id": "hunters-cape",
+          "name": "Hunter's Cape",
+          "materials": {
+            "Monster Fur": 5,
+            "Zinogre Electrofur": 3,
+            "Zinogre Deathly Shocker": 3
+          }
+        },
+        {
+          "id": "usurpers-rumble-quiver",
+          "name": "Usurper's Rumble Quiver",
+          "materials": {
+            "Monster Claws": 5,
+            "Zinogre Cortex": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "autumnal",
+      "name": "Zinogre Armor - Autumnal",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "autumnal-zinogre-helm",
+          "name": "Autumnal Zinogre Helm",
+          "materials": {
+            "Monster Claws": 3,
+            "Zinogre Deathly Shocker": 3,
+            "Zinogre Cortex": 3,
+            "Zinogre Hardhorn": 2,
+            "Zinogre Skymerald": 1
+          }
+        },
+        {
+          "id": "autumnal-zinogre-mail",
+          "name": "Autumnal Zinogre Mail",
+          "materials": {
+            "Monster Fur": 3,
+            "Monster Claws": 3,
+            "Zinogre Electrofur": 3,
+            "Zinogre Deathly Shocker": 3
+          }
+        },
+        {
+          "id": "autumnal-usurpers-rumble-bow",
+          "name": "Autumnal Usurper's Rumble Bow",
+          "materials": {
+            "Monster Fur": 3,
+            "Zinogre Electrofur": 3,
+            "Zinogre Cortex": 3,
+            "Zinogre Skymerald": 1
+          }
+        },
+        {
+          "id": "autumnal-hunters-cape",
+          "name": "Autumnal Hunter's Cape",
+          "materials": {
+            "Monster Fur": 3,
+            "Zinogre Electrofur": 3
+          }
+        },
+        {
+          "id": "autumnal-usurpers-rumble-quiver",
+          "name": "Autumnal Usurper's Rumble Quiver",
+          "materials": {
+            "Monster Claws": 3,
+            "Zinogre Cortex": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "sylvan",
+      "name": "Zinogre Armor - Sylvan",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "sylvan-guards-zinogre-helm",
+          "name": "Sylvan Guard's Zinogre Helm",
+          "materials": {
+            "Monster Claws": 4,
+            "Zinogre Deathly Shocker": 3,
+            "Zinogre Cortex": 4,
+            "Iron Ore": 2,
+            "Zinogre Hardhorn": 2,
+            "Zinogre Skymerald": 2
+          }
+        },
+        {
+          "id": "sylvan-guards-zinogre-mail",
+          "name": "Sylvan Guard's Zinogre Mail",
+          "materials": {
+            "Monster Fur": 4,
+            "Monster Claws": 4,
+            "Zinogre Electrofur": 3,
+            "Zinogre Deathly Shocker": 3,
+            "Large Barrel": 2,
+            "Zinogre Hardhorn": 2
+          }
+        },
+        {
+          "id": "sylvan-guards-usurpers-rumble-bow",
+          "name": "Sylvan Guard's Usurper's Rumble Bow",
+          "materials": {
+            "Monster Fur": 4,
+            "Zinogre Electrofur": 3,
+            "Zinogre Cortex": 3,
+            "Gunpowder": 2,
+            "Iron Ore": 2,
+            "Zinogre Skymerald": 2
+          }
+        },
+        {
+          "id": "sylvan-guards-hunters-cape",
+          "name": "Sylvan Guard's Hunter's Cape",
+          "materials": {
+            "Monster Fur": 4,
+            "Zinogre Electrofur": 3,
+            "Zinogre Deathly Shocker": 4,
+            "Gunpowder": 2
+          }
+        },
+        {
+          "id": "sylvan-guards-usurpers-rumble-quiver",
+          "name": "Sylvan Guard's Usurper's Rumble Quiver",
+          "materials": {
+            "Monster Claws": 4,
+            "Zinogre Cortex": 3,
+            "Large Barrel": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Zinogre Armor - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-zinogre-helm",
+          "name": "Prismatic Zinogre Helm",
+          "materials": {
+            "Monster Fur": 5,
+            "Monster Claws": 5,
+            "Zinogre Deathly Shocker": 3,
+            "Zinogre Cortex": 3,
+            "Iron Ore": 3,
+            "Zinogre Hardhorn": 3,
+            "Zinogre Skymerald": 3,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-zinogre-mail",
+          "name": "Prismatic Zinogre Mail",
+          "materials": {
+            "Monster Fur": 5,
+            "Monster Claws": 5,
+            "Zinogre Electrofur": 5,
+            "Zinogre Deathly Shocker": 3,
+            "Large Barrel": 3,
+            "Zinogre Hardhorn": 3,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-usurpers-rumble-bow",
+          "name": "Prismatic Usurper's Rumble Bow",
+          "materials": {
+            "Zinogre Electrofur": 3,
+            "Zinogre Cortex": 3,
+            "Gunpowder": 3,
+            "Iron Ore": 3,
+            "Zinogre Skymerald": 3
+          }
+        },
+        {
+          "id": "prismatic-hunters-cape",
+          "name": "Prismatic Hunter's Cape",
+          "materials": {
+            "Monster Fur": 5,
+            "Zinogre Electrofur": 3,
+            "Zinogre Deathly Shocker": 4,
+            "Gunpowder": 3,
+            "Devil's Blight": 2
+          }
+        },
+        {
+          "id": "prismatic-usurpers-rumble-quiver",
+          "name": "Prismatic Usurper's Rumble Quiver",
+          "materials": {
+            "Monster Claws": 5,
+            "Zinogre Cortex": 4,
+            "Large Barrel": 3,
+            "Sinister Cloth": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+

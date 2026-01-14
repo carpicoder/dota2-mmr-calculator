@@ -1,0 +1,84 @@
+{
+  "id": "poogie",
+  "name": "Poogie",
+  "type": "pet",
+  "styles": [
+    {
+      "id": "memorial-stripes",
+      "name": "Memorial Stripes",
+      "requiresExpedition": true,
+      "materials": {},
+      "note": "Unlocked when you buy the Expedition Pack"
+    },
+    {
+      "id": "apprentice-fiver",
+      "name": "Apprentice Fiver",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Claws": 15,
+        "Odogaron Scale": 4,
+        "Rathalos Tail": 5,
+        "Large Barrel": 4,
+        "Zinogre Hardhorn": 2,
+        "Kirin Azure Horn": 3,
+        "Poogie Voucher": 1
+      }
+    },
+    {
+      "id": "buzzy-bee",
+      "name": "Buzzy Bee",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Essence": 15,
+        "Odogaron Sinew": 4,
+        "Zinogre Cortex": 5,
+        "Rathalos Wing": 4,
+        "Kirin Azure Horn": 2,
+        "Wyvern Gem": 3,
+        "Poogie Voucher": 1
+      }
+    },
+    {
+      "id": "pumpkins-revenge",
+      "name": "Pumpkin's Revenge",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Fur": 15,
+        "Zinogre Deathly Shocker": 4,
+        "Rathalos Carapace": 4,
+        "Kirin Thunderhorn": 5,
+        "Wyvern Gem": 2,
+        "Devil's Blight": 3,
+        "Poogie Voucher": 1
+      }
+    },
+    {
+      "id": "pretty-in-pink",
+      "name": "Pretty in Pink",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Claws": 15,
+        "Zinogre Electrofur": 4,
+        "Kirin Mane": 4,
+        "Bullfango Head": 5,
+        "Odogaron Shard": 3,
+        "Devil's Blight": 2,
+        "Poogie Voucher": 1
+      }
+    },
+    {
+      "id": "emperors-new-duds",
+      "name": "Emperor's New Duds",
+      "requiresExpedition": true,
+      "materials": {
+        "Monster Essence": 15,
+        "Kirin Hide": 4,
+        "Ancient Bone": 4,
+        "Iron Ore": 5,
+        "Odogaron Shard": 2,
+        "Rathalos Ruby": 3,
+        "Poogie Voucher": 1
+      }
+    }
+  ]
+}

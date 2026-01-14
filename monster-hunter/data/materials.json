@@ -1,0 +1,46 @@
+{
+  "common": {
+    "Monster Essence": { "color": "#00ff88" },
+    "Monster Fur": { "color": "#8b4513" },
+    "Monster Claws": { "color": "#e8e8e8" }
+  },
+  "uncommon": {
+    "Odogaron Sinew": { "color": "#dc143c" },
+    "Odogaron Hardfang": { "color": "#ff6347" },
+    "Odogaron Scale": { "color": "#8b0000" },
+    "Zinogre Electrofur": { "color": "#00bfff" },
+    "Zinogre Deathly Shocker": { "color": "#4169e1" },
+    "Zinogre Cortex": { "color": "#1e90ff" },
+    "Rathalos Carapace": { "color": "#dc143c" },
+    "Rathalos Wing": { "color": "#ff4500" },
+    "Rathalos Tail": { "color": "#cd5c5c" },
+    "Kirin Thunderhorn": { "color": "#00ffff" },
+    "Kirin Hide": { "color": "#e0ffff" },
+    "Kirin Mane": { "color": "#87ceeb" },
+    "Ancient Bone": { "color": "#dcdcdc" },
+    "Kestodon Shell": { "color": "#d2691e" },
+    "Bullfango Head": { "color": "#8b4513" },
+    "Large Barrel": { "color": "#696969" },
+    "Gunpowder": { "color": "#2f4f4f" },
+    "Iron Ore": { "color": "#708090" }
+  },
+  "rare": {
+    "Odogaron Shard": { "color": "#F0678F" },
+    "Odogaron Mantle": { "color": "#F0678F" },
+    "Zinogre Hardhorn": { "color": "#95D4C5" },
+    "Zinogre Skymerald": { "color": "#95D4C5" },
+    "Rathalos Ruby": { "color": "#BD412B" },
+    "Rathalos Plate": { "color": "#BD412B" },
+    "Kirin Azure Horn": { "color": "#5E7ADD" },
+    "Large Elder Dragon Gem": { "color": "#B32855" },
+    "Wyvern Gem": { "color": "#3B96B0" },
+    "Warped Bone": { "color": "#896C32" },
+    "Sinister Cloth": { "color": "#FFFFFF" },
+    "Devil's Blight": { "color": "#B42957" }
+  },
+  "super rare": {
+    "Palico Voucher": { "color": "##03fc20" },
+    "Poogie Voucher": { "color": "##03fc20" },
+    "Prismatic Pigment": { "color": "##03fc20" }
+  }
+}

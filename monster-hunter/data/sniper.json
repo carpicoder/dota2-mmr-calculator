@@ -1,0 +1,240 @@
+{
+  "id": "sniper",
+  "name": "Sniper",
+  "type": "hero_set",
+  "sets": [
+    {
+      "id": "base",
+      "name": "Odogaron Armor - Base",
+      "requiresExpedition": false,
+      "parts": [
+        {
+          "id": "garon-rifle",
+          "name": "Garon Rifle",
+          "materials": {
+            "Monster Essence": 6,
+            "Monster Fur": 6,
+            "Odogaron Sinew": 4,
+            "Odogaron Hardfang": 4,
+            "Odogaron Shard": 2,
+            "Odogaron Mantle": 2
+          }
+        },
+        {
+          "id": "odogaron-helm-beta",
+          "name": "Odogaron Helm ß",
+          "materials": {
+            "Odogaron Hardfang": 4,
+            "Odogaron Scale": 4,
+            "Odogaron Shard": 2,
+            "Odogaron Mantle": 2
+          }
+        },
+        {
+          "id": "odogaron-cape-beta",
+          "name": "Odogaron Cape ß",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Fur": 5,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3
+          }
+        },
+        {
+          "id": "odogaron-mail-beta",
+          "name": "Odogaron Mail ß",
+          "materials": {
+            "Monster Fur": 5,
+            "Odogaron Sinew": 3,
+            "Odogaron Scale": 3
+          }
+        },
+        {
+          "id": "odogaron-vambraces-greaves-beta",
+          "name": "Odogaron Vambraces ß and Greaves ß",
+          "materials": {
+            "Monster Essence": 5,
+            "Odogaron Scale": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "dreadwood",
+      "name": "Odogaron Armor - Dreadwood",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "dreadwood-garon-rifle",
+          "name": "Dreadwood Garon Rifle",
+          "materials": {
+            "Monster Essence": 3,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3,
+            "Odogaron Shard": 2
+          }
+        },
+        {
+          "id": "dreadwood-odogaron-helm-beta",
+          "name": "Dreadwood Odogaron Helm ß",
+          "materials": {
+            "Monster Fur": 3,
+            "Odogaron Scale": 3,
+            "Odogaron Mantle": 2
+          }
+        },
+        {
+          "id": "dreadwood-odogaron-cape-beta",
+          "name": "Dreadwood Odogaron Cape ß",
+          "materials": {
+            "Monster Essence": 3,
+            "Odogaron Hardfang": 3
+          }
+        },
+        {
+          "id": "dreadwood-odogaron-mail-beta",
+          "name": "Dreadwood Odogaron Mail ß",
+          "materials": {
+            "Monster Fur": 3,
+            "Odogaron Sinew": 3
+          }
+        },
+        {
+          "id": "dreadwood-odogaron-vambraces-greaves-beta",
+          "name": "Dreadwood Odogaron Vambraces ß and Greaves ß",
+          "materials": {
+            "Odogaron Scale": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "foxfire",
+      "name": "Odogaron Armor - Foxfire",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "foxfire-garon-rifle",
+          "name": "Foxfire Garon Rifle",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Fur": 4,
+            "Odogaron Sinew": 3,
+            "Odogaron Hardfang": 3,
+            "Zinogre Electrofur": 2,
+            "Odogaron Shard": 1,
+            "Odogaron Mantle": 2
+          }
+        },
+        {
+          "id": "foxfire-odogaron-helm-beta",
+          "name": "Foxfire Odogaron Helm ß",
+          "materials": {
+            "Odogaron Hardfang": 3,
+            "Odogaron Scale": 3,
+            "Zinogre Deathly Shocker": 2,
+            "Odogaron Shard": 1,
+            "Odogaron Mantle": 1
+          }
+        },
+        {
+          "id": "foxfire-odogaron-cape-beta",
+          "name": "Foxfire Odogaron Cape ß",
+          "materials": {
+            "Monster Essence": 4,
+            "Monster Fur": 4,
+            "Odogaron Sinew": 3,
+            "Odogaron Scale": 3,
+            "Zinogre Cortex": 4
+          }
+        },
+        {
+          "id": "foxfire-odogaron-mail-beta",
+          "name": "Foxfire Odogaron Mail ß",
+          "materials": {
+            "Monster Fur": 4,
+            "Odogaron Sinew": 3,
+            "Zinogre Deathly Shocker": 2,
+            "Odogaron Shard": 1
+          }
+        },
+        {
+          "id": "foxfire-odogaron-vambraces-greaves-beta",
+          "name": "Foxfire Odogaron Vambraces ß and Greaves ß",
+          "materials": {
+            "Monster Essence": 4,
+            "Odogaron Hardfang": 3,
+            "Odogaron Scale": 3,
+            "Zinogre Electrofur": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "prismatic",
+      "name": "Odogaron Armor - Prismatic",
+      "requiresExpedition": true,
+      "parts": [
+        {
+          "id": "prismatic-garon-rifle",
+          "name": "Prismatic Garon Rifle",
+          "materials": {
+            "Monster Essence": 7,
+            "Monster Fur": 7,
+            "Odogaron Sinew": 4,
+            "Odogaron Hardfang": 4,
+            "Zinogre Electrofur": 3,
+            "Odogaron Shard": 2,
+            "Odogaron Mantle": 4,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-odogaron-helm-beta",
+          "name": "Prismatic Odogaron Helm ß",
+          "materials": {
+            "Odogaron Hardfang": 4,
+            "Odogaron Scale": 4,
+            "Zinogre Deathly Shocker": 3,
+            "Odogaron Shard": 2,
+            "Odogaron Mantle": 2,
+            "Prismatic Pigment": 1
+          }
+        },
+        {
+          "id": "prismatic-odogaron-cape-beta",
+          "name": "Prismatic Odogaron Cape ß",
+          "materials": {
+            "Monster Essence": 5,
+            "Monster Fur": 5,
+            "Odogaron Sinew": 4,
+            "Odogaron Scale": 4,
+            "Zinogre Cortex": 6,
+            "Zinogre Hardhorn": 3
+          }
+        },
+        {
+          "id": "prismatic-odogaron-mail-beta",
+          "name": "Prismatic Odogaron Mail ß",
+          "materials": {
+            "Monster Fur": 5,
+            "Odogaron Sinew": 4,
+            "Zinogre Deathly Shocker": 3,
+            "Odogaron Shard": 2,
+            "Zinogre Skymerald": 3
+          }
+        },
+        {
+          "id": "prismatic-odogaron-vambraces-greaves-beta",
+          "name": "Prismatic Odogaron Vambraces ß and Greaves ß",
+          "materials": {
+            "Monster Essence": 5,
+            "Odogaron Hardfang": 4,
+            "Odogaron Scale": 4,
+            "Zinogre Electrofur": 3
+          }
+        }
+      ]
+    }
+  ]
+}
