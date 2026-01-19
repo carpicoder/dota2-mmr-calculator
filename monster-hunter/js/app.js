@@ -1,5 +1,3 @@
-// No default inventory - users start with 0 of everything
-
 // Global state
 let appState = {
     hasExpeditionPack: null,
