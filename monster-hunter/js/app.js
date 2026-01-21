@@ -9,8 +9,17 @@ let appState = {
     selectedItems: [],
     craftingResults: [],
     rarityMap: {},
-    itemsDataMap: new Map() // Store item data by itemId
+    itemsDataMap: new Map(), // Store item data by itemId
+    inventoryInputMode: 'individual', // 'individual' or 'bulk'
+    isTouchDevice: false // Detect if device is touch-capable
 };
+
+// Detect if device is touch-capable
+function detectTouchDevice() {
+    return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+}
+
+appState.isTouchDevice = detectTouchDevice();
 
 // DOM Elements
 const expeditionPackSection = document.getElementById('expeditionPackSection');
@@ -152,6 +161,12 @@ function setupEventListeners() {
     document.querySelector('[data-bs-target="#collectionModal"]').addEventListener('click', () => {
         gtag('event', 'open_collection_modal', {'event_category': 'Collection', 'event_label': 'Open My Collection'});
     });
+    
+    // Reset inventory input mode when modal opens
+    document.getElementById('inventoryModal').addEventListener('show.bs.modal', () => {
+        appState.inventoryInputMode = 'individual';
+        generateInventoryForm();
+    });
 }
 
 // Set expedition pack status
@@ -222,6 +237,35 @@ function showMainContent() {
 function generateInventoryForm() {
     inventoryForm.innerHTML = '';
     
+    // Add toggle button at the top
+    const toggleContainer = document.createElement('div');
+    toggleContainer.className = 'mb-3 text-end';
+    toggleContainer.innerHTML = `
+        <button type="button" class="btn btn-sm btn-outline-info" id="btnToggleInputMode">
+            ${appState.inventoryInputMode === 'individual' 
+                ? '📝 Switch to Quick Input (paste all numbers)' 
+                : '🔢 Switch to One-by-One Input'}
+        </button>
+    `;
+    inventoryForm.appendChild(toggleContainer);
+    
+    // Render based on mode
+    if (appState.inventoryInputMode === 'individual') {
+        generateIndividualInputs();
+    } else {
+        generateBulkInput();
+    }
+    
+    // Attach toggle event listener
+    document.getElementById('btnToggleInputMode').addEventListener('click', toggleInputMode);
+}
+
+function toggleInputMode() {
+    appState.inventoryInputMode = appState.inventoryInputMode === 'individual' ? 'bulk' : 'individual';
+    generateInventoryForm();
+}
+
+function generateIndividualInputs() {
     for (const [rarity, materials] of Object.entries(appState.materials)) {
         const section = document.createElement('div');
         section.className = 'mb-4';
@@ -264,7 +308,7 @@ function generateInventoryForm() {
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    const allInputs = Array.from(inventoryForm.querySelectorAll('input'));
+                    const allInputs = Array.from(inventoryForm.querySelectorAll('input[type="number"]'));
                     const currentIndex = allInputs.indexOf(input);
                     if (currentIndex < allInputs.length - 1) {
                         allInputs[currentIndex + 1].focus();
@@ -276,6 +320,65 @@ function generateInventoryForm() {
         
         inventoryForm.appendChild(section);
     }
+}
+
+function generateBulkInput() {
+    const section = document.createElement('div');
+    section.className = 'mb-3';
+    
+    // Get all material names in order
+    const allMaterials = [];
+    for (const [rarity, materials] of Object.entries(appState.materials)) {
+        allMaterials.push(...Object.keys(materials));
+    }
+    
+    // Create current values string
+    const currentValues = allMaterials.map(m => appState.inventory[m] || 0).join(' ');
+    
+    section.innerHTML = `
+        <div class="alert alert-info mb-3">
+            <strong>Quick Input Mode</strong><br>
+            Enter all material quantities separated by spaces.<br>
+            <small class="text-muted">Order: ${allMaterials.slice(0, 3).join(', ')}...</small>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small">Material Quantities (${allMaterials.length} materials in order):</label>
+            <textarea 
+                class="form-control font-monospace" 
+                id="bulkInventoryInput"
+                rows="4"
+                placeholder="Example: 15 20 15 30 62 52 ..."
+            >${currentValues}</textarea>
+            <small class="text-muted">Tip: Copy from a spreadsheet or paste numbers separated by spaces, commas, or line breaks.</small>
+        </div>
+        <div class="mb-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnShowMaterialOrder">
+                📋 Show Full Material Order
+            </button>
+        </div>
+        <div id="materialOrderList" class="collapse">
+            <div class="card card-body bg-dark">
+                <ol class="mb-0 small" style="columns: 2; column-gap: 1rem;">
+                    ${allMaterials.map(m => `<li class="d-flex align-items-center gap-1">${createMaterialIcon(m, 'small')} <span>${m}</span></li>`).join('')}
+                </ol>
+            </div>
+        </div>
+    `;
+    
+    inventoryForm.appendChild(section);
+    
+    // Attach show order button
+    document.getElementById('btnShowMaterialOrder').addEventListener('click', () => {
+        const list = document.getElementById('materialOrderList');
+        const btn = document.getElementById('btnShowMaterialOrder');
+        if (list.classList.contains('show')) {
+            list.classList.remove('show');
+            btn.textContent = '📋 Show Full Material Order';
+        } else {
+            list.classList.add('show');
+            btn.textContent = '🔼 Hide Material Order';
+        }
+    });
 }
 
 // Generate collection form
@@ -543,12 +646,34 @@ function saveCollection() {
 
 // Save inventory
 function saveInventory() {
-    const inputs = inventoryForm.querySelectorAll('input');
-    inputs.forEach(input => {
-        const material = input.dataset.material;
-        const value = parseInt(input.value) || 0;
-        appState.inventory[material] = value;
-    });
+    if (appState.inventoryInputMode === 'individual') {
+        // Save from individual inputs
+        const inputs = inventoryForm.querySelectorAll('input[type="number"]');
+        inputs.forEach(input => {
+            const material = input.dataset.material;
+            const value = parseInt(input.value) || 0;
+            appState.inventory[material] = value;
+        });
+    } else {
+        // Save from bulk input
+        const bulkInput = document.getElementById('bulkInventoryInput');
+        if (bulkInput) {
+            const text = bulkInput.value.trim();
+            // Split by spaces, commas, tabs, or newlines
+            const values = text.split(/[\s,]+/).filter(v => v !== '').map(v => parseInt(v) || 0);
+            
+            // Get all material names in order
+            const allMaterials = [];
+            for (const [rarity, materials] of Object.entries(appState.materials)) {
+                allMaterials.push(...Object.keys(materials));
+            }
+            
+            // Assign values to materials
+            allMaterials.forEach((material, index) => {
+                appState.inventory[material] = values[index] !== undefined ? values[index] : 0;
+            });
+        }
+    }
     
     saveToLocalStorage();
     
@@ -804,6 +929,15 @@ function updateSelectedItemsDisplay() {
     }
     
     selectedItemsSection.classList.remove('hidden');
+    
+    // Update reorder hint based on device type
+    const reorderHint = document.getElementById('reorderHint');
+    if (reorderHint) {
+        reorderHint.textContent = appState.isTouchDevice 
+            ? '(Use arrows to reorder priority)' 
+            : '(Drag to reorder priority)';
+    }
+    
     selectedItemsList.innerHTML = '';
     
     appState.selectedItems.forEach((item, index) => {
@@ -826,20 +960,31 @@ function updateSelectedItemsDisplay() {
             imageHtml = `<img src="${imagePath}" alt="${item.name}" class="set-thumbnail" style="height: 50px;">`;
         }
         
+        // Different controls for touch vs desktop
+        const controlsHtml = appState.isTouchDevice ? `
+            <div class="d-flex align-items-center gap-1">
+                <button class="btn btn-sm btn-outline-secondary py-0 px-2 move-up-btn" data-item-id="${item.itemId}" title="Move Up" ${index === 0 ? 'disabled' : ''}>▲</button>
+                <button class="btn btn-sm btn-outline-secondary py-0 px-2 move-down-btn" data-item-id="${item.itemId}" title="Move Down" ${index === appState.selectedItems.length - 1 ? 'disabled' : ''}>▼</button>
+                <span class="remove-item-btn ms-2" data-item-id="${item.itemId}" title="Remove">✕</span>
+            </div>
+        ` : `
+            <div class="d-flex align-items-center">
+                <span class="sortable-handle me-2">⠿</span>
+                <span class="remove-item-btn" data-item-id="${item.itemId}" title="Remove">✕</span>
+            </div>
+        `;
+        
         card.innerHTML = `
             <div class="card ${cardClass}">
                 <div class="card-body p-2 px-3">
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-2">
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
                             ${imageHtml}
                             <span class="badge priority-badge bg-primary">Priority ${index + 1}</span>
                             <span class="badge bg-info text-dark">${item.setName || 'Unknown'}</span>
                             <h6 class="mb-0">${item.name}${itemNote}</h6>
                         </div>
-                        <div>
-                            <span class="sortable-handle me-2">⠿</span>
-                            <span class="remove-item-btn" data-item-id="${item.itemId}" title="Remove">✕</span>
-                        </div>
+                        ${controlsHtml}
                     </div>
                 </div>
             </div>
@@ -856,20 +1001,114 @@ function updateSelectedItemsDisplay() {
         });
     });
     
-    // Initialize Sortable
-    new Sortable(selectedItemsList, {
-        animation: 150,
-        handle: '.sortable-handle',
-        onEnd: function(evt) {
-            // Update priority based on new order
-            const newOrder = Array.from(selectedItemsList.children).map(el => el.dataset.itemId);
-            appState.selectedItems = newOrder.map(itemId => 
-                appState.selectedItems.find(item => item.itemId === itemId)
-            );
+    if (appState.isTouchDevice) {
+        // Touch device: add arrow button listeners
+        document.querySelectorAll('.move-up-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                moveItemUp(btn.dataset.itemId);
+            });
+        });
+        
+        document.querySelectorAll('.move-down-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                moveItemDown(btn.dataset.itemId);
+            });
+        });
+    } else {
+        // Desktop: initialize drag and drop
+        
+        // Prevent native drag behavior on selected items
+        selectedItemsList.querySelectorAll('.card').forEach(card => {
+            card.setAttribute('draggable', 'false');
+            card.addEventListener('dragstart', (e) => e.preventDefault());
+            card.addEventListener('selectstart', (e) => e.preventDefault());
+        });
+        
+        // Initialize Sortable
+        new Sortable(selectedItemsList, {
+            animation: 150,
+            handle: '.sortable-handle',
+            onEnd: function(evt) {
+                // Update priority based on new order
+                const newOrder = Array.from(selectedItemsList.children).map(el => el.dataset.itemId);
+                appState.selectedItems = newOrder.map(itemId => 
+                    appState.selectedItems.find(item => item.itemId === itemId)
+                );
+                updateSelectedItemsDisplay();
+                saveToLocalStorage();
+            }
+        });
+    }
+}
+
+// Move item up in priority
+function moveItemUp(itemId) {
+    const index = appState.selectedItems.findIndex(i => i.itemId === itemId);
+    if (index > 0) {
+        // Find the DOM elements
+        const items = Array.from(selectedItemsList.children);
+        const currentItem = items[index];
+        const previousItem = items[index - 1];
+        
+        // Add animation classes
+        currentItem.querySelector('.card').classList.add('animating-up');
+        previousItem.querySelector('.card').classList.add('animating-from-down');
+        
+        // Wait for animation to complete, then swap
+        setTimeout(() => {
+            // Remove animation classes
+            currentItem.querySelector('.card').classList.remove('animating-up');
+            previousItem.querySelector('.card').classList.remove('animating-from-down');
+            
+            // Swap with previous item
+            [appState.selectedItems[index - 1], appState.selectedItems[index]] = 
+            [appState.selectedItems[index], appState.selectedItems[index - 1]];
+            
             updateSelectedItemsDisplay();
             saveToLocalStorage();
-        }
-    });
+            
+            // Recalculate if crafting plan is visible
+            if (appState.craftingResults.length > 0) {
+                calculateCraftingPlan();
+            }
+        }, 200); // Half of animation duration for smooth swap
+    }
+}
+
+// Move item down in priority
+function moveItemDown(itemId) {
+    const index = appState.selectedItems.findIndex(i => i.itemId === itemId);
+    if (index >= 0 && index < appState.selectedItems.length - 1) {
+        // Find the DOM elements
+        const items = Array.from(selectedItemsList.children);
+        const currentItem = items[index];
+        const nextItem = items[index + 1];
+        
+        // Add animation classes
+        currentItem.querySelector('.card').classList.add('animating-down');
+        nextItem.querySelector('.card').classList.add('animating-from-up');
+        
+        // Wait for animation to complete, then swap
+        setTimeout(() => {
+            // Remove animation classes
+            currentItem.querySelector('.card').classList.remove('animating-down');
+            nextItem.querySelector('.card').classList.remove('animating-from-up');
+            
+            // Swap with next item
+            [appState.selectedItems[index], appState.selectedItems[index + 1]] = 
+            [appState.selectedItems[index + 1], appState.selectedItems[index]];
+            
+            updateSelectedItemsDisplay();
+            saveToLocalStorage();
+            
+            // Recalculate if crafting plan is visible
+            if (appState.craftingResults.length > 0) {
+                calculateCraftingPlan();
+            }
+        }, 200); // Half of animation duration for smooth swap
+    }
 }
 
 // Calculate crafting plan
@@ -1047,77 +1286,79 @@ function findExchanges(inventory, missing) {
         const materialRarity = appState.rarityMap[neededMaterial];
         let stillNeeded = neededQty;
         
-        // Try same-type exchanges first (3:1)
-        const sameTypeMaterials = Object.keys(appState.materials[materialRarity] || {}).filter(m => 
-            m !== neededMaterial && (tempInventory[m] || 0) >= 3
-        );
-        
-        while (stillNeeded > 0 && sameTypeMaterials.length > 0) {
-            const sourceMaterial = sameTypeMaterials[0];
-            const available = Math.floor((tempInventory[sourceMaterial] || 0) / 3);
-            const toExchange = Math.min(available, stillNeeded);
-            
-            if (toExchange > 0) {
-                exchanges.push({
-                    type: 'same-rarity',
-                    from: [{ material: sourceMaterial, quantity: toExchange * 3 }],
-                    to: { material: neededMaterial, quantity: toExchange }
-                });
+        // Try lower rarity exchanges first (6:1) - can combine different materials
+        const lowerRarity = getLowerRarity(materialRarity);
+        if (lowerRarity) {
+            while (stillNeeded > 0) {
+                // Get all available materials from lower rarity
+                const availableMaterials = Object.keys(appState.materials[lowerRarity] || {})
+                    .filter(m => (tempInventory[m] || 0) > 0)
+                    .map(m => ({ material: m, quantity: tempInventory[m] || 0 }))
+                    .sort((a, b) => b.quantity - a.quantity); // Sort by quantity (highest first)
                 
-                tempInventory[sourceMaterial] -= toExchange * 3;
-                tempInventory[neededMaterial] = (tempInventory[neededMaterial] || 0) + toExchange;
-                stillNeeded -= toExchange;
+                if (availableMaterials.length === 0) break;
+                
+                // Calculate total available
+                const totalAvailable = availableMaterials.reduce((sum, item) => sum + item.quantity, 0);
+                if (totalAvailable < 6) break;
+                
+                // Collect materials to reach 6 units
+                const materialsToUse = [];
+                let collected = 0;
+                
+                for (const item of availableMaterials) {
+                    if (collected >= 6) break;
+                    const needed = 6 - collected;
+                    const toTake = Math.min(item.quantity, needed);
+                    materialsToUse.push({ material: item.material, quantity: toTake });
+                    collected += toTake;
+                }
+                
+                if (collected === 6) {
+                    exchanges.push({
+                        type: 'higher-rarity',
+                        from: materialsToUse,
+                        to: { material: neededMaterial, quantity: 1 }
+                    });
+                    
+                    // Update temp inventory
+                    materialsToUse.forEach(item => {
+                        tempInventory[item.material] -= item.quantity;
+                    });
+                    tempInventory[neededMaterial] = (tempInventory[neededMaterial] || 0) + 1;
+                    stillNeeded -= 1;
+                } else {
+                    break;
+                }
             }
-            
-            sameTypeMaterials.shift();
         }
         
-        // Try lower rarity exchanges (6:1) - can combine different materials
+        // Try same-type exchanges if still needed (3:1)
         if (stillNeeded > 0) {
-            const lowerRarity = getLowerRarity(materialRarity);
-            if (lowerRarity) {
-                while (stillNeeded > 0) {
-                    // Get all available materials from lower rarity
-                    const availableMaterials = Object.keys(appState.materials[lowerRarity] || {})
-                        .filter(m => (tempInventory[m] || 0) > 0)
-                        .map(m => ({ material: m, quantity: tempInventory[m] || 0 }))
-                        .sort((a, b) => b.quantity - a.quantity); // Sort by quantity (highest first)
+            // Get available materials and sort by quantity (highest first)
+            const sameTypeMaterials = Object.keys(appState.materials[materialRarity] || {})
+                .filter(m => m !== neededMaterial && (tempInventory[m] || 0) >= 3)
+                .map(m => ({ material: m, quantity: tempInventory[m] || 0 }))
+                .sort((a, b) => b.quantity - a.quantity); // Prioritize materials with higher quantities
+            
+            while (stillNeeded > 0 && sameTypeMaterials.length > 0) {
+                const source = sameTypeMaterials[0];
+                const available = Math.floor((tempInventory[source.material] || 0) / 3);
+                const toExchange = Math.min(available, stillNeeded);
+                
+                if (toExchange > 0) {
+                    exchanges.push({
+                        type: 'same-rarity',
+                        from: [{ material: source.material, quantity: toExchange * 3 }],
+                        to: { material: neededMaterial, quantity: toExchange }
+                    });
                     
-                    if (availableMaterials.length === 0) break;
-                    
-                    // Calculate total available
-                    const totalAvailable = availableMaterials.reduce((sum, item) => sum + item.quantity, 0);
-                    if (totalAvailable < 6) break;
-                    
-                    // Collect materials to reach 6 units
-                    const materialsToUse = [];
-                    let collected = 0;
-                    
-                    for (const item of availableMaterials) {
-                        if (collected >= 6) break;
-                        const needed = 6 - collected;
-                        const toTake = Math.min(item.quantity, needed);
-                        materialsToUse.push({ material: item.material, quantity: toTake });
-                        collected += toTake;
-                    }
-                    
-                    if (collected === 6) {
-                        exchanges.push({
-                            type: 'higher-rarity',
-                            from: materialsToUse,
-                            to: { material: neededMaterial, quantity: 1 }
-                        });
-                        
-                        // Update temp inventory
-                        materialsToUse.forEach(item => {
-                            tempInventory[item.material] -= item.quantity;
-                        });
-                        tempInventory[neededMaterial] = (tempInventory[neededMaterial] || 0) + 1;
-                        stillNeeded -= 1;
-                    } else {
-                        break;
-                    }
+                    tempInventory[source.material] -= toExchange * 3;
+                    tempInventory[neededMaterial] = (tempInventory[neededMaterial] || 0) + toExchange;
+                    stillNeeded -= toExchange;
                 }
+                
+                sameTypeMaterials.shift();
             }
         }
         
@@ -1400,10 +1641,11 @@ function renderResults(results) {
         const imageHtml = resultImagePath ? `<img src="${resultImagePath}" alt="${result.item}" class="set-thumbnail" style="height: 50px;">` : '';
         
         // Craft button HTML
+        const buttonText = result.status === 'can-craft' ? '✓ Crafted' : '✓ Exchanged & Crafted';
         const craftButtonHtml = showCraftButton ? `
             <div class="mt-3 pt-2 border-top">
                 <button class="btn btn-sm btn-success w-100 craft-item-btn" data-result-index="${resultIndex}">
-                    <strong>✓ Exchanged & Crafted</strong>
+                    <strong>${buttonText}</strong>
                 </button>
             </div>
         ` : '';

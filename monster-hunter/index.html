@@ -60,6 +60,95 @@
        .sortable-handle {
            cursor: move;
            user-select: none;
+           -webkit-user-select: none;
+           -moz-user-select: none;
+           -ms-user-select: none;
+           -webkit-touch-callout: none;
+           touch-action: none;
+       }
+       
+       #selectedItemsList {
+           -webkit-user-select: none;
+           -moz-user-select: none;
+           -ms-user-select: none;
+           user-select: none;
+       }
+       
+       #selectedItemsList .card {
+           -webkit-user-select: none;
+           -moz-user-select: none;
+           -ms-user-select: none;
+           user-select: none;
+           -webkit-touch-callout: none;
+       }
+       
+       /* Animations for reordering items */
+       @keyframes slideUp {
+           0% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+           50% {
+               transform: translateY(-110%);
+               opacity: 0.7;
+           }
+           100% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+       }
+       
+       @keyframes slideDown {
+           0% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+           50% {
+               transform: translateY(110%);
+               opacity: 0.7;
+           }
+           100% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+       }
+       
+       @keyframes slideFromUp {
+           0% {
+               transform: translateY(-110%);
+               opacity: 0.7;
+           }
+           100% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+       }
+       
+       @keyframes slideFromDown {
+           0% {
+               transform: translateY(110%);
+               opacity: 0.7;
+           }
+           100% {
+               transform: translateY(0);
+               opacity: 1;
+           }
+       }
+       
+       .animating-up {
+           animation: slideUp 0.4s ease-in-out;
+       }
+       
+       .animating-down {
+           animation: slideDown 0.4s ease-in-out;
+       }
+       
+       .animating-from-up {
+           animation: slideFromUp 0.4s ease-in-out;
+       }
+       
+       .animating-from-down {
+           animation: slideFromDown 0.4s ease-in-out;
        }
        
        .priority-badge {
@@ -267,6 +356,12 @@
                 <!-- Available Sets -->
                 <div class="mb-4">
                     <h4 class="mb-3">Available Sets</h4>
+                    <p class="text-muted mb-3">
+                        <small>
+                            Select the items you want to craft by clicking on them. 
+                            You can choose multiple items and reorder them by priority below.
+                        </small>
+                    </p>
                     <div id="setsContainer" class="row g-3">
                         <!-- Sets will be loaded here -->
                     </div>
@@ -275,7 +370,7 @@
                 <!-- Selected Items for Crafting -->
                 <div id="selectedItemsSection" class="hidden">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="mb-0">Selected Items to Craft <span class="text-muted small">(Drag to reorder priority)</span></h4>
+                        <h4 class="mb-0">Selected Items to Craft <span id="reorderHint" class="text-muted small">(Drag to reorder priority)</span></h4>
                         <button class="btn btn-outline-danger btn-sm" id="btnResetSelection">Clear All</button>
                     </div>
                     <div id="selectedItemsList" class="row g-3 mb-4">
