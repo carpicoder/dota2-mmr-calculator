@@ -116,13 +116,42 @@ async function loadSets() {
 
 // Setup event listeners
 function setupEventListeners() {
-    btnExpeditionYes.addEventListener('click', () => setExpeditionPack(true));
-    btnExpeditionNo.addEventListener('click', () => setExpeditionPack(false));
-    btnChangeExpedition.addEventListener('click', changeExpeditionPack);
-    btnCalculate.addEventListener('click', calculateCraftingPlan);
-    btnResetSelection.addEventListener('click', resetSelection);
-    btnSaveInventory.addEventListener('click', saveInventory);
-    btnSaveCollection.addEventListener('click', saveCollection);
+    btnExpeditionYes.addEventListener('click', () => {
+        gtag('event', 'expedition_pack_selected', {'event_category': 'User Setup', 'event_label': 'Yes', 'value': 1});
+        setExpeditionPack(true);
+    });
+    btnExpeditionNo.addEventListener('click', () => {
+        gtag('event', 'expedition_pack_selected', {'event_category': 'User Setup', 'event_label': 'No', 'value': 0});
+        setExpeditionPack(false);
+    });
+    btnChangeExpedition.addEventListener('click', () => {
+        gtag('event', 'expedition_pack_changed', {'event_category': 'User Setup', 'event_label': 'Changed Expedition Pack'});
+        changeExpeditionPack();
+    });
+    btnCalculate.addEventListener('click', () => {
+        gtag('event', 'calculate_crafting_plan', {'event_category': 'Crafting', 'event_label': 'Calculate Button', 'value': appState.selectedItems.length});
+        calculateCraftingPlan();
+    });
+    btnResetSelection.addEventListener('click', () => {
+        gtag('event', 'reset_selection', {'event_category': 'Crafting', 'event_label': 'Clear All Button'});
+        resetSelection();
+    });
+    btnSaveInventory.addEventListener('click', () => {
+        gtag('event', 'save_inventory', {'event_category': 'Inventory', 'event_label': 'Save Inventory'});
+        saveInventory();
+    });
+    btnSaveCollection.addEventListener('click', () => {
+        gtag('event', 'save_collection', {'event_category': 'Collection', 'event_label': 'Save Collection'});
+        saveCollection();
+    });
+    
+    // Track modal opens
+    document.querySelector('[data-bs-target="#inventoryModal"]').addEventListener('click', () => {
+        gtag('event', 'open_inventory_modal', {'event_category': 'Inventory', 'event_label': 'Open Materials Inventory'});
+    });
+    document.querySelector('[data-bs-target="#collectionModal"]').addEventListener('click', () => {
+        gtag('event', 'open_collection_modal', {'event_category': 'Collection', 'event_label': 'Open My Collection'});
+    });
 }
 
 // Set expedition pack status
@@ -725,6 +754,7 @@ function toggleItemSelection(itemElement) {
         // Update badge
         const badge = itemElement.querySelector('.badge');
         if (badge) badge.remove();
+        gtag('event', 'item_deselected', {'event_category': 'Item Selection', 'event_label': itemData.item, 'value': 0});
     } else {
         appState.selectedItems.push({
             itemId,
@@ -737,6 +767,7 @@ function toggleItemSelection(itemElement) {
         badge.className = 'badge bg-primary';
         badge.textContent = '✓ Selected';
         itemElement.querySelector('.d-flex').appendChild(badge);
+        gtag('event', 'item_selected', {'event_category': 'Item Selection', 'event_label': itemData.item, 'value': 1});
     }
     
     updateSelectedItemsDisplay();
@@ -1407,6 +1438,8 @@ function renderResults(results) {
     document.querySelectorAll('.craft-item-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const resultIndex = parseInt(btn.dataset.resultIndex);
+            const result = appState.craftingResults[resultIndex];
+            gtag('event', 'exchange_and_craft', {'event_category': 'Crafting', 'event_label': result.item, 'value': 1});
             exchangeAndCraft(resultIndex);
         });
     });
