@@ -266,7 +266,15 @@ function toggleInputMode() {
 }
 
 function generateIndividualInputs() {
+    // Check if user has any universal materials
+    const hasUniversalMaterials = Object.keys(appState.inventory).some(key => 
+        key.startsWith('Universal ')
+    );
+    
     for (const [rarity, materials] of Object.entries(appState.materials)) {
+        // Skip universal section, we'll handle it separately
+        if (rarity === 'universal') continue;
+        
         const section = document.createElement('div');
         section.className = 'mb-4';
         
@@ -320,6 +328,118 @@ function generateIndividualInputs() {
         
         inventoryForm.appendChild(section);
     }
+    
+    // Universal materials section
+    const universalSection = document.createElement('div');
+    universalSection.className = 'mb-4 mt-5 pt-4 border-top border-secondary';
+    universalSection.id = 'universalMaterialsSection';
+    
+    if (hasUniversalMaterials) {
+        // Show universal materials inputs
+        universalSection.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="text-uppercase mb-0">
+                    <span class="badge bg-gradient" style="background: linear-gradient(90deg, #6c757d, #0dcaf0, #F0678F, #5603fc);">Universal Materials</span>
+                </h6>
+                <button type="button" class="btn btn-sm btn-outline-danger" id="btnRemoveUniversalMaterials">
+                    Remove Universal Materials
+                </button>
+            </div>
+            <p class="text-muted small mb-3">Universal materials can replace any material of their rarity.</p>
+        `;
+        
+        const universalMaterials = appState.materials['universal'] || {};
+        Object.keys(universalMaterials).forEach((material) => {
+            const group = document.createElement('div');
+            group.className = 'inventory-input-group d-flex align-items-center';
+            
+            const value = appState.inventory[material] !== undefined ? appState.inventory[material] : 0;
+            
+            group.innerHTML = `
+                <label class="me-auto d-flex align-items-center">
+                    ${createMaterialIcon(material)}
+                    ${material}
+                </label>
+                <input 
+                    type="number" 
+                    class="form-control form-control-sm" 
+                    min="0" 
+                    value="${value}"
+                    data-material="${material}"
+                    id="inv-${material.replace(/[^a-zA-Z0-9]/g, '-')}"
+                />
+            `;
+            
+            universalSection.appendChild(group);
+            
+            // Add enter key navigation
+            const input = group.querySelector('input');
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const allInputs = Array.from(inventoryForm.querySelectorAll('input[type="number"]'));
+                    const currentIndex = allInputs.indexOf(input);
+                    if (currentIndex < allInputs.length - 1) {
+                        allInputs[currentIndex + 1].focus();
+                        allInputs[currentIndex + 1].select();
+                    }
+                }
+            });
+        });
+        
+        inventoryForm.appendChild(universalSection);
+        
+        // Add event listener for remove button
+        document.getElementById('btnRemoveUniversalMaterials').addEventListener('click', removeUniversalMaterials);
+    } else {
+        // Show button to add universal materials
+        universalSection.innerHTML = `
+            <div class="text-center">
+                <h6 class="text-uppercase mb-3">
+                    <span class="badge bg-gradient" style="background: linear-gradient(90deg, #6c757d, #0dcaf0, #F0678F, #5603fc);">Universal Materials</span>
+                </h6>
+                <p class="text-muted small mb-3">Have universal material packs? Add them to your inventory!</p>
+                <button type="button" class="btn btn-outline-info" id="btnAddUniversalMaterials">
+                    📦 Add Universal Materials to Inventory
+                </button>
+            </div>
+        `;
+        
+        inventoryForm.appendChild(universalSection);
+        
+        // Add event listener for add button
+        document.getElementById('btnAddUniversalMaterials').addEventListener('click', addUniversalMaterials);
+    }
+}
+
+// Add universal materials to inventory
+function addUniversalMaterials() {
+    const universalMaterials = appState.materials['universal'] || {};
+    Object.keys(universalMaterials).forEach((material) => {
+        if (appState.inventory[material] === undefined) {
+            appState.inventory[material] = 0;
+        }
+    });
+    
+    // Regenerate inventory form
+    generateInventoryForm();
+    
+    // Track event
+    gtag('event', 'add_universal_materials', {'event_category': 'Inventory', 'event_label': 'Added Universal Materials Section'});
+}
+
+// Remove universal materials from inventory
+function removeUniversalMaterials() {
+    const universalMaterials = appState.materials['universal'] || {};
+    Object.keys(universalMaterials).forEach((material) => {
+        delete appState.inventory[material];
+    });
+    
+    // Regenerate inventory form
+    generateInventoryForm();
+    
+    // Track event
+    gtag('event', 'remove_universal_materials', {'event_category': 'Inventory', 'event_label': 'Removed Universal Materials Section'});
 }
 
 function generateBulkInput() {
@@ -1131,6 +1251,7 @@ function calculateCraftingPlan() {
             status: 'can-craft',
             message: '',
             exchanges: [],
+            universalsUsed: [], // Track which universal materials are used
             note: item.note || '',
             parts: [] // For complete sets
         };
@@ -1148,6 +1269,7 @@ function calculateCraftingPlan() {
                     name: part.name,
                     status: isPartCrafted ? 'already-crafted' : 'can-craft',
                     exchanges: [],
+                    universalsUsed: [],
                     missing: {},
                     crafted: isPartCrafted
                 };
@@ -1160,21 +1282,53 @@ function calculateCraftingPlan() {
                 
                 const materials = part.materials || {};
                 const missing = {};
+                const universalsUsed = [];
                 
-                // Check what's missing for this part
+                // Check what's missing for this part (considering universal materials)
                 for (const [material, needed] of Object.entries(materials)) {
-                    const have = currentInventory[material] || 0;
-                    if (have < needed) {
-                        missing[material] = needed - have;
+                    const materialRarity = appState.rarityMap[material];
+                    const universalMaterialName = getUniversalMaterialName(materialRarity);
+                    
+                    const specificHave = currentInventory[material] || 0;
+                    const universalHave = universalMaterialName ? (currentInventory[universalMaterialName] || 0) : 0;
+                    const totalHave = specificHave + universalHave;
+                    
+                    if (totalHave < needed) {
+                        missing[material] = needed - totalHave;
                         partResult.status = 'cannot-craft';
+                    } else {
+                        // Track how many universals we'll use
+                        const specificUsed = Math.min(specificHave, needed);
+                        const universalNeeded = needed - specificUsed;
+                        
+                        if (universalNeeded > 0 && universalMaterialName) {
+                            universalsUsed.push({
+                                universal: universalMaterialName,
+                                quantity: universalNeeded,
+                                replacing: material
+                            });
+                        }
                     }
                 }
+                
+                partResult.universalsUsed = universalsUsed;
                 
                 if (Object.keys(missing).length === 0) {
                     // Can craft this part!
                     // Deduct materials from inventory
                     for (const [material, needed] of Object.entries(materials)) {
-                        currentInventory[material] = (currentInventory[material] || 0) - needed;
+                        const materialRarity = appState.rarityMap[material];
+                        const universalMaterialName = getUniversalMaterialName(materialRarity);
+                        
+                        const specificHave = currentInventory[material] || 0;
+                        const specificUsed = Math.min(specificHave, needed);
+                        const universalNeeded = needed - specificUsed;
+                        
+                        currentInventory[material] = specificHave - specificUsed;
+                        
+                        if (universalNeeded > 0 && universalMaterialName) {
+                            currentInventory[universalMaterialName] = (currentInventory[universalMaterialName] || 0) - universalNeeded;
+                        }
                     }
                 } else {
                     // Try to find exchanges for this part
@@ -1192,8 +1346,20 @@ function calculateCraftingPlan() {
                             currentInventory[exchange.to.material] += exchange.to.quantity;
                         });
                         
+                        // Now deduct the materials for crafting (with universals)
                         for (const [material, needed] of Object.entries(materials)) {
-                            currentInventory[material] = (currentInventory[material] || 0) - needed;
+                            const materialRarity = appState.rarityMap[material];
+                            const universalMaterialName = getUniversalMaterialName(materialRarity);
+                            
+                            const specificHave = currentInventory[material] || 0;
+                            const specificUsed = Math.min(specificHave, needed);
+                            const universalNeeded = needed - specificUsed;
+                            
+                            currentInventory[material] = specificHave - specificUsed;
+                            
+                            if (universalNeeded > 0 && universalMaterialName) {
+                                currentInventory[universalMaterialName] = (currentInventory[universalMaterialName] || 0) - universalNeeded;
+                            }
                         }
                     } else {
                         partResult.missing = missing;
@@ -1226,22 +1392,54 @@ function calculateCraftingPlan() {
         }
         
         const missing = {};
+        const universalsUsed = [];
         
-        // Check what's missing
+        // Check what's missing (considering universal materials)
         for (const [material, needed] of Object.entries(materials)) {
-            const have = currentInventory[material] || 0;
-            if (have < needed) {
-                missing[material] = needed - have;
+            const materialRarity = appState.rarityMap[material];
+            const universalMaterialName = getUniversalMaterialName(materialRarity);
+            
+            const specificHave = currentInventory[material] || 0;
+            const universalHave = universalMaterialName ? (currentInventory[universalMaterialName] || 0) : 0;
+            const totalHave = specificHave + universalHave;
+            
+            if (totalHave < needed) {
+                missing[material] = needed - totalHave;
                 result.status = 'cannot-craft';
+            } else {
+                // Track how many universals we'll use
+                const specificUsed = Math.min(specificHave, needed);
+                const universalNeeded = needed - specificUsed;
+                
+                if (universalNeeded > 0 && universalMaterialName) {
+                    universalsUsed.push({
+                        universal: universalMaterialName,
+                        quantity: universalNeeded,
+                        replacing: material
+                    });
+                }
             }
         }
+        
+        result.universalsUsed = universalsUsed;
         
         if (Object.keys(missing).length === 0) {
             // Can craft!
             result.message = 'You can craft this item!';
             // Deduct materials from inventory
             for (const [material, needed] of Object.entries(materials)) {
-                currentInventory[material] = (currentInventory[material] || 0) - needed;
+                const materialRarity = appState.rarityMap[material];
+                const universalMaterialName = getUniversalMaterialName(materialRarity);
+                
+                const specificHave = currentInventory[material] || 0;
+                const specificUsed = Math.min(specificHave, needed);
+                const universalNeeded = needed - specificUsed;
+                
+                currentInventory[material] = specificHave - specificUsed;
+                
+                if (universalNeeded > 0 && universalMaterialName) {
+                    currentInventory[universalMaterialName] = (currentInventory[universalMaterialName] || 0) - universalNeeded;
+                }
             }
         } else {
             // Try to find exchanges
@@ -1260,8 +1458,20 @@ function calculateCraftingPlan() {
                     currentInventory[exchange.to.material] += exchange.to.quantity;
                 });
                 
+                // Now deduct the materials for crafting (with universals)
                 for (const [material, needed] of Object.entries(materials)) {
-                    currentInventory[material] = (currentInventory[material] || 0) - needed;
+                    const materialRarity = appState.rarityMap[material];
+                    const universalMaterialName = getUniversalMaterialName(materialRarity);
+                    
+                    const specificHave = currentInventory[material] || 0;
+                    const specificUsed = Math.min(specificHave, needed);
+                    const universalNeeded = needed - specificUsed;
+                    
+                    currentInventory[material] = specificHave - specificUsed;
+                    
+                    if (universalNeeded > 0 && universalMaterialName) {
+                        currentInventory[universalMaterialName] = (currentInventory[universalMaterialName] || 0) - universalNeeded;
+                    }
                 }
             } else {
                 result.message = 'You need to collect more materials:';
@@ -1370,11 +1580,252 @@ function findExchanges(inventory, missing) {
     return { possible: true, exchanges };
 }
 
+// Get universal material name for a given rarity
+function getUniversalMaterialName(rarity) {
+    const mapping = {
+        'common': 'Universal Common',
+        'uncommon': 'Universal Uncommon',
+        'rare': 'Universal Rare',
+        'super rare': 'Universal Super Rare'
+    };
+    return mapping[rarity] || null;
+}
+
 // Get lower rarity
 function getLowerRarity(rarity) {
     const rarities = ['common', 'uncommon', 'rare', 'super rare'];
     const index = rarities.indexOf(rarity);
     return index > 0 ? rarities[index - 1] : null;
+}
+
+// Universal material packs configuration
+const UNIVERSAL_PACKS = {
+    'common': { quantity: 24, name: 'Universal Commons' },
+    'uncommon': { quantity: 15, name: 'Universal Uncommons' },
+    'rare': { quantity: 5, name: 'Universal Rares' },
+    'super rare': { quantity: 3, name: 'Universal Super Rares' }
+};
+
+// Calculate universal packs needed for missing materials
+function calculateUniversalPacks(missingMaterials) {
+    const packsByRarity = {
+        'common': 0,
+        'uncommon': 0,
+        'rare': 0,
+        'super rare': 0
+    };
+    
+    // Group missing materials by rarity
+    for (const [material, quantity] of Object.entries(missingMaterials)) {
+        const rarity = appState.rarityMap[material];
+        if (rarity && packsByRarity[rarity] !== undefined) {
+            packsByRarity[rarity] += quantity;
+        }
+    }
+    
+    // Calculate packs needed for each rarity
+    const packsNeeded = [];
+    for (const [rarity, totalNeeded] of Object.entries(packsByRarity)) {
+        if (totalNeeded > 0) {
+            const packConfig = UNIVERSAL_PACKS[rarity];
+            const packsRequired = Math.ceil(totalNeeded / packConfig.quantity);
+            const totalMaterials = packsRequired * packConfig.quantity;
+            const extraMaterials = totalMaterials - totalNeeded;
+            
+            packsNeeded.push({
+                rarity,
+                packsRequired,
+                totalNeeded,
+                totalMaterials,
+                extraMaterials,
+                packName: packConfig.name,
+                packQuantity: packConfig.quantity
+            });
+        }
+    }
+    
+    return packsNeeded;
+}
+
+// Show universal packs modal
+function showUniversalPacksInfo(result) {
+    // Collect all missing materials (including from parts if it's a complete set)
+    let allMissing = {};
+    
+    if (result.isCompleteSet && result.parts) {
+        // For complete sets, aggregate missing materials from all parts
+        result.parts.forEach(part => {
+            if (part.missing && Object.keys(part.missing).length > 0) {
+                for (const [mat, qty] of Object.entries(part.missing)) {
+                    allMissing[mat] = (allMissing[mat] || 0) + qty;
+                }
+            }
+        });
+    } else if (result.missing) {
+        allMissing = { ...result.missing };
+    }
+    
+    if (Object.keys(allMissing).length === 0) {
+        return; // No missing materials
+    }
+    
+    const packsNeeded = calculateUniversalPacks(allMissing);
+    
+    if (packsNeeded.length === 0) {
+        return; // No packs needed
+    }
+    
+    // Create modal content
+    let modalContent = `
+        <div class="modal fade" id="universalPacksModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title">📦 Universal Material Packs Needed</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-3"><strong>${result.item}</strong></p>
+                        <p class="text-muted small mb-3">To craft this item, you need to buy the following universal material packs:</p>
+                        <div class="list-group list-group-flush bg-dark">
+    `;
+    
+    packsNeeded.forEach(pack => {
+        const rarityClass = pack.rarity.replace(' ', '-');
+        modalContent += `
+            <div class="list-group-item bg-dark-subtle border-secondary mb-2 rounded">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="flex-grow-1">
+                        <div class="mb-1">
+                            <span class="badge rarity-${rarityClass}">${pack.rarity}</span>
+                        </div>
+                        <h6 class="mb-1">${pack.packName}</h6>
+                        <small class="text-muted">
+                            Pack contains ${pack.packQuantity} materials
+                        </small>
+                    </div>
+                    <div class="text-end">
+                        <div class="badge bg-primary fs-6">${pack.packsRequired} pack${pack.packsRequired > 1 ? 's' : ''}</div>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 border-top border-secondary">
+                    <small class="text-muted">
+                        Need: ${pack.totalNeeded} | 
+                        Get: ${pack.totalMaterials}
+                        ${pack.extraMaterials > 0 ? ` | <span class="text-success">+${pack.extraMaterials} extra</span>` : ''}
+                    </small>
+                </div>
+            </div>
+        `;
+    });
+    
+    modalContent += `
+                        </div>
+                        <div class="alert alert-info mt-3 mb-0">
+                            <small>
+                                💡 <strong>Tip:</strong> Universal materials can represent any material of their rarity. 
+                                Buy the packs and you'll have enough to craft this item!
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-secondary">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="btnPurchasedPacks" data-packs='${JSON.stringify(packsNeeded)}'>
+                            ✓ I bought these packs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if present
+    const existingModal = document.getElementById('universalPacksModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Append new modal to body
+    document.body.insertAdjacentHTML('beforeend', modalContent);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('universalPacksModal'));
+    modal.show();
+    
+    // Add event listener for purchase button
+    document.getElementById('btnPurchasedPacks').addEventListener('click', function() {
+        const packs = JSON.parse(this.dataset.packs);
+        addUniversalPacksToInventory(packs);
+        modal.hide();
+    });
+    
+    // Track event
+    gtag('event', 'view_universal_packs', {'event_category': 'Universal Packs', 'event_label': result.item});
+}
+
+// Add purchased universal packs to inventory
+function addUniversalPacksToInventory(packsNeeded) {
+    // First, ensure universal materials exist in inventory
+    const universalMaterials = appState.materials['universal'] || {};
+    Object.keys(universalMaterials).forEach((material) => {
+        if (appState.inventory[material] === undefined) {
+            appState.inventory[material] = 0;
+        }
+    });
+    
+    // Add the materials based on packs purchased
+    packsNeeded.forEach(pack => {
+        let materialName = '';
+        
+        // Map rarity to material name
+        if (pack.rarity === 'common') {
+            materialName = 'Universal Common';
+        } else if (pack.rarity === 'uncommon') {
+            materialName = 'Universal Uncommon';
+        } else if (pack.rarity === 'rare') {
+            materialName = 'Universal Rare';
+        } else if (pack.rarity === 'super rare') {
+            materialName = 'Universal Super Rare';
+        }
+        
+        if (materialName) {
+            appState.inventory[materialName] = (appState.inventory[materialName] || 0) + pack.totalMaterials;
+        }
+    });
+    
+    // Save to localStorage
+    saveToLocalStorage();
+    
+    // Update inventory form if modal is open
+    const inventoryModal = document.getElementById('inventoryModal');
+    if (inventoryModal && inventoryModal.classList.contains('show')) {
+        generateInventoryForm();
+    }
+    
+    // Show success message
+    const toast = document.createElement('div');
+    toast.className = 'position-fixed top-0 start-50 translate-middle-x mt-3';
+    toast.style.zIndex = '9999';
+    toast.innerHTML = `
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>✓ Packs added!</strong> Universal materials have been added to your inventory.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+    document.body.appendChild(toast);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        toast.remove();
+    }, 5000);
+    
+    // Recalculate crafting plan if there are selected items
+    if (appState.selectedItems.length > 0) {
+        calculateCraftingPlan();
+    }
+    
+    // Track event
+    gtag('event', 'purchased_universal_packs', {'event_category': 'Universal Packs', 'event_label': 'Added Packs to Inventory'});
 }
 
 // Exchange and craft an item
@@ -1403,14 +1854,25 @@ function exchangeAndCraft(resultIndex) {
                 });
             }
             
-            // Deduct materials for crafting this part
+            // Deduct materials for crafting this part (including universals)
             const itemData = appState.itemsDataMap.get(result.itemId);
             if (itemData && itemData.parts) {
                 const partData = itemData.parts.find(p => p.name === part.name);
                 if (partData && partData.materials) {
                     for (const [material, needed] of Object.entries(partData.materials)) {
-                        appState.inventory[material] = (appState.inventory[material] || 0) - needed;
-                        if (appState.inventory[material] < 0) appState.inventory[material] = 0;
+                        const materialRarity = appState.rarityMap[material];
+                        const universalMaterialName = getUniversalMaterialName(materialRarity);
+                        
+                        const specificHave = appState.inventory[material] || 0;
+                        const specificUsed = Math.min(specificHave, needed);
+                        const universalNeeded = needed - specificUsed;
+                        
+                        appState.inventory[material] = specificHave - specificUsed;
+                        
+                        if (universalNeeded > 0 && universalMaterialName) {
+                            appState.inventory[universalMaterialName] = (appState.inventory[universalMaterialName] || 0) - universalNeeded;
+                            if (appState.inventory[universalMaterialName] < 0) appState.inventory[universalMaterialName] = 0;
+                        }
                     }
                 }
             }
@@ -1444,12 +1906,23 @@ function exchangeAndCraft(resultIndex) {
             });
         }
         
-        // Deduct materials for crafting
+        // Deduct materials for crafting (including universals)
         const itemData = appState.itemsDataMap.get(result.itemId);
         if (itemData && itemData.materials) {
             for (const [material, needed] of Object.entries(itemData.materials)) {
-                appState.inventory[material] = (appState.inventory[material] || 0) - needed;
-                if (appState.inventory[material] < 0) appState.inventory[material] = 0;
+                const materialRarity = appState.rarityMap[material];
+                const universalMaterialName = getUniversalMaterialName(materialRarity);
+                
+                const specificHave = appState.inventory[material] || 0;
+                const specificUsed = Math.min(specificHave, needed);
+                const universalNeeded = needed - specificUsed;
+                
+                appState.inventory[material] = specificHave - specificUsed;
+                
+                if (universalNeeded > 0 && universalMaterialName) {
+                    appState.inventory[universalMaterialName] = (appState.inventory[universalMaterialName] || 0) - universalNeeded;
+                    if (appState.inventory[universalMaterialName] < 0) appState.inventory[universalMaterialName] = 0;
+                }
             }
         }
         
@@ -1511,6 +1984,7 @@ function renderResults(results) {
         let statusClass = '';
         let statusBadge = '';
         let showCraftButton = false;
+        let showUniversalPacksButton = false;
         
         if (result.status === 'already-unlocked') {
             statusClass = 'border-info';
@@ -1526,6 +2000,7 @@ function renderResults(results) {
         } else {
             statusClass = 'status-cannot-craft';
             statusBadge = '<span class="badge bg-danger">Cannot Craft Yet</span>';
+            showUniversalPacksButton = true;
         }
         
         let contentHtml = '';
@@ -1556,6 +2031,15 @@ function renderResults(results) {
                     </div>`;
                 
                 if (!part.crafted) {
+                    // Show universal materials being used
+                    if (part.universalsUsed && part.universalsUsed.length > 0) {
+                        contentHtml += '<ul class="mb-0 small exchange-list">';
+                        part.universalsUsed.forEach(u => {
+                            contentHtml += `<li class="small text-info">Using ${createMaterialIcon(u.universal, 'small')}${u.universal} x${u.quantity} as ${createMaterialIcon(u.replacing, 'small')}${u.replacing}</li>`;
+                        });
+                        contentHtml += '</ul>';
+                    }
+                    
                     if (part.exchanges && part.exchanges.length > 0) {
                         contentHtml += '<ul class="mb-0 small exchange-list">';
                         part.exchanges.forEach(ex => {
@@ -1594,6 +2078,15 @@ function renderResults(results) {
             contentHtml += '</div>';
         } else {
             contentHtml = `<p class="mb-2 small">${result.message}</p>`;
+            
+            // Show universal materials being used
+            if (result.universalsUsed && result.universalsUsed.length > 0) {
+                contentHtml += '<div class="alert alert-info py-2 px-2 mb-2"><strong class="small">Using Universal Materials:</strong><ul class="mb-0 mt-1 small exchange-list">';
+                result.universalsUsed.forEach(u => {
+                    contentHtml += `<li class="small">${createMaterialIcon(u.universal, 'small')}${u.universal} x${u.quantity} as ${createMaterialIcon(u.replacing, 'small')}${u.replacing}</li>`;
+                });
+                contentHtml += '</ul></div>';
+            }
             
             if (result.exchanges && result.exchanges.length > 0) {
                 contentHtml += '<div class="alert alert-warning py-2 px-2 mb-2"><strong class="small">Exchanges:</strong><ul class="mb-0 mt-1 small exchange-list">';
@@ -1650,6 +2143,15 @@ function renderResults(results) {
             </div>
         ` : '';
         
+        // Universal packs button HTML
+        const universalPacksButtonHtml = showUniversalPacksButton ? `
+            <div class="mt-3 pt-2 border-top">
+                <button class="btn btn-sm btn-info w-100 universal-packs-btn" data-result-index="${resultIndex}">
+                    📦 <strong>Buy Universal Material Packs</strong>
+                </button>
+            </div>
+        ` : '';
+        
         card.innerHTML = `
             <div class="card-body ${statusClass} p-3">
                 <div class="d-flex justify-content-between align-items-start mb-2">
@@ -1667,6 +2169,7 @@ function renderResults(results) {
                 ${imageHtml ? `<div class="mb-2">${imageHtml}</div>` : ''}
                 ${contentHtml}
                 ${craftButtonHtml}
+                ${universalPacksButtonHtml}
             </div>
         `;
         
@@ -1683,6 +2186,15 @@ function renderResults(results) {
             const result = appState.craftingResults[resultIndex];
             gtag('event', 'exchange_and_craft', {'event_category': 'Crafting', 'event_label': result.item, 'value': 1});
             exchangeAndCraft(resultIndex);
+        });
+    });
+    
+    // Add click listeners to universal packs buttons
+    document.querySelectorAll('.universal-packs-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const resultIndex = parseInt(btn.dataset.resultIndex);
+            const result = appState.craftingResults[resultIndex];
+            showUniversalPacksInfo(result);
         });
     });
 }
@@ -1742,17 +2254,37 @@ function createMaterialIcon(materialName, size = 'normal') {
     const rarity = appState.rarityMap[materialName];
     const color = appState.materialColors[materialName];
     
+    // Check if it's a universal material
+    const isUniversal = materialName.startsWith('Universal ');
+    
     let style = '';
-    if (rarity === 'super rare' || rarity === 'rare') {
+    if (rarity === 'super rare' || rarity === 'rare' || isUniversal) {
         let effectColor, r, g, b;
         
-        // Super rare always uses violet, rare uses their specific color
-        if (rarity === 'super rare') {
+        // Universal materials get special treatment based on their type
+        if (isUniversal) {
+            if (materialName === 'Universal Rare') {
+                // Pink glow for Universal Rare
+                effectColor = '#F0678F';
+                r = 240;
+                g = 103;
+                b = 143;
+            } else if (materialName === 'Universal Super Rare') {
+                // Violet glow for Universal Super Rare
+                effectColor = '#5603fc';
+                r = 86;
+                g = 3;
+                b = 252;
+            }
+            // Universal Common and Uncommon don't get special glow (fall through)
+        } else if (rarity === 'super rare') {
+            // Super rare always uses violet
             effectColor = '#5603fc'; // BlueViolet
             r = 86;
             g = 3;
             b = 252;
-        } else if (color) {
+        } else if (rarity === 'rare' && color) {
+            // Rare uses their specific color
             effectColor = color;
             r = parseInt(color.slice(1, 3), 16);
             g = parseInt(color.slice(3, 5), 16);
@@ -1760,8 +2292,8 @@ function createMaterialIcon(materialName, size = 'normal') {
         }
         
         if (effectColor) {
-            const intensity = rarity === 'super rare' ? 0.7 : 0.5;
-            const glowIntensity = rarity === 'super rare' ? 0.9 : 0.7;
+            const intensity = (rarity === 'super rare' || materialName === 'Universal Super Rare') ? 0.7 : 0.5;
+            const glowIntensity = (rarity === 'super rare' || materialName === 'Universal Super Rare') ? 0.9 : 0.7;
             
             style = `style="
                 box-shadow: 0 0 8px rgba(${r}, ${g}, ${b}, ${intensity});
@@ -1774,7 +2306,10 @@ function createMaterialIcon(materialName, size = 'normal') {
         }
     }
     
-    return `<img src="${getMaterialIcon(materialName)}" class="${sizeClass}" ${style} alt="${materialName}" onerror="this.style.display='none'">`;
+    // Use Universal.svg for all universal materials
+    const iconPath = isUniversal ? './img/materials/Universal.svg' : getMaterialIcon(materialName);
+    
+    return `<img src="${iconPath}" class="${sizeClass}" ${style} alt="${materialName}" onerror="this.style.display='none'">`;
 }
 
 // Inject custom animation for each material

@@ -42,5 +42,11 @@
     "Palico Voucher": { "color": "##03fc20" },
     "Poogie Voucher": { "color": "##03fc20" },
     "Prismatic Pigment": { "color": "##03fc20" }
+  },
+  "universal": {
+    "Universal Common": { "color": "#6c757d", "isUniversal": true },
+    "Universal Uncommon": { "color": "#0dcaf0", "isUniversal": true },
+    "Universal Rare": { "color": "#F0678F", "isUniversal": true },
+    "Universal Super Rare": { "color": "#5603fc", "isUniversal": true }
   }
 }
