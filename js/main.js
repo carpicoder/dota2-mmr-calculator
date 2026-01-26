@@ -6,7 +6,8 @@ const ranks=[
     {name:"Legend",mmr:[3080,3234,3388,3542,3696]},
     {name:"Ancient",mmr:[3850,4004,4158,4312,4466]},
     {name:"Divine",mmr:[4620,4820,5020,5220,5420]},
-    {name:"Immortal",mmr:[5620]}
+    {name:"Immortal",mmr:[5620]},
+    {name:"Immortal Draft",mmr:[6500]}
 ];
 
 const MMR_PER_WIN = 25;
@@ -67,19 +68,47 @@ function handleSubmit(event) {
 
     for(let i=0;i<ranks.length;i++){
         const rankData = ranks[i];
-        if (rankData.name === "Immortal") {
-            if (mmr >= rankData.mmr[0]) {
-                 currentRank = { name: "Immortal", level: null, mmr: rankData.mmr[0] };
-                 nextRank = null;
-                 nextMedal = null;
+        if (rankData.name === "Immortal" || rankData.name === "Immortal Draft") {
+            // Verificar si el siguiente rango existe y si el MMR está en el rango actual
+            const nextRankData = ranks[i + 1];
+            const isInCurrentRank = nextRankData ? 
+                (mmr >= rankData.mmr[0] && mmr < nextRankData.mmr[0]) : 
+                (mmr >= rankData.mmr[0]);
+            
+            if (isInCurrentRank) {
+                 currentRank = { name: rankData.name, level: null, mmr: rankData.mmr[0] };
                  
-                 // Para Immortal, el rango anterior es Divine V
-                 const divineRankData = ranks[ranks.length - 2]; // Divine es el penúltimo
-                 previousRank = {
-                     name: divineRankData.name,
-                     level: divineRankData.mmr.length, // Último nivel de Divine (V)
-                     mmr: divineRankData.mmr[divineRankData.mmr.length - 1] // Divine V MMR
-                 };
+                 // Verificar si hay un siguiente rango (Immortal Draft después de Immortal)
+                 if (nextRankData) {
+                     nextRank = { name: nextRankData.name, level: null, mmr: nextRankData.mmr[0] };
+                     nextMedal = null;
+                 } else {
+                     nextRank = null;
+                     nextMedal = null;
+                 }
+                 
+                 // El rango anterior
+                 if (rankData.name === "Immortal Draft") {
+                     // Para Immortal Draft, el previous rank es Divine V (se salta Immortal)
+                     const divineRankData = ranks.find(r => r.name === "Divine");
+                     if (divineRankData) {
+                         previousRank = {
+                             name: divineRankData.name,
+                             level: divineRankData.mmr.length,
+                             mmr: divineRankData.mmr[divineRankData.mmr.length - 1]
+                         };
+                     }
+                 } else {
+                     // Para Immortal, el previous rank es Divine V
+                     const previousRankData = ranks[i - 1];
+                     if (previousRankData && previousRankData.name === "Divine") {
+                         previousRank = {
+                             name: previousRankData.name,
+                             level: previousRankData.mmr.length,
+                             mmr: previousRankData.mmr[previousRankData.mmr.length - 1]
+                         };
+                     }
+                 }
                  break;
             }
         } else {
@@ -97,7 +126,7 @@ function handleSubmit(event) {
                      } else if (nextMedalRankData) {
                          nextRank = {
                              name: nextMedalRankData.name,
-                             level: nextMedalRankData.name === "Immortal" ? null : 1,
+                             level: (nextMedalRankData.name === "Immortal" || nextMedalRankData.name === "Immortal Draft") ? null : 1,
                              mmr: nextMedalStartMMR
                          };
                      } else {
@@ -110,13 +139,13 @@ function handleSubmit(event) {
          if (currentRank) break;
     }
 
-    if (currentRank && currentRank.name !== "Immortal") {
+    if (currentRank && currentRank.name !== "Immortal" && currentRank.name !== "Immortal Draft") {
         const currentMedalIndex = ranks.findIndex(rank => rank.name === currentRank.name);
         const nextMedalRankData = ranks[currentMedalIndex + 1];
         if (nextMedalRankData) {
               nextMedal = {
                     name: nextMedalRankData.name,
-                    level: nextMedalRankData.name === "Immortal" ? null : 1,
+                    level: (nextMedalRankData.name === "Immortal" || nextMedalRankData.name === "Immortal Draft") ? null : 1,
                     mmr: nextMedalRankData.mmr[0]
               };
         } else {
@@ -206,36 +235,71 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
     hideElement(previousRankInfoGamesNeededEl);
     hideElement(nextRankInfoContainer);
 
-    currentRankNameEl.textContent=`${current.name} ${current.name !== 'Immortal' ? romanize(current.level) : ''}`;
+    currentRankNameEl.textContent=`${current.name} ${(current.name !== 'Immortal' && current.name !== 'Immortal Draft') ? romanize(current.level) : ''}`;
     currentRankMmrEl.textContent=`${current.mmr} MMR`;
-    currentRankImageEl.src = `./img/${current.name.toLowerCase()}${current.name === 'Immortal' ? '' : '-' + current.level}.webp`;
+    // Tanto Immortal como Immortal Draft usan la misma imagen de immortal
+    const imageName = current.name === 'Immortal Draft' ? 'immortal' : current.name.toLowerCase();
+    currentRankImageEl.src = `./img/${imageName}${(current.name === 'Immortal' || current.name === 'Immortal Draft') ? '' : '-' + current.level}.webp`;
     formSubtitle.classList.add("hidden");
 
-    if(current.name==="Immortal"){
-        showElement(currentRankCardContainer, ["col-12"]);
+    if(current.name==="Immortal" || current.name==="Immortal Draft"){
         showElement(nextRankInfoContainer);
         showElement(nextRankInfoYourMmrEl);
         nextRankInfoYourMmrEl.textContent=`You have ${userMMR} MMR`;
-        showElement(nextRankInfoMmrNeededEl)
-        nextRankInfoMmrNeededEl.innerHTML = "You're already Immortal, wtf are you doing here?!";
-        nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
         
-        // Mostrar información del rango anterior para Immortal
-        if (previous) {
-            const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
+        // Si hay un siguiente rango (Immortal -> Immortal Draft)
+        if (next) {
+            showElement(currentRankCardContainer, ["col-sm-6"]);
+            showElement(nextRankCardContainer, ["col-sm-6"]);
             
-            // Para Immortal, el threshold es el último MMR de Divine V
-            const mmrThreshold = 5619; // Último MMR de Divine V
+            const nextRankFullName = next.name;
+            nextRankNameEl.textContent = nextRankFullName;
+            nextRankMmrEl.textContent = `${next.mmr} MMR`;
+            // Immortal Draft también usa el ícono de Immortal
+            nextRankImageEl.src = `./img/immortal.webp`;
+            
+            const mmrNeeded = next.mmr - userMMR;
+            const gamesNeeded = mmrNeeded > 0 ? Math.ceil(mmrNeeded / MMR_PER_WIN) : 0;
+            
+            showElement(nextRankInfoNextMmrEl);
+            nextRankInfoNextMmrEl.textContent = `${nextRankFullName} starts at ${next.mmr} MMR`;
+            showElement(nextRankInfoMmrNeededEl);
+            nextRankInfoMmrNeededEl.innerHTML = `<strong>${mmrNeeded > 0 ? mmrNeeded : 0} MMR</strong> to reach <strong>${nextRankFullName}</strong>`;
+            nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-success-subtle text-success-emphasis p-2 rounded d-inline-block me-2 mb-2';
+            showElement(nextRankInfoGamesNeededEl);
+            nextRankInfoGamesNeededEl.innerHTML = `Approx <strong>${gamesNeeded} wins</strong> to reach <strong>${nextRankFullName}</strong>`;
+            nextRankInfoGamesNeededEl.className = 'next-rank-info-games-needed info-needed bg-success-subtle text-success-emphasis p-2 rounded d-inline-block mb-2';
+        } else {
+            // Si no hay siguiente rango (ya está en Immortal Draft)
+            showElement(currentRankCardContainer, ["col-12"]);
+            showElement(nextRankInfoMmrNeededEl)
+            nextRankInfoMmrNeededEl.innerHTML = current.name === "Immortal Draft" ? 
+                "You're already at the highest rank, wtf are you doing here?!" : 
+                "You're already Immortal, wtf are you doing here?!";
+            nextRankInfoMmrNeededEl.className = 'next-rank-info-mmr-needed info-needed bg-primary-subtle text-primary-emphasis p-2 rounded d-inline-block me-2 mb-2';
+        }
+        
+        // Mostrar información del rango anterior para Immortal/Immortal Draft
+        if (previous) {
+            const previousRankFullName = `${previous.name} ${(previous.name !== 'Immortal' && previous.name !== 'Immortal Draft') ? romanize(previous.level) : ""}`;
+            
+            // Calcular el threshold según el rango actual
+            let mmrThreshold;
+            if (current.name === "Immortal" || current.name === "Immortal Draft") {
+                // Tanto Immortal como Immortal Draft caen a Divine V (5619 es el último MMR de Divine V)
+                mmrThreshold = 5619;
+            }
+            
             const mmrToLose = userMMR - mmrThreshold;
             const gamesToLose = mmrToLose > 0 ? Math.ceil(mmrToLose / MMR_PER_WIN) : 0;
             
             showElement(previousRankInfoMmrNeededEl);
             previousRankInfoMmrNeededEl.innerHTML = `<strong>${mmrToLose > 0 ? mmrToLose : 0} MMR</strong> to fall to <strong>${previousRankFullName}</strong>`;
-            previousRankInfoMmrNeededEl.className = 'previous-rank-info-mmr-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-block mb-2';
+            previousRankInfoMmrNeededEl.className = 'previous-rank-info-mmr-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-inline-block me-2 mb-2';
             
             showElement(previousRankInfoGamesNeededEl);
             previousRankInfoGamesNeededEl.innerHTML = `Approx <strong>${gamesToLose} losses</strong> to fall to <strong>${previousRankFullName}</strong>`;
-            previousRankInfoGamesNeededEl.className = 'previous-rank-info-games-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-block mb-2';
+            previousRankInfoGamesNeededEl.className = 'previous-rank-info-games-needed info-needed-previous bg-warning-subtle text-warning-emphasis p-2 rounded d-inline-block mb-2';
         }
     } else {
         let visibleCards = 0;
@@ -251,12 +315,14 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
         if (next) {
             showElement(nextRankCardContainer);
             visibleCards++;
-            const nextRankFullName = `${next.name} ${next.name !== 'Immortal' ? romanize(next.level) : ""}`;
+            const nextRankFullName = `${next.name} ${(next.name !== 'Immortal' && next.name !== 'Immortal Draft') ? romanize(next.level) : ""}`;
             nextRankNameEl.textContent = nextRankFullName;
             nextRankMmrEl.textContent = `${next.mmr} MMR`;
-            nextRankImageEl.src = `./img/${next.name.toLowerCase()}${next.name === 'Immortal' ? '' : '-' + next.level}.webp`;
+            // Immortal Draft también usa el ícono de Immortal
+            const nextImageName = next.name === 'Immortal Draft' ? 'immortal' : next.name.toLowerCase();
+            nextRankImageEl.src = `./img/${nextImageName}${(next.name === 'Immortal' || next.name === 'Immortal Draft') ? '' : '-' + next.level}.webp`;
 
-            if (next.name === 'Immortal') isDivine5Case = true;
+            if (next.name === 'Immortal' || next.name === 'Immortal Draft') isDivine5Case = true;
 
             const mmrNeeded = next.mmr - userMMR;
             const gamesNeeded = mmrNeeded > 0 ? Math.ceil(mmrNeeded / MMR_PER_WIN) : 0;
@@ -274,10 +340,12 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
         if (shouldShowNextMedalCard) {
             showElement(nextMedalCardContainer);
             visibleCards++;
-            const nextMedalFullName = `${nextMedal.name} ${nextMedal.name !== 'Immortal' ? romanize(nextMedal.level) : ""}`;
+            const nextMedalFullName = `${nextMedal.name} ${(nextMedal.name !== 'Immortal' && nextMedal.name !== 'Immortal Draft') ? romanize(nextMedal.level) : ""}`;
             nextMedalNameEl.textContent = nextMedalFullName;
             nextMedalMmrEl.textContent = `${nextMedal.mmr} MMR`;
-            nextMedalImageEl.src = `./img/${nextMedal.name.toLowerCase()}${nextMedal.level ? '-' + nextMedal.level : ''}.webp`;
+            // Immortal Draft también usa el ícono de Immortal
+            const nextMedalImageName = nextMedal.name === 'Immortal Draft' ? 'immortal' : nextMedal.name.toLowerCase();
+            nextMedalImageEl.src = `./img/${nextMedalImageName}${nextMedal.level ? '-' + nextMedal.level : ''}.webp`;
             const nextMedalMmrNeeded = nextMedal.mmr - userMMR;
             const nextMedalGamesNeeded = nextMedalMmrNeeded > 0 ? Math.ceil(nextMedalMmrNeeded / MMR_PER_WIN) : 0;
 
@@ -298,7 +366,7 @@ function updateRankInfo(current,next,nextMedal,previous,userMMR){
 
         // Mostrar información del rango anterior
         if (previous) {
-            const previousRankFullName = `${previous.name} ${previous.name !== 'Immortal' ? romanize(previous.level) : ""}`;
+            const previousRankFullName = `${previous.name} ${(previous.name !== 'Immortal' && previous.name !== 'Immortal Draft') ? romanize(previous.level) : ""}`;
             
             // Calcular cuánto MMR necesitas perder para bajar al rango anterior
             let mmrThreshold;
