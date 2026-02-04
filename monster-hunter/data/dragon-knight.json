@@ -119,6 +119,13 @@
             "Rathalos Wing": 3,
             "Rathalos Carapace": 3
           }
+        },
+        {
+          "id": "imperium-rathalos-braces",
+          "name": "Imperium Rathalos Braces",
+          "materials": {
+            "Rathalos Carapace": 3
+          }
         }
       ]
     },
