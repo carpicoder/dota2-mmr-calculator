@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Events | Dota 2 MMR Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png" href="../img/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MMR Calculator" />
+    <link rel="manifest" href="../img/site.webmanifest" />
+
+    <meta name="theme-color" content="#212529">
+
+    <meta name="description" content="Past Dota 2 events calculators and tools.">
+    <meta name="keywords" content="Dota 2, events, Monster Hunter, calculators">
+    <meta name="author" content="CarpiCoder">
+    <meta name="robots" content="index, follow">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1S35FN6VTL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-1S35FN6VTL');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9825027387811354"
+     crossorigin="anonymous"></script>
+
+    <style>
+       body { display: flex; flex-direction: column; min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; }
+       main { flex: 1; display: flex; align-items: center; }
+       .event-card:hover { transform: translateY(-4px); transition: transform 0.2s; }
+       .event-card { transition: transform 0.2s; }
+    </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <main class="flex-grow-1 d-flex align-items-center py-4">
+        <div class="container text-center" style="max-width: 800px;">
+            
+            <h1 class="h2 mb-2 fw-bold">📅 Past Events</h1>
+            <p class="text-body-secondary mb-4">
+                <a href="../" class="link-secondary">← Back to MMR Calculator</a>
+            </p>
+
+            <div class="row gy-4">
+                
+                <!-- Monster Hunter Event -->
+                <div class="col-md-6">
+                    <div class="card h-100 bg-dark-subtle border-secondary event-card">
+                        <div class="card-body p-4">
+                            <img src="../monster-hunter/img/logo.png" alt="Monster Hunter Event" style="max-width: 150px; height: auto; margin-bottom: 1rem;">
+                            <h3 class="h5 fw-bold mb-3">Monster Hunter Event</h3>
+                            <p class="text-body-secondary small mb-3">
+                                Calculate materials, crafts, and exchanges for the Monster Hunter crossover event. Plan your crafting strategy efficiently!
+                            </p>
+                            <a href="../monster-hunter" class="btn btn-outline-secondary btn-sm" onclick="gtag('event', 'click', {'event_category': 'Navigation', 'event_label': 'Monster Hunter Past Event Page', 'value': 1});">
+                                Open Calculator →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Placeholder for future events -->
+                <div class="col-md-6">
+                    <div class="card h-100 bg-dark-subtle border-secondary opacity-50">
+                        <div class="card-body p-4 d-flex flex-column align-items-center justify-content-center">
+                            <div class="fs-1 mb-3">🎮</div>
+                            <h3 class="h5 fw-bold mb-2">More events coming...</h3>
+                            <p class="text-body-secondary small mb-0">
+                                Future Dota 2 events will be listed here!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="mt-auto text-center py-3">
+         <p class="made-by text-body-secondary small mb-0">
+             Made by <a href="https://github.com/carpicoder" target="_blank" rel="noopener noreferrer" class="link-secondary">CarpiCoder</a> | 
+             <a href="../" class="link-secondary">MMR Calculator</a> | 
+             <a href="https://carpicoder.com/donaciones" target="_blank" rel="noopener noreferrer" class="link-secondary">Donations</a> | 
+             <a href="mailto:hola@carpicoder.com" class="link-secondary">hola@carpicoder.com</a>
+         </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
+
